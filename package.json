@@ -1,0 +1,19 @@
+{
+  "name": "video-library",
+  "version": "1.0.0",
+  "description": "backend for video library",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/RohitDhatrak/VideoLibrary.git"
+  },
+  "author": "Rohit Dhatrak",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/RohitDhatrak/VideoLibrary/issues"
+  },
+  "homepage": "https://github.com/RohitDhatrak/VideoLibrary#readme"
+}
