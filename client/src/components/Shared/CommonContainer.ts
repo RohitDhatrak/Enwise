@@ -1,34 +1,122 @@
 import styled, { css } from "styled-components";
 export type ContainerCommonProps = {
-    h?: string;
-    w?: string;
-    p?: string;
-    pt?: string;
-    m?: string | "auto";
-    mb?: string;
-    minH?: string;
+    /* font */
     fw?: number;
     fs?: string;
+
+    /* colour */
+    color?: string;
+    bgc?: string;
+
+    /* height */
+    h?: string;
+    minH?: string;
+
+    /* width */
+    w?: string;
+
+    /* padding */
+    p?: string;
+    pt?: string;
+
+    /* border */
+    bt?: string;
+    bb?: string;
+    borderRadius?: string;
+
+    /* margin */
+    m?: string;
+    mt?: string;
+    mb?: string;
+    ml?: string;
+    mr?: string;
+
+    /* positioning */
     position?: "sticky" | "fixed";
     top?: number | string;
     bottom?: number | string;
-    bgc?: string;
-    bt?: string;
+
     cursor?: "pointer";
 };
 
 export const CommonContainer = styled.div<ContainerCommonProps>`
-    height: ${(props) => (props.h ? props.h : "auto")};
-    width: ${(props) => (props.w ? props.w : "auto")};
-    padding: ${(props) => (props.p ? props.p : "initial")};
-    padding-top: ${(props) => (props.pt ? props.pt : "initial")};
-    margin: ${(props) => (props.m ? props.m : "initial")};
-    font-weight: ${(props) => (props.fw ? props.fw : 400)};
-    font-size: ${(props) => (props.fs ? props.fs : "1rem")};
+    /* font */
     ${(props) =>
-        props.position &&
+        props.fw &&
         css`
-            position: ${() => props.position};
+            font-weight: ${() => props.fw};
+        `}
+    ${(props) =>
+        props.fs &&
+        css`
+            font-size: ${() => props.fs};
+        `}
+
+    /* colour */
+    ${(props) =>
+        props.color &&
+        css`
+            color: ${() => props.color};
+        `}
+    ${(props) =>
+        props.bgc &&
+        css`
+            background-color: ${() => props.bgc};
+        `}
+
+    /* height */
+    ${(props) =>
+        props.h &&
+        css`
+            height: ${() => props.h};
+        `}
+    ${(props) =>
+        props.minH &&
+        css`
+            min-height: ${() => props.minH};
+        `}
+
+    /* width */
+    ${(props) =>
+        props.w &&
+        css`
+            width: ${() => props.w};
+        `}
+
+    /* padding */
+    ${(props) =>
+        props.p &&
+        css`
+            padding: ${() => props.p};
+        `}
+    ${(props) =>
+        props.pt &&
+        css`
+            padding-top: ${() => props.pt};
+        `}
+
+    /* border */
+    ${(props) =>
+        props.bt &&
+        css`
+            border-top: ${() => props.bt};
+        `}
+    ${(props) =>
+        props.bb &&
+        css`
+            border-bottom: ${() => props.bb};
+        `}
+    ${(props) =>
+        props.borderRadius &&
+        css`
+            border-radius: ${() => props.borderRadius};
+        `}
+
+    /* margin */
+    ${(props) =>
+        props.m &&
+        css`
+            margin: ${() => props.m};
         `}
     ${(props) =>
         props.mb &&
@@ -36,14 +124,26 @@ export const CommonContainer = styled.div<ContainerCommonProps>`
             margin-bottom: ${() => props.mb};
         `}
     ${(props) =>
-        props.bt&&
+        props.mt &&
         css`
-            border-top: ${() => props.bt};
-    `}
+            margin-top: ${() => props.mt};
+        `}
     ${(props) =>
-        props.bgc &&
+        props.ml &&
         css`
-            background-color: ${() => props.bgc};
+            margin-left: ${() => props.ml};
+        `}
+    ${(props) =>
+        props.mr &&
+        css`
+            margin-right: ${() => props.mr};
+        `}
+
+    /* positioning */
+    ${(props) =>
+        props.position &&
+        css`
+            position: ${() => props.position};
         `}
     ${(props) =>
         props.top &&
@@ -55,13 +155,9 @@ export const CommonContainer = styled.div<ContainerCommonProps>`
         css`
             bottom: ${() => props.bottom};
         `}
+
     ${(props) =>
-        props.minH &&
-        css`
-            min-height: ${() => props.minH};
-        `}
-    ${(props) =>
-        props.cursor&&
+        props.cursor &&
         css`
             cursor: ${() => props.cursor};
         `}

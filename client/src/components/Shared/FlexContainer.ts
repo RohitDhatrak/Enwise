@@ -1,4 +1,4 @@
-import styled from "styled-components";
+import styled, { css } from "styled-components";
 import { ContainerCommonProps, CommonContainer } from "./CommonContainer";
 
 export type FlexContainerProps = ContainerCommonProps & {
@@ -10,9 +10,26 @@ export type FlexContainerProps = ContainerCommonProps & {
 };
 
 export const FlexContainer = styled(CommonContainer)<FlexContainerProps>`
-    display: flex;
-    justify-content: ${(props) => (props.jc ? props.jc : "flex-start")};
-    align-items: ${(props) => (props.ai ? props.ai : "stretch")};
-    flex-wrap: ${(props) => (props.wrap ? props.wrap : "no-wrap")};
-    flex-direction: ${(props) => (props.fd ? props.fd : "row")};
+    display: ${(props) => (props.display ? props.display : "flex")};
+
+    ${(props) =>
+        props.jc &&
+        css`
+            justify-content: ${() => props.jc};
+        `}
+    ${(props) =>
+        props.ai &&
+        css`
+            align-items: ${() => props.ai};
+        `}
+    ${(props) =>
+        props.wrap &&
+        css`
+            flex-wrap: ${() => props.wrap};
+        `}
+    ${(props) =>
+        props.fd &&
+        css`
+            flex-direction: ${() => props.fd};
+        `}
 `;
