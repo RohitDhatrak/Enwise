@@ -3,16 +3,15 @@
 body {
     margin: 0;
     font-family: "Montserrat", sans-serif;
+    background-color: var(--bg-colour);
+    color: var(--font-color);
 }
 
-.dark-mode {
-    --primary-color: ;
-    --bg-colour: #121212;
-}
-
-.light-mode {
-    --primary-color: ;
-    --bg-colour: #fff;
+* {
+    --primary-color: #ffc831;
+    --secondary-color: #1473fb;
+    --font-color: #e8e6e3;
+    --bg-colour: #121414;
 }
 
 .search-icon {
