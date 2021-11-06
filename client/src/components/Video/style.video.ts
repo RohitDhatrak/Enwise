@@ -1,23 +1,22 @@
 import styled from "styled-components";
 import { media } from "../Shared/mediaQueries";
+import { Container } from "../Shared";
 
-export const VideoContainer = styled.div`
-    width: 100%;
+export const VideoContainer = styled(Container)`
     cursor: pointer;
+    width: 90%;
+    margin-bottom: 0.5em;
     ${media.tablet} {
-        width: 48%;
-        margin-bottom: 1em;
+        width: 45vw;
+        margin-bottom: 1.5em;
+    }
+    ${media.custom(800)} {
+        width: 40vw;
     }
     ${media.largeTablet} {
-        width: 31%;
-        margin-bottom: 1.5em;
+        width: 28vw;
     }
     ${media.desktop} {
-        width: 31%;
-        margin-bottom: 1.5em;
-    }
-    ${media.custom(1280)} {
-        width: 23%;
-        margin-bottom: 2em;
+        width: 25vw;
     }
 `;

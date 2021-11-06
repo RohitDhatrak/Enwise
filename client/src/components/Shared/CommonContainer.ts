@@ -20,9 +20,10 @@ export type ContainerCommonProps = {
     pt?: string;
 
     /* border */
+    b?: string;
     bt?: string;
     bb?: string;
-    borderRadius?: string;
+    br?: string;
 
     /* margin */
     m?: string;
@@ -37,6 +38,7 @@ export type ContainerCommonProps = {
     bottom?: number | string;
 
     cursor?: "pointer";
+    textAlign?: "center";
 };
 
 export const CommonContainer = styled.div<ContainerCommonProps>`
@@ -97,6 +99,11 @@ export const CommonContainer = styled.div<ContainerCommonProps>`
 
     /* border */
     ${(props) =>
+        props.b &&
+        css`
+            border: ${() => props.b};
+        `}
+    ${(props) =>
         props.bt &&
         css`
             border-top: ${() => props.bt};
@@ -107,9 +114,9 @@ export const CommonContainer = styled.div<ContainerCommonProps>`
             border-bottom: ${() => props.bb};
         `}
     ${(props) =>
-        props.borderRadius &&
+        props.br &&
         css`
-            border-radius: ${() => props.borderRadius};
+            border-radius: ${() => props.br};
         `}
 
     /* margin */
@@ -160,5 +167,10 @@ export const CommonContainer = styled.div<ContainerCommonProps>`
         props.cursor &&
         css`
             cursor: ${() => props.cursor};
+        `}
+    ${(props) =>
+        props.textAlign &&
+        css`
+            text-align: ${() => props.textAlign};
         `}
 `;

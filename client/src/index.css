@@ -3,22 +3,27 @@
 body {
     margin: 0;
     font-family: "Montserrat", sans-serif;
-    background-color: var(--bg-colour);
+    background-color: var(--bg-color);
     color: var(--font-color);
 }
 
 * {
+    box-sizing: border-box;
     --primary-color: #ffc831;
     --secondary-color: #1473fb;
     --font-color: #e8e6e3;
-    --bg-colour: #121414;
+    --font-color-2: #b2aca2;
+    --bg-color: #141319;
+    --nav-color: #191921;
+    --icon-color: #e8e6e3;
+    --search-field-color: #27262b;
+    --border-color: #4d463a;
 }
 
-.search-icon {
-    transform: scale(1.5);
-    margin-top: 0.1em;
-}
-
-.footer-icons {
+.scale-13 {
     transform: scale(1.3);
+}
+
+.scale-2 {
+    transform: scale(1.5);
 }

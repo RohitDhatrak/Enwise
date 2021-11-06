@@ -10,15 +10,18 @@ export function Video({ video }: VideoProps) {
                 w="100%"
                 src={`https://i.ytimg.com/vi/${video._id}/maxresdefault.jpg`}
                 alt="video thumbnail"
-            ></Image>
+                br="2em"
+            />
             <FlexContainer
                 minH="3em"
-                fd="column"
-                jc="center"
+                direction="column"
+                justify="center"
                 p="0.1em 0.5em 0.4em"
             >
-                <Container fw={500}>{video.title}</Container>
-                <Container fs="0.9rem">{video.creator}</Container>
+                <Container fw={600}>{video.title}</Container>
+                <Container fs="0.9rem" color="var(--font-color-2)">
+                    {video.creator}
+                </Container>
             </FlexContainer>
         </VideoContainer>
     );

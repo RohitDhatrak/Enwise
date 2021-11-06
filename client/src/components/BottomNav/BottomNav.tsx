@@ -1,36 +1,57 @@
 import React from "react";
 import { FlexContainer, Container } from "../Shared";
 import { HomeIcon, PlayListIcon, ProfileIcon } from "../../assets/svg";
+import { BottomNavContainer } from "./style.bottomnav";
 
 export function BottomNav() {
     return (
-        <FlexContainer
-            bottom="0"
-            jc="space-around"
+        <BottomNavContainer
+            as="nav"
             position="fixed"
+            bottom="0"
+            justify="space-around"
             w="100vw"
-            bgc="#fff"
+            bgc="var(--bg-color)"
+            color="var(--font-color-2)"
             p="0.3em 0em"
-            bt="1px solid #e3eaec"
+            bt="1px solid #3c3d3d"
         >
-            <FlexContainer fd="column" pt="0.4em" ai="center" cursor="pointer">
-                <HomeIcon />
+            <FlexContainer
+                direction="column"
+                pt="0.4em"
+                align="center"
+                cursor="pointer"
+            >
+                <HomeIcon color={"var(--icon-color)"} />
                 <Container fs="0.8rem" pt="0.4em">
                     Home
                 </Container>
             </FlexContainer>
-            <FlexContainer fd="column" pt="0.4em" ai="center" cursor="pointer">
-                <PlayListIcon />
+            <FlexContainer
+                direction="column"
+                pt="0.4em"
+                align="center"
+                cursor="pointer"
+            >
+                <PlayListIcon
+                    color={"var(--icon-color)"}
+                    className="scale-13"
+                />
                 <Container fs="0.8rem" pt="0.4em">
                     Playlists
                 </Container>
             </FlexContainer>
-            <FlexContainer fd="column" pt="0.4em" ai="center" cursor="pointer">
-                <ProfileIcon />
+            <FlexContainer
+                direction="column"
+                pt="0.4em"
+                align="center"
+                cursor="pointer"
+            >
+                <ProfileIcon color={"var(--icon-color)"} className="scale-13" />
                 <Container fs="0.8rem" pt="0.4em">
                     Profile
                 </Container>
             </FlexContainer>
-        </FlexContainer>
+        </BottomNavContainer>
     );
 }

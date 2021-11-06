@@ -1,26 +1,26 @@
 import styled, { css } from "styled-components";
 import { ContainerCommonProps, CommonContainer } from "./CommonContainer";
 
-export type FlexContainerProps = ContainerCommonProps & {
+type FlexContainerProps = ContainerCommonProps & {
     display?: "flex";
-    jc?: "center" | "baseline" | "space-between" | "space-around";
-    ai?: "center" | "baseline";
+    justify?: "center" | "baseline" | "space-between" | "space-around";
+    align?: "center" | "baseline";
     wrap?: "wrap";
-    fd?: "column";
+    direction?: "column";
 };
 
 export const FlexContainer = styled(CommonContainer)<FlexContainerProps>`
     display: ${(props) => (props.display ? props.display : "flex")};
 
     ${(props) =>
-        props.jc &&
+        props.justify &&
         css`
-            justify-content: ${() => props.jc};
+            justify-content: ${() => props.justify};
         `}
     ${(props) =>
-        props.ai &&
+        props.align &&
         css`
-            align-items: ${() => props.ai};
+            align-items: ${() => props.align};
         `}
     ${(props) =>
         props.wrap &&
@@ -28,8 +28,8 @@ export const FlexContainer = styled(CommonContainer)<FlexContainerProps>`
             flex-wrap: ${() => props.wrap};
         `}
     ${(props) =>
-        props.fd &&
+        props.direction &&
         css`
-            flex-direction: ${() => props.fd};
+            flex-direction: ${() => props.direction};
         `}
 `;
