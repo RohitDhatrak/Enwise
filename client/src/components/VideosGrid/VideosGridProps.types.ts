@@ -1,5 +1,5 @@
-import { Video } from "../../data/data.types";
+import { Video, Playlist } from "../../data/data.types";
 
 export type VideoGridProps = {
-    videos: Video[];
+    videos: Video[] | Playlist[];
 };

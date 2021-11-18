@@ -5,7 +5,7 @@ import { FlexContainer } from "../Shared";
 export const VideoGridContainer = styled(FlexContainer)`
     &::after {
         content: "";
-        flex: 0 0 30%;
+        flex: 0 0 50%;
         max-width: 480px;
     }
     ${media.custom(800)} {

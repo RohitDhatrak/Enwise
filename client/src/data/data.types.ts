@@ -1,5 +1,12 @@
 export type Video = {
-    _id: string;
+    videoId: string;
     title: string;
     creator: string;
+};
+
+export type Playlist = {
+    videoId: string;
+    title: string;
+    creator: string;
+    videos: Video[];
 };
