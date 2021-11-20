@@ -11,6 +11,7 @@
     --icon-color: #e8e6e3;
     --search-field-color: #27262b;
     --border-color: #4d463a;
+    --z-index-1: 1;
 }
 
 body {
@@ -35,4 +36,8 @@ a {
 
 .scale-15 {
     transform: scale(1.5);
+}
+
+.scale-25 {
+    transform: scale(2.5);
 }

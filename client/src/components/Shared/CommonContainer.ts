@@ -34,12 +34,17 @@ export type ContainerCommonProps = {
     mr?: string;
 
     /* positioning */
-    position?: "sticky" | "fixed";
+    position?: "sticky" | "fixed" | "relative" | "absolute";
     top?: number | string;
     bottom?: number | string;
+    right?: number | string;
+    left?: number | string;
 
+    /* miscellaneous */
     cursor?: "pointer";
     textAlign?: "center";
+    opacity?: number;
+    zIndex?: number | string;
 };
 
 export const CommonContainer = styled.div<ContainerCommonProps>`
@@ -168,7 +173,18 @@ export const CommonContainer = styled.div<ContainerCommonProps>`
         css`
             bottom: ${() => props.bottom};
         `}
+    ${(props) =>
+        props.left &&
+        css`
+            left: ${() => props.left};
+        `}
+    ${(props) =>
+        props.right &&
+        css`
+            right: ${() => props.right};
+        `}
 
+    /* miscellaneous */
     ${(props) =>
         props.cursor &&
         css`
@@ -178,5 +194,15 @@ export const CommonContainer = styled.div<ContainerCommonProps>`
         props.textAlign &&
         css`
             text-align: ${() => props.textAlign};
+        `}
+    ${(props) =>
+        props.opacity &&
+        css`
+            opacity: ${() => props.opacity};
+        `}
+    ${(props) =>
+        props.zIndex &&
+        css`
+            z-index: ${() => props.zIndex};
         `}
 `;

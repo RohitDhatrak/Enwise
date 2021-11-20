@@ -20,6 +20,7 @@ export function Header() {
             position="sticky"
             top="0"
             bgc="var(--nav-color)"
+            zIndex="var(--z-index-1)"
         >
             <FlexContainer align="center">
                 <Image src={logo} alt="" mr="1em" w="3em" />

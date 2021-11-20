@@ -30,7 +30,7 @@ export function BottomNav() {
                     </Container>
                 </FlexContainer>
             </Link>
-            <Link to="/">
+            <Link to="/playlists">
                 <FlexContainer
                     direction="column"
                     pt="0.4em"
@@ -46,7 +46,7 @@ export function BottomNav() {
                     </Container>
                 </FlexContainer>
             </Link>
-            <Link to="/">
+            <Link to="/profile">
                 <FlexContainer
                     direction="column"
                     pt="0.4em"

@@ -5,11 +5,11 @@ import { VideoContainer } from "./style.video";
 import { Link, useLocation } from "react-router-dom";
 import { PlaylistCount } from "./components/PlaylistCount";
 
-export function Video({ video }: VideoProps) {
+export function Video({ video, videoCount }: VideoProps) {
     const { pathname } = useLocation();
 
     return (
-        <VideoContainer cursor="pointer" m="0 auto">
+        <VideoContainer cursor="pointer" m="0 auto" position="relative">
             <Image
                 w="100%"
                 src={`https://i.ytimg.com/vi/${video.videoId}/maxresdefault.jpg`}
@@ -28,8 +28,10 @@ export function Video({ video }: VideoProps) {
                         {video.creator}
                     </Container>
                 )}
-                {pathname === "/playlists" && <PlaylistCount />}
             </FlexContainer>
+            {pathname === "/playlists" && (
+                <PlaylistCount videoCount={videoCount} />
+            )}
         </VideoContainer>
     );
 }
