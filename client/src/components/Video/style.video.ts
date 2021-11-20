@@ -3,7 +3,6 @@ import { media } from "../Shared/mediaQueries";
 import { Container } from "../Shared";
 
 export const VideoContainer = styled(Container)`
-    cursor: pointer;
     width: 90%;
     margin-bottom: 0.5em;
     ${media.tablet} {

@@ -106,7 +106,7 @@ export function SidePannelMinimal() {
                 >
                     <HistoryIcon
                         color={"var(--icon-color)"}
-                        className="scale-13"
+                        className="scale-14"
                     />
                     <Container mt="0.5em">History</Container>
                 </FlexContainer>

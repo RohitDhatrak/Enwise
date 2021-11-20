@@ -55,7 +55,7 @@ export function SidePannel() {
                 <FlexContainer w="100%" m="1em 0" p="0.5em 0" cursor="pointer">
                     <HistoryIcon
                         color={"var(--icon-color)"}
-                        className="scale-13"
+                        className="scale-15"
                     />
                     <Container ml="2em">History</Container>
                 </FlexContainer>

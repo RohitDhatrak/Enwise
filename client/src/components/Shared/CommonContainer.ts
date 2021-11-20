@@ -18,6 +18,7 @@ export type ContainerCommonProps = {
     /* padding */
     p?: string;
     pt?: string;
+    pl?: string;
 
     /* border */
     b?: string;
@@ -95,6 +96,11 @@ export const CommonContainer = styled.div<ContainerCommonProps>`
         props.pt &&
         css`
             padding-top: ${() => props.pt};
+        `}
+    ${(props) =>
+        props.pl &&
+        css`
+            padding-left: ${() => props.pl};
         `}
 
     /* border */

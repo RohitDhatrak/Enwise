@@ -44,7 +44,7 @@ export function Header() {
                 br="50%"
                 cursor="pointer"
             >
-                <ProfileIcon color={"var(--icon-color)"} className="scale-2" />
+                <ProfileIcon color={"var(--icon-color)"} className="scale-15" />
             </ProfileIconContainer>
         </HeaderContainer>
     );

@@ -29,6 +29,10 @@ a {
     transform: scale(1.3);
 }
 
-.scale-2 {
+.scale-14 {
+    transform: scale(1.4);
+}
+
+.scale-15 {
     transform: scale(1.5);
 }
