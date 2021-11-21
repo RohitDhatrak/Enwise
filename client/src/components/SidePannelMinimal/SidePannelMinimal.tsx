@@ -1,5 +1,5 @@
 import React from "react";
-import { Link } from "react-router-dom";
+import { Link, useLocation } from "react-router-dom";
 
 import { FlexContainer, Container } from "../Shared";
 import { SidePannelMinimalContainer } from "./style.sidepannelminimal";
@@ -12,6 +12,8 @@ import {
 } from "../../assets/svg";
 
 export function SidePannelMinimal() {
+    const { pathname } = useLocation();
+
     return (
         <SidePannelMinimalContainer
             as="nav"
@@ -20,7 +22,6 @@ export function SidePannelMinimal() {
             w="5em"
             bgc="var(--nav-color)"
             h="100vh"
-            p="1.5em 0"
         >
             <Link to="/">
                 <FlexContainer
@@ -29,10 +30,13 @@ export function SidePannelMinimal() {
                     justify="center"
                     align="center"
                     cursor="pointer"
-                    m="0.5em 0"
                     textAlign="center"
                     fs="0.9rem"
-                    p="0.5em 0"
+                    p="1em 0"
+                    bgc={
+                        pathname === "/history" ? "var(--nav-hover-color)" : ""
+                    }
+                    hover="background-color: var(--nav-hover-color)"
                 >
                     <HomeIcon color={"var(--icon-color)"} />
                     <Container mt="0.5em">Home</Container>
@@ -45,10 +49,13 @@ export function SidePannelMinimal() {
                     justify="center"
                     align="center"
                     cursor="pointer"
-                    m="0.5em 0"
                     textAlign="center"
                     fs="0.9rem"
-                    p="0.5em 0"
+                    p="1em 0"
+                    bgc={
+                        pathname === "/history" ? "var(--nav-hover-color)" : ""
+                    }
+                    hover="background-color: var(--nav-hover-color)"
                 >
                     <FavIcon color={"var(--icon-color)"} className="scale-13" />
                     <Container mt="0.5em">Favourite</Container>
@@ -61,10 +68,13 @@ export function SidePannelMinimal() {
                     justify="center"
                     align="center"
                     cursor="pointer"
-                    m="0.5em 0"
                     textAlign="center"
                     fs="0.9rem"
-                    p="0.5em 0"
+                    p="1em 0"
+                    bgc={
+                        pathname === "/history" ? "var(--nav-hover-color)" : ""
+                    }
+                    hover="background-color: var(--nav-hover-color)"
                 >
                     <PlayListIcon
                         color={"var(--icon-color)"}
@@ -80,10 +90,13 @@ export function SidePannelMinimal() {
                     justify="center"
                     align="center"
                     cursor="pointer"
-                    m="0.5em 0"
                     textAlign="center"
                     fs="0.9rem"
-                    p="0.5em 0"
+                    p="1em 0"
+                    bgc={
+                        pathname === "/history" ? "var(--nav-hover-color)" : ""
+                    }
+                    hover="background-color: var(--nav-hover-color)"
                 >
                     <WatchLater
                         color={"var(--icon-color)"}
@@ -99,10 +112,13 @@ export function SidePannelMinimal() {
                     justify="center"
                     align="center"
                     cursor="pointer"
-                    m="0.5em 0"
                     textAlign="center"
                     fs="0.9rem"
-                    p="0.5em 0"
+                    p="1em 0"
+                    bgc={
+                        pathname === "/history" ? "var(--nav-hover-color)" : ""
+                    }
+                    hover="background-color: var(--nav-hover-color)"
                 >
                     <HistoryIcon
                         color={"var(--icon-color)"}

@@ -16,14 +16,9 @@ export function Video({ video, videoCount }: VideoProps) {
                 alt="video thumbnail"
                 br="2em"
             />
-            <FlexContainer
-                minH="3em"
-                direction="column"
-                justify="center"
-                p="0.1em 0.5em 0.4em"
-            >
+            <FlexContainer minH="3em" direction="column" p="0.1em 0.5em 0.4em">
                 <Container fw={600}>{video.title}</Container>
-                {pathname === "/" && (
+                {pathname !== "/playlists" && (
                     <Container fs="0.9rem" color="var(--font-color-2)">
                         {video.creator}
                     </Container>

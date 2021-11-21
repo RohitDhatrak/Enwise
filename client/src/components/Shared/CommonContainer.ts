@@ -45,6 +45,7 @@ export type ContainerCommonProps = {
     textAlign?: "center";
     opacity?: number;
     zIndex?: number | string;
+    hover?: string;
 };
 
 export const CommonContainer = styled.div<ContainerCommonProps>`
@@ -205,4 +206,7 @@ export const CommonContainer = styled.div<ContainerCommonProps>`
         css`
             z-index: ${() => props.zIndex};
         `}
+    &:hover {
+        ${(props) => props.hover}
+    }
 `;
