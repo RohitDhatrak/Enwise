@@ -21,7 +21,7 @@ export function Header() {
             position="sticky"
             top="0"
             bgc="var(--nav-color)"
-            zIndex="var(--z-index-1)"
+            zIndex="var(--z-index-2)"
         >
             <Link to="/">
                 <FlexContainer align="center">
@@ -42,7 +42,7 @@ export function Header() {
                 color="#fff"
             />
 
-            <Link to="/profile">
+            <Link to="/settings">
                 <ProfileIconContainer
                     mr="1em"
                     p="0.5em 0.7em"

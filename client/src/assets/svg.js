@@ -44,7 +44,7 @@ export function ProfileIcon({ ...props }) {
     );
 }
 
-export function FavIcon({ ...props }) {
+export function LikeIcon({ ...props }) {
     return (
         <svg width="1em" height="1em" viewBox="0 0 256 256" {...props}>
             <path
@@ -55,7 +55,7 @@ export function FavIcon({ ...props }) {
     );
 }
 
-export function WatchLater({ ...props }) {
+export function WatchLaterIcon({ ...props }) {
     return (
         <svg width="1em" height="1em" viewBox="0 0 24 24" {...props}>
             <path
@@ -82,6 +82,50 @@ export function PlaylistNumIcon({ ...props }) {
         <svg width="1em" height="1em" viewBox="0 0 24 24" {...props}>
             <path
                 d="M5 10h10c.55 0 1 .45 1 1s-.45 1-1 1H5c-.55 0-1-.45-1-1s.45-1 1-1zm0-4h10c.55 0 1 .45 1 1s-.45 1-1 1H5c-.55 0-1-.45-1-1s.45-1 1-1zm0 8h6c.55 0 1 .45 1 1s-.45 1-1 1H5c-.55 0-1-.45-1-1s.45-1 1-1zm9 .88v4.23c0 .39.42.63.76.43l3.53-2.12c.32-.19.32-.66 0-.86l-3.53-2.12a.508.508 0 0 0-.76.44z"
+                fill={props.color}
+            ></path>
+        </svg>
+    );
+}
+
+export function MoreIcon({ ...props }) {
+    return (
+        <svg width="1em" height="1em" viewBox="0 0 24 24" {...props}>
+            <path
+                d="M12 8c1.1 0 2-.9 2-2s-.9-2-2-2s-2 .9-2 2s.9 2 2 2zm0 2c-1.1 0-2 .9-2 2s.9 2 2 2s2-.9 2-2s-.9-2-2-2zm0 6c-1.1 0-2 .9-2 2s.9 2 2 2s2-.9 2-2s-.9-2-2-2z"
+                fill={props.color}
+            ></path>
+        </svg>
+    );
+}
+
+export function AddToPlayListIcon({ ...props }) {
+    return (
+        <svg width="1em" height="1em" viewBox="0 0 24 24" {...props}>
+            <path
+                d="M13 10H3c-.55 0-1 .45-1 1s.45 1 1 1h10c.55 0 1-.45 1-1s-.45-1-1-1zm0-4H3c-.55 0-1 .45-1 1s.45 1 1 1h10c.55 0 1-.45 1-1s-.45-1-1-1zm5 8v-3c0-.55-.45-1-1-1s-1 .45-1 1v3h-3c-.55 0-1 .45-1 1s.45 1 1 1h3v3c0 .55.45 1 1 1s1-.45 1-1v-3h3c.55 0 1-.45 1-1s-.45-1-1-1h-3zM3 16h6c.55 0 1-.45 1-1s-.45-1-1-1H3c-.55 0-1 .45-1 1s.45 1 1 1z"
+                fill={props.color}
+            ></path>
+        </svg>
+    );
+}
+
+export function CloseIcon({ ...props }) {
+    return (
+        <svg width="1em" height="1em" viewBox="0 0 24 24" {...props}>
+            <path
+                d="M18.3 5.71a.996.996 0 0 0-1.41 0L12 10.59L7.11 5.7A.996.996 0 1 0 5.7 7.11L10.59 12L5.7 16.89a.996.996 0 1 0 1.41 1.41L12 13.41l4.89 4.89a.996.996 0 1 0 1.41-1.41L13.41 12l4.89-4.89c.38-.38.38-1.02 0-1.4z"
+                fill={props.color}
+            ></path>
+        </svg>
+    );
+}
+
+export function AddIcon({ ...props }) {
+    return (
+        <svg width="1em" height="1em" viewBox="0 0 24 24" {...props}>
+            <path
+                d="M18 13h-5v5c0 .55-.45 1-1 1s-1-.45-1-1v-5H6c-.55 0-1-.45-1-1s.45-1 1-1h5V6c0-.55.45-1 1-1s1 .45 1 1v5h5c.55 0 1 .45 1 1s-.45 1-1 1z"
                 fill={props.color}
             ></path>
         </svg>

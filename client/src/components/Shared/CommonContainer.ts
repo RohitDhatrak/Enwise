@@ -14,10 +14,12 @@ export type ContainerCommonProps = {
 
     /* width */
     w?: string;
+    minW?: string;
 
     /* padding */
     p?: string;
     pt?: string;
+    pb?: string;
     pl?: string;
 
     /* border */
@@ -41,7 +43,7 @@ export type ContainerCommonProps = {
     left?: number | string;
 
     /* miscellaneous */
-    cursor?: "pointer";
+    cursor?: "pointer" | "default";
     textAlign?: "center";
     opacity?: number;
     zIndex?: number | string;
@@ -91,6 +93,11 @@ export const CommonContainer = styled.div<ContainerCommonProps>`
         css`
             width: ${() => props.w};
         `}
+    ${(props) =>
+        props.minW &&
+        css`
+            min-width: ${() => props.minW};
+        `}
 
     /* padding */
     ${(props) =>
@@ -102,6 +109,11 @@ export const CommonContainer = styled.div<ContainerCommonProps>`
         props.pt &&
         css`
             padding-top: ${() => props.pt};
+        `}
+    ${(props) =>
+        props.pb &&
+        css`
+            padding-bottom: ${() => props.pb};
         `}
     ${(props) =>
         props.pl &&

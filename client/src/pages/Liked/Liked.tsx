@@ -3,7 +3,7 @@ import { videos } from "../../data/data";
 import { VideoGrid, SidePannel, SidePannelMinimal } from "../../components";
 import { FlexContainer } from "../../components/Shared";
 
-export function Favourite() {
+export function Liked() {
     return (
         <FlexContainer>
             <SidePannel />

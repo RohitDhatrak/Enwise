@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { Home, Playlists, WatchLater, History, Favourite } from "./pages";
+import { Home, Playlists, WatchLater, History, Liked } from "./pages";
 import { BottomNav, Header } from "./components";
 import { BrowserRouter as Router, Routes, Route, Link } from "react-router-dom";
 
@@ -10,7 +10,7 @@ function App() {
                 <Header />
                 <Routes>
                     <Route path="/" element={<Home />} />
-                    <Route path="/favourite" element={<Favourite />} />
+                    <Route path="/liked" element={<Liked />} />
                     <Route path="/playlists" element={<Playlists />} />
                     <Route path="/watchlater" element={<WatchLater />} />
                     <Route path="/history" element={<History />} />

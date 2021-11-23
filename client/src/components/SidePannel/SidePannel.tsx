@@ -4,9 +4,9 @@ import { FlexContainer, Container } from "../Shared";
 import { SidePannelContainer } from "./style.sidepannel";
 import {
     HomeIcon,
-    FavIcon,
+    LikeIcon,
     PlayListIcon,
-    WatchLater,
+    WatchLaterIcon,
     HistoryIcon,
 } from "../../assets/svg";
 
@@ -34,20 +34,19 @@ export function SidePannel() {
                     <Container ml="2em">Home</Container>
                 </FlexContainer>
             </Link>
-            <Link to="/favourite">
+            <Link to="/liked">
                 <FlexContainer
                     w="100%"
                     p="1em 2.1em"
                     cursor="pointer"
-                    bgc={
-                        pathname === "/favourite"
-                            ? "var(--nav-hover-color)"
-                            : ""
-                    }
+                    bgc={pathname === "/liked" ? "var(--nav-hover-color)" : ""}
                     hover="background-color: var(--nav-hover-color)"
                 >
-                    <FavIcon color={"var(--icon-color)"} className="scale-13" />
-                    <Container ml="2em">Favourite</Container>
+                    <LikeIcon
+                        color={"var(--icon-color)"}
+                        className="scale-13"
+                    />
+                    <Container ml="2em">Liked</Container>
                 </FlexContainer>
             </Link>
             <Link to="/playlists">
@@ -81,7 +80,7 @@ export function SidePannel() {
                     }
                     hover="background-color: var(--nav-hover-color)"
                 >
-                    <WatchLater
+                    <WatchLaterIcon
                         color={"var(--icon-color)"}
                         className="scale-13"
                     />

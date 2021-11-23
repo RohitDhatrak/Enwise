@@ -7,7 +7,7 @@ export function PlaylistCount({ videoCount }: PlaylistCountProps) {
     return (
         <FlexContainer
             w="40%"
-            h="85%"
+            h="100%"
             position="absolute"
             right="0"
             top="0"
