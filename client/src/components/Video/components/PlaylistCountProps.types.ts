@@ -1,3 +1,3 @@
 export type PlaylistCountProps = {
-    videoCount?: number;
+    videoCount: number;
 };

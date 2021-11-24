@@ -1,6 +1,10 @@
-import { Video, Playlist } from "../../data/data.types";
+import { Video } from "../../data/data.types";
 
 export type VideoProps = {
-    video: Video | Playlist;
-    videoCount?: number;
+    video: {
+        videoId: string;
+        title: string;
+        creator: string;
+        videos?: Video[];
+    };
 };

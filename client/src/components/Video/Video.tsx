@@ -6,7 +6,7 @@ import { Link, useLocation } from "react-router-dom";
 import { PlaylistCount } from "./components/PlaylistCount";
 import { ActionMenu } from "./components/ActionMenu";
 
-export function Video({ video, videoCount }: VideoProps) {
+export function Video({ video }: VideoProps) {
     const { pathname } = useLocation();
 
     return (
@@ -18,8 +18,8 @@ export function Video({ video, videoCount }: VideoProps) {
                     alt="video thumbnail"
                     br="1em"
                 ></Image>
-                {pathname === "/playlists" && (
-                    <PlaylistCount videoCount={videoCount} />
+                {video?.videos && (
+                    <PlaylistCount videoCount={video.videos.length} />
                 )}
             </Container>
             <FlexContainer justify="space-between" p="0.2em 0.5em" pb="0em">

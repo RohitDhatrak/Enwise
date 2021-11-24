@@ -34,21 +34,7 @@ export function SidePannel() {
                     <Container ml="2em">Home</Container>
                 </FlexContainer>
             </Link>
-            <Link to="/liked">
-                <FlexContainer
-                    w="100%"
-                    p="1em 2.1em"
-                    cursor="pointer"
-                    bgc={pathname === "/liked" ? "var(--nav-hover-color)" : ""}
-                    hover="background-color: var(--nav-hover-color)"
-                >
-                    <LikeIcon
-                        color={"var(--icon-color)"}
-                        className="scale-13"
-                    />
-                    <Container ml="2em">Liked</Container>
-                </FlexContainer>
-            </Link>
+
             <Link to="/playlists">
                 <FlexContainer
                     w="100%"
@@ -68,6 +54,41 @@ export function SidePannel() {
                     <Container ml="2em">Playlists</Container>
                 </FlexContainer>
             </Link>
+
+            <Link to="/liked">
+                <FlexContainer
+                    w="100%"
+                    p="1em 2.1em"
+                    cursor="pointer"
+                    bgc={pathname === "/liked" ? "var(--nav-hover-color)" : ""}
+                    hover="background-color: var(--nav-hover-color)"
+                >
+                    <LikeIcon
+                        color={"var(--icon-color)"}
+                        className="scale-13"
+                    />
+                    <Container ml="2em">Liked</Container>
+                </FlexContainer>
+            </Link>
+
+            <Link to="/history">
+                <FlexContainer
+                    w="100%"
+                    p="1em 2.1em"
+                    cursor="pointer"
+                    bgc={
+                        pathname === "/history" ? "var(--nav-hover-color)" : ""
+                    }
+                    hover="background-color: var(--nav-hover-color)"
+                >
+                    <HistoryIcon
+                        color={"var(--icon-color)"}
+                        className="scale-15"
+                    />
+                    <Container ml="2em">History</Container>
+                </FlexContainer>
+            </Link>
+
             <Link to="/watchlater">
                 <FlexContainer
                     w="100%"
@@ -85,23 +106,6 @@ export function SidePannel() {
                         className="scale-13"
                     />
                     <Container ml="2em">Watch Later</Container>
-                </FlexContainer>
-            </Link>
-            <Link to="/history">
-                <FlexContainer
-                    w="100%"
-                    p="1em 2.1em"
-                    cursor="pointer"
-                    bgc={
-                        pathname === "/history" ? "var(--nav-hover-color)" : ""
-                    }
-                    hover="background-color: var(--nav-hover-color)"
-                >
-                    <HistoryIcon
-                        color={"var(--icon-color)"}
-                        className="scale-15"
-                    />
-                    <Container ml="2em">History</Container>
                 </FlexContainer>
             </Link>
         </SidePannelContainer>

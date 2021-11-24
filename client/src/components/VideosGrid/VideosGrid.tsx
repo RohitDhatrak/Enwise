@@ -9,7 +9,7 @@ export function VideoGrid({ videos }: VideoGridProps) {
         <Container m="0 auto" w="100%">
             <VideoGridContainer gap="1rem" justify="space-around" p="1em">
                 {videos.map((video) => (
-                    <Video video={video} videoCount={videos.length} />
+                    <Video video={video} />
                 ))}
             </VideoGridContainer>
         </Container>

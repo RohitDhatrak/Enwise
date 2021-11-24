@@ -42,28 +42,7 @@ export function SidePannelMinimal() {
                     <Container mt="0.5em">Home</Container>
                 </FlexContainer>
             </Link>
-            <Link to="/liked">
-                <FlexContainer
-                    w="100%"
-                    direction="column"
-                    justify="center"
-                    align="center"
-                    cursor="pointer"
-                    textAlign="center"
-                    fs="0.9rem"
-                    p="1em 0"
-                    bgc={
-                        pathname === "/history" ? "var(--nav-hover-color)" : ""
-                    }
-                    hover="background-color: var(--nav-hover-color)"
-                >
-                    <LikeIcon
-                        color={"var(--icon-color)"}
-                        className="scale-13"
-                    />
-                    <Container mt="0.5em">Liked</Container>
-                </FlexContainer>
-            </Link>
+
             <Link to="/playlists">
                 <FlexContainer
                     w="100%"
@@ -86,7 +65,8 @@ export function SidePannelMinimal() {
                     <Container mt="0.5em">Playlists</Container>
                 </FlexContainer>
             </Link>
-            <Link to="/watchlater">
+
+            <Link to="/liked">
                 <FlexContainer
                     w="100%"
                     direction="column"
@@ -101,13 +81,14 @@ export function SidePannelMinimal() {
                     }
                     hover="background-color: var(--nav-hover-color)"
                 >
-                    <WatchLaterIcon
+                    <LikeIcon
                         color={"var(--icon-color)"}
                         className="scale-13"
                     />
-                    <Container mt="0.5em">Watch Later</Container>
+                    <Container mt="0.5em">Liked</Container>
                 </FlexContainer>
             </Link>
+
             <Link to="/history">
                 <FlexContainer
                     w="100%"
@@ -128,6 +109,29 @@ export function SidePannelMinimal() {
                         className="scale-14"
                     />
                     <Container mt="0.5em">History</Container>
+                </FlexContainer>
+            </Link>
+
+            <Link to="/watchlater">
+                <FlexContainer
+                    w="100%"
+                    direction="column"
+                    justify="center"
+                    align="center"
+                    cursor="pointer"
+                    textAlign="center"
+                    fs="0.9rem"
+                    p="1em 0"
+                    bgc={
+                        pathname === "/history" ? "var(--nav-hover-color)" : ""
+                    }
+                    hover="background-color: var(--nav-hover-color)"
+                >
+                    <WatchLaterIcon
+                        color={"var(--icon-color)"}
+                        className="scale-13"
+                    />
+                    <Container mt="0.5em">Watch Later</Container>
                 </FlexContainer>
             </Link>
         </SidePannelMinimalContainer>

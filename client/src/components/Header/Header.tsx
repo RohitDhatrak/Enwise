@@ -1,6 +1,6 @@
 import React from "react";
 import { Link } from "react-router-dom";
-import { ProfileIcon } from "../../assets/svg";
+import { SettingsIcon } from "../../assets/svg";
 import { FlexContainer, Image } from "../Shared";
 import {
     HeaderContainer,
@@ -43,15 +43,8 @@ export function Header() {
             />
 
             <Link to="/settings">
-                <ProfileIconContainer
-                    mr="1em"
-                    p="0.5em 0.7em"
-                    b="2px solid var(--primary-color)"
-                    br="50%"
-                    cursor="pointer"
-                    hover="background-color: var(--nav-hover-color)"
-                >
-                    <ProfileIcon
+                <ProfileIconContainer mr="1em" br="50%" cursor="pointer">
+                    <SettingsIcon
                         color={"var(--icon-color)"}
                         className="scale-15"
                     />
