@@ -15,6 +15,7 @@ export type ContainerCommonProps = {
     /* width */
     w?: string;
     minW?: string;
+    maxW?: string;
 
     /* padding */
     p?: string;
@@ -97,6 +98,11 @@ export const CommonContainer = styled.div<ContainerCommonProps>`
         props.minW &&
         css`
             min-width: ${() => props.minW};
+        `}
+    ${(props) =>
+        props.maxW &&
+        css`
+            max-width: ${() => props.maxW};
         `}
 
     /* padding */

@@ -16,6 +16,11 @@ export const playlists: Playlist[] = [
                 title: "How to Become a Better Reader",
                 creator: "Ankur Warikoo",
             },
+            {
+                videoId: "QEK8CgKpfAI",
+                title: "3 Unusual Books for Leaders",
+                creator: "Ankur Warikoo",
+            },
         ],
     },
     {
