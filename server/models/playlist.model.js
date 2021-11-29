@@ -18,6 +18,10 @@ const Playlist = sequelize.define("playlist", {
         allowNull: false,
         unique: true,
     },
+    videoCount: {
+        type: Sequelize.INTEGER,
+        allowNull: false,
+    },
 });
 
 User.hasMany(Playlist);

@@ -9,16 +9,16 @@ router.route("/").post(async (req, res) => {
         const user = await User.findOne({ where: { email } });
         if (!user) {
             const hashedPassword = await encrypt(password);
-            const user = await User.create({
+            const newUser = await User.create({
                 email,
                 password: hashedPassword,
                 isAdmin: false,
                 saveHistory: true,
             });
             res.status(200).json({
-                userId: user.id,
-                isAdmin: user.isAdmin,
-                saveHistory: user.saveHistory,
+                userId: newUser.id,
+                isAdmin: newUser.isAdmin,
+                saveHistory: newUser.saveHistory,
             });
         } else {
             res.status(401).json({
