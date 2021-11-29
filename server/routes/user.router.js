@@ -6,7 +6,7 @@ const { encrypt, matchPasswords } = require("../utils/hashPassoword");
 router.route("/password").post(async (req, res) => {
     try {
         const { oldPassword, newPassword, userId } = req.body;
-        const user = await User.findOne({ id: userId });
+        const user = await User.findOne({ where: { id: userId } });
         const doesMatch = await matchPasswords(user.password, oldPassword);
         if (doesMatch) {
             const hashedPassword = await encrypt(newPassword);
@@ -14,7 +14,9 @@ router.route("/password").post(async (req, res) => {
                 { password: hashedPassword },
                 { where: { id: userId } }
             );
-            res.status(200).json({ message: "Password changed successfully" });
+            res.status(200).json({
+                message: "Password changed successfully",
+            });
         } else {
             res.status(401).json({
                 message: "Password does not match",
@@ -31,10 +33,11 @@ router.route("/password").post(async (req, res) => {
 router.route("/privacy").post(async (req, res) => {
     try {
         const { history, userId } = req.body;
-        const user = await User.update(
+        await User.update(
             { saveHistory: !!history },
             { where: { id: userId } }
         );
+        const user = await User.findOne({ where: { id: userId } });
         res.status(200).json({
             userId: user.id,
             isAdmin: user.isAdmin,

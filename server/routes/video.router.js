@@ -1,6 +1,4 @@
 const express = require("express");
-const Sequelize = require("sequelize");
-const sequelize = require("../db/db.connect");
 const router = express.Router();
 const Video = require("../models/video.model");
 const History = require("../models/history.model");
