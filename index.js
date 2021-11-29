@@ -1,10 +1,16 @@
 const express = require("express");
 const cors = require("cors");
+require("dotenv").config();
+
+const sequelize = require("./server/db/db.connect");
 const video = require("./server/routes/video.router");
 const user = require("./server/routes/user.router");
 const login = require("./server/routes/login.router");
 const signup = require("./server/routes/signup.router");
-require("./server/db/db.connect");
+const history = require("./server/routes/history.router");
+const liked = require("./server/routes/liked.router");
+const watchlater = require("./server/routes/watchLater.router");
+
 const {
     routeNotFound,
 } = require("./server/middlewares/route-not-found.middleware");
@@ -28,10 +34,21 @@ if (process.env.NODE_ENV === "development") {
     app.use(cors(corsOptions));
 }
 
-// app.use("video", video);
-// app.use("login", login);
-// app.use("signup", signup);
-// app.use("user", user);
+sequelize
+    .sync()
+    .then(() => console.log("DB Synced"))
+    .catch(() => console.log("Error syncing DB"));
+
+app.use("/video", video);
+app.use("/login", login);
+app.use("/signup", signup);
+// app.use("/categories", categoreis);
+// app.use(auth);
+app.use("/history", history);
+app.use("/liked", liked);
+app.use("/watchlater", watchlater);
+// app.use("/playlists", playlists);
+// app.use("/user", user);
 
 /* Error handlers do not move should be at the end*/
 app.use(routeNotFound);

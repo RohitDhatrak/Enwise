@@ -1,0 +1,56 @@
+const express = require("express");
+const Sequelize = require("sequelize");
+const sequelize = require("../db/db.connect");
+const router = express.Router();
+const Video = require("../models/video.model");
+const History = require("../models/history.model");
+const Liked = require("../models/liked.model");
+const WatchLater = require("../models/watchLater.model");
+const PlaylistVideo = require("../models/playlistVideo.model");
+
+router
+    .route("/")
+    .get(async (req, res) => {
+        try {
+            const videos = await Video.findAll();
+            res.status(200).json({ videos });
+        } catch (err) {
+            res.status(500).json({ err, message: "Couldn't find videos" });
+        }
+    })
+    .post(async (req, res) => {
+        try {
+            const { videoId, title, creator, category } = req.body;
+            console.log("here");
+            const video = await Video.create({
+                id: videoId,
+                title,
+                creator,
+                category,
+            });
+            res.status(200).json({ video });
+        } catch (err) {
+            res.status(500).json({
+                err,
+                message: "Couldn't add video to the database",
+            });
+        }
+    })
+    .delete(async (req, res) => {
+        try {
+            const { videoId } = req.body;
+            const isDeleted = await Video.destroy({ where: { id: videoId } });
+            await History.destroy({ where: { videoId: null } });
+            await Liked.destroy({ where: { videoId: null } });
+            await WatchLater.destroy({ where: { videoId: null } });
+            await PlaylistVideo.destroy({ where: { videoId: null } });
+            res.status(200).json({ isDeleted: !!isDeleted });
+        } catch (err) {
+            res.status(500).json({
+                err,
+                message: "Erorr while removing the video from the database",
+            });
+        }
+    });
+
+module.exports = router;
