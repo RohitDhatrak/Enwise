@@ -38,10 +38,10 @@ router
         try {
             const { videoId } = req.body;
             const isDeleted = await Video.destroy({ where: { id: videoId } });
-            await History.destroy({ where: { videoId: null } });
-            await Liked.destroy({ where: { videoId: null } });
-            await WatchLater.destroy({ where: { videoId: null } });
-            await PlaylistVideo.destroy({ where: { videoId: null } });
+            History.destroy({ where: { videoId: null } });
+            Liked.destroy({ where: { videoId: null } });
+            WatchLater.destroy({ where: { videoId: null } });
+            PlaylistVideo.destroy({ where: { videoId: null } });
             res.status(200).json({ isDeleted: !!isDeleted });
         } catch (err) {
             res.status(500).json({
