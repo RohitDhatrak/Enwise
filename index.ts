@@ -1,8 +1,9 @@
-const express = require("express");
-const cors = require("cors");
-require("dotenv").config();
+import express from "express";
+import cors from "cors";
+import dotenv from "dotenv";
+dotenv.config();
 
-const sequelize = require("./server/db/db.connect");
+import { sequelize } from "./server/db/db.connect";
 const video = require("./server/routes/video.router");
 const user = require("./server/routes/user.router");
 const login = require("./server/routes/login.router");
@@ -13,12 +14,8 @@ const watchlater = require("./server/routes/watchLater.router");
 const playlists = require("./server/routes/playlists.router");
 const categories = require("./server/routes/category.router");
 
-const {
-    routeNotFound,
-} = require("./server/middlewares/route-not-found.middleware");
-const {
-    errorHandler,
-} = require("./server/middlewares/error-handler.middleware");
+import { routeNotFound } from "./server/middlewares/route-not-found.middleware";
+import { errorHandler } from "./server/middlewares/error-handler.middleware";
 
 const port = process.env.PORT || 4444;
 const whitelist = ["https://media-bookscape.netlify.app/"];

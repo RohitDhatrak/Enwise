@@ -1,4 +1,4 @@
-const express = require("express");
+import express from "express";
 const router = express.Router();
 const Video = require("../models/video.model");
 const History = require("../models/history.model");

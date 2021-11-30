@@ -1,4 +1,4 @@
-const express = require("express");
+import express from "express";
 const router = express.Router();
 const Playlist = require("../models/playlist.model");
 const PlaylistVideo = require("../models/playlistVideo.model");

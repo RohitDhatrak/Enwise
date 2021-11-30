@@ -1,4 +1,4 @@
-const express = require("express");
+import express from "express";
 const router = express.Router();
 const Liked = require("../models/liked.model");
 const Video = require("../models/video.model");

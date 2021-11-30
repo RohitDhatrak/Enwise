@@ -1,5 +1,5 @@
-const Sequelize = require("sequelize");
-const sequelize = require("../db/db.connect");
+import Sequelize from "sequelize";
+import { sequelize } from "../db/db.connect";
 const User = require("./user.model");
 const Video = require("./video.model");
 
