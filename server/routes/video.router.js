@@ -11,7 +11,7 @@ router
     .get(async (req, res) => {
         try {
             const videos = await Video.findAll();
-            res.status(200).json({ videos });
+            res.status(200).json(videos);
         } catch (err) {
             res.status(500).json({ message: "Couldn't find videos" });
         }

@@ -12,6 +12,7 @@ const liked = require("./server/routes/liked.router");
 const watchlater = require("./server/routes/watchLater.router");
 const playlists = require("./server/routes/playlists.router");
 const categories = require("./server/routes/category.router");
+const playlistVideos = require("./server/routes/playlistVideos.router");
 const { auth } = require("./server/middlewares/auth");
 
 const {
@@ -46,11 +47,12 @@ app.use("/video", video);
 app.use("/login", login);
 app.use("/signup", signup);
 app.use("/categories", categories);
-app.use(auth);
+// app.use(auth);
 app.use("/history", history);
 app.use("/liked", liked);
 app.use("/watchlater", watchlater);
 app.use("/playlists", playlists);
+app.use("/playlistVideos", playlistVideos);
 app.use("/user", user);
 
 /* Error handlers do not move should be at the end*/
