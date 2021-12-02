@@ -1,19 +1,22 @@
 const express = require("express");
 const router = express.Router();
 const User = require("../models/user.model");
-const { matchPasswords } = require("../utils/hashPassoword");
+const { decrypt } = require("../utils/hashOperations");
+const { signToken } = require("../utils/tokenOperations");
 
 router.route("/").post(async (req, res) => {
     try {
         const { email, password } = req.body;
         const user = await User.findOne({ where: { email } });
         if (user) {
-            const doesMatch = await matchPasswords(user.password, password);
+            const doesMatch = await decrypt(user.password, password);
             if (doesMatch) {
+                const jwt = signToken(user.id);
                 res.status(200).json({
-                    userId: user.id,
+                    id: user.id,
                     isAdmin: user.isAdmin,
                     saveHistory: user.saveHistory,
+                    jwt,
                 });
             } else {
                 res.status(401).json({
@@ -27,7 +30,6 @@ router.route("/").post(async (req, res) => {
         }
     } catch (err) {
         res.status(500).json({
-            err,
             message: "Some error occurred while logging in",
         });
     }

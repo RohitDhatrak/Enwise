@@ -5,8 +5,8 @@ async function encrypt(password) {
     return bcrypt.hash(password, salt);
 }
 
-async function matchPasswords(encryptedPassword, password) {
+async function decrypt(encryptedPassword, password) {
     return bcrypt.compare(password, encryptedPassword);
 }
 
-module.exports = { encrypt, matchPasswords };
+module.exports = { encrypt, decrypt };

@@ -13,7 +13,7 @@ router
             const videos = await Video.findAll();
             res.status(200).json({ videos });
         } catch (err) {
-            res.status(500).json({ err, message: "Couldn't find videos" });
+            res.status(500).json({ message: "Couldn't find videos" });
         }
     })
     .post(async (req, res) => {
@@ -29,7 +29,6 @@ router
             res.status(200).json({ video });
         } catch (err) {
             res.status(500).json({
-                err,
                 message: "Couldn't add video to the database",
             });
         }
@@ -45,7 +44,6 @@ router
             res.status(200).json({ isDeleted: !!isDeleted });
         } catch (err) {
             res.status(500).json({
-                err,
                 message: "Erorr while removing the video from the database",
             });
         }

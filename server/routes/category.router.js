@@ -10,7 +10,6 @@ router
             res.status(200).json({ categories });
         } catch (err) {
             res.status(500).json({
-                err,
                 message: "Couldn't get the categories",
             });
         }
@@ -22,7 +21,6 @@ router
             res.status(200).json({ category });
         } catch (err) {
             res.status(500).json({
-                err,
                 message: "Couldn't add the category",
             });
         }

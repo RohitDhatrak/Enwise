@@ -15,7 +15,6 @@ router
             res.status(200).json({ watchLater });
         } catch (err) {
             res.status(500).json({
-                err,
                 message:
                     "There was some error while getting watch later playlist",
             });
@@ -28,7 +27,6 @@ router
             res.status(200).json({ watchLater });
         } catch (err) {
             res.status(500).json({
-                err,
                 message:
                     "There was some error while saving the video to watch later",
             });
@@ -43,7 +41,6 @@ router
             res.status(200).json({ isDeleted: !!isDeleted });
         } catch (err) {
             res.status(500).json({
-                err,
                 message: "Error while removing video from watch later",
             });
         }

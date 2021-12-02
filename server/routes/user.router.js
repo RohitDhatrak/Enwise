@@ -1,13 +1,13 @@
 const express = require("express");
 const router = express.Router();
 const User = require("../models/user.model");
-const { encrypt, matchPasswords } = require("../utils/hashPassoword");
+const { encrypt, decrypt } = require("../utils/hashOperations");
 
 router.route("/password").post(async (req, res) => {
     try {
         const { oldPassword, newPassword, userId } = req.body;
         const user = await User.findOne({ where: { id: userId } });
-        const doesMatch = await matchPasswords(user.password, oldPassword);
+        const doesMatch = await decrypt(user.password, oldPassword);
         if (doesMatch) {
             const hashedPassword = await encrypt(newPassword);
             await User.update(
@@ -24,7 +24,6 @@ router.route("/password").post(async (req, res) => {
         }
     } catch (err) {
         res.status(500).json({
-            err,
             message: "Couldn't change the password",
         });
     }
@@ -39,13 +38,12 @@ router.route("/privacy").post(async (req, res) => {
         );
         const user = await User.findOne({ where: { id: userId } });
         res.status(200).json({
-            userId: user.id,
+            id: user.id,
             isAdmin: user.isAdmin,
             saveHistory: user.saveHistory,
         });
     } catch (err) {
         res.status(500).json({
-            err,
             message: "Couldn't update the history settings",
         });
     }

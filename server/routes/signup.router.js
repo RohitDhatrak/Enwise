@@ -1,7 +1,8 @@
 const express = require("express");
 const router = express.Router();
 const User = require("../models/user.model");
-const { encrypt } = require("../utils/hashPassoword");
+const { encrypt } = require("../utils/hashOperations");
+const { signToken } = require("../utils/tokenOperations");
 
 router.route("/").post(async (req, res) => {
     try {
@@ -15,10 +16,12 @@ router.route("/").post(async (req, res) => {
                 isAdmin: false,
                 saveHistory: true,
             });
+            const jwt = signToken(newUser.id);
             res.status(200).json({
-                userId: newUser.id,
+                id: newUser.id,
                 isAdmin: newUser.isAdmin,
                 saveHistory: newUser.saveHistory,
+                jwt,
             });
         } else {
             res.status(401).json({
@@ -27,7 +30,6 @@ router.route("/").post(async (req, res) => {
         }
     } catch (err) {
         res.status(500).json({
-            err,
             message: "Some error occurred while signup",
         });
     }

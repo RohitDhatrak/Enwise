@@ -15,7 +15,6 @@ router
             res.status(200).json({ history });
         } catch (err) {
             res.status(500).json({
-                err,
                 message: "Some error occured while fetching the history",
             });
         }
@@ -27,7 +26,6 @@ router
             res.status(200).json({ history });
         } catch (err) {
             res.status(500).json({
-                err,
                 message: "Some error occured while adding to history",
             });
         }
@@ -41,7 +39,6 @@ router
             res.status(200).json({ isDeleted: !!isDeleted });
         } catch (err) {
             res.status(500).json({
-                err,
                 message: "Error while removing video from watch history",
             });
         }

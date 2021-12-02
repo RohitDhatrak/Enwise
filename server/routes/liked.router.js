@@ -15,7 +15,6 @@ router
             res.status(200).json({ liked });
         } catch (err) {
             res.status(500).json({
-                err,
                 message: "There was some error while getting liked videos",
             });
         }
@@ -27,7 +26,6 @@ router
             res.status(200).json({ video });
         } catch (err) {
             res.status(500).json({
-                err,
                 message: "There was some error while saving the liked video",
             });
         }
@@ -41,7 +39,6 @@ router
             res.status(200).json({ isDeleted: !!isDeleted });
         } catch (err) {
             res.status(500).json({
-                err,
                 message: "Error while removing video from liked videos",
             });
         }
