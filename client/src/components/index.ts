@@ -5,3 +5,6 @@ export { Video } from "./Video/Video";
 export { SidePannel } from "./SidePannel/SidePannel";
 export { SidePannelMinimal } from "./SidePannelMinimal/SidePannelMinimal";
 export { AddToPlayListModal } from "./AddToPlayListModal/AddToPlayListModal";
+export { PrivateRoute } from "./PrivateRoute/PrivateRoute";
+export { InputBox } from "./InputBox/InputBox";
+export { ActionButton } from "./ActionButton/ActionButton";

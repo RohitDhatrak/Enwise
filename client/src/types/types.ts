@@ -11,6 +11,7 @@ export type User = {
     id: number;
     isAdmin: boolean;
     saveHistory: boolean;
+    jwt: string;
 };
 
 export type History = {
@@ -62,15 +63,28 @@ export type ReducerInitialStateTypes = {
 
 export type Action =
     | { type: "SET_VIDEOS"; payload: { videos: Array<Video> } }
-    | { type: "SET_USER"; payload: { user: User } }
+    | { type: "SET_USER_SESSION"; payload: { user: User } }
     | { type: "SET_PLAYLISTS"; payload: { playlists: Array<Playlist> } }
     | { type: "SET_LIKES"; payload: { likes: Array<Liked> } }
     | { type: "SET_WATCHLATER"; payload: { watchLater: Array<WatchLater> } }
     | { type: "SET_HISTORY"; payload: { history: Array<History> } }
-    | { type: "RESET" };
+    | {
+          type: "SET_USER_DATA";
+          payload: {
+              playlists: Array<Playlist>;
+              likes: Array<Liked>;
+              watchLater: Array<WatchLater>;
+              history: Array<History>;
+          };
+      }
+    | { type: "CLEAR_USER_SESSION" };
 
 export type ReducerContextTypes = ReducerInitialStateTypes & {
     dispatch: (action: Action) => void;
 };
 
-export type Children = { children: React.ReactNode };
+export type Children = { children: React.ReactElement };
+export type InputEvent = React.ChangeEvent<HTMLInputElement>;
+export type ButtonEvent = React.MouseEvent<HTMLButtonElement>;
+
+export type ServerError = { message: string };

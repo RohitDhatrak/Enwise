@@ -5,3 +5,6 @@ export { History } from "./History/History";
 export { WatchLater } from "./WatchLater/WatchLater";
 export { Profile } from "./Profile/Profile";
 export { Settings } from "./Settings/Settings";
+export { Login } from "./Login/Login";
+export { Signup } from "./Signup/Signup";
+export { Page404 } from "./404/Page404";

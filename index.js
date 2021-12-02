@@ -12,6 +12,7 @@ const liked = require("./server/routes/liked.router");
 const watchlater = require("./server/routes/watchLater.router");
 const playlists = require("./server/routes/playlists.router");
 const categories = require("./server/routes/category.router");
+const { auth } = require("./server/middlewares/auth");
 
 const {
     routeNotFound,
@@ -45,7 +46,7 @@ app.use("/video", video);
 app.use("/login", login);
 app.use("/signup", signup);
 app.use("/categories", categories);
-// app.use(auth);
+app.use(auth);
 app.use("/history", history);
 app.use("/liked", liked);
 app.use("/watchlater", watchlater);

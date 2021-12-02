@@ -5,7 +5,7 @@ export function reducer(
     action: Action
 ): ReducerInitialStateTypes {
     switch (action.type) {
-        case "RESET":
+        case "CLEAR_USER_SESSION":
             return {
                 ...state,
                 user: {} as User,
@@ -14,6 +14,13 @@ export function reducer(
                 watchLater: [],
                 history: [],
             };
+        case "SET_USER_SESSION":
+            const user = action.payload.user;
+            localStorage.setItem(
+                "user",
+                JSON.stringify({ id: user.id, jwt: user.jwt })
+            );
+            return { ...state, user };
         default:
             return state;
     }
