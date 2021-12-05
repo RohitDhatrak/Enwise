@@ -23,8 +23,8 @@ export type History = {
     video: Video;
 };
 
-export type Liked = History;
-export type WatchLater = History;
+export type Liked = History & {};
+export type WatchLater = History & {};
 
 export type Category = {
     id: number;
@@ -62,14 +62,14 @@ export type ReducerInitialStateTypes = {
 };
 
 export type Action =
-    | { type: "SET_VIDEOS"; payload: { videos: Array<Video> } }
-    | { type: "SET_USER_SESSION"; payload: { user: User } }
-    | { type: "SET_PLAYLISTS"; payload: { playlists: Array<Playlist> } }
-    | { type: "SET_LIKES"; payload: { likes: Array<Liked> } }
-    | { type: "SET_WATCHLATER"; payload: { watchLater: Array<WatchLater> } }
-    | { type: "SET_HISTORY"; payload: { history: Array<History> } }
+    | { type: "SAVE_VIDEOS"; payload: { videos: Array<Video> } }
+    | { type: "SAVE_USER_SESSION"; payload: { user: User } }
+    | { type: "SAVE_PLAYLISTS"; payload: { playlists: Array<Playlist> } }
+    | { type: "SAVE_LIKES"; payload: { likes: Array<Liked> } }
+    | { type: "SAVE_WATCHLATER"; payload: { watchLater: Array<WatchLater> } }
+    | { type: "SAVE_HISTORY"; payload: { history: Array<History> } }
     | {
-          type: "SET_USER_DATA";
+          type: "SAVE_USER_DATA";
           payload: {
               playlists: Array<Playlist>;
               likes: Array<Liked>;
@@ -77,7 +77,7 @@ export type Action =
               history: Array<History>;
           };
       }
-    | { type: "CLEAR_USER_SESSION" };
+    | { type: "DELETE_USER_SESSION" };
 
 export type ReducerContextTypes = ReducerInitialStateTypes & {
     dispatch: (action: Action) => void;

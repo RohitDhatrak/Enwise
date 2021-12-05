@@ -11,6 +11,7 @@ import {
     Login,
     Signup,
     Page404,
+    VideoPlayer,
 } from "./pages";
 import { BottomNav, Header, PrivateRoute } from "./components";
 import { getUserFromLocalStorage } from "./utils/localStorageOperations";
@@ -19,22 +20,27 @@ import {
     setupAuthExceptionHandler,
     setupAuthHeaderForServiceCalls,
 } from "./services/authHandlers";
+import { loadInitialData } from "./utils/loadInitialData";
+import { useAppContext } from "./context/AppContext";
 
 function App() {
     const navigate = useNavigate();
     const { dispatch } = useReducerContext();
+    const { setDisplayActionMenu } = useAppContext();
 
     const user = JSON.parse(getUserFromLocalStorage());
     useEffect(() => {
         setupAuthHeaderForServiceCalls(user?.jwt);
         setupAuthExceptionHandler(dispatch, navigate);
+        loadInitialData(user, dispatch);
     }, []);
 
     return (
-        <div>
+        <div onClick={() => setDisplayActionMenu(false)}>
             <Header />
             <Routes>
                 <Route path="/" element={<Home />} />
+                <Route path="/:videoId" element={<VideoPlayer />} />
                 <Route
                     path="/liked"
                     element={

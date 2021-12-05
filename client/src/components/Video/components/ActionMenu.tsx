@@ -1,23 +1,91 @@
 import React, { useState } from "react";
+import { useLocation } from "react-router-dom";
 import { Container, FlexContainer } from "../../Shared";
 import {
     MoreIcon,
     AddToPlayListIcon,
     WatchLaterIcon,
+    DeleteIcon,
 } from "../../../assets/svg";
 import { ActionMenuProps } from "./ActionMenuProps.types";
+import { useAppContext } from "../../../context/AppContext";
+import { useReducerContext } from "../../../context/ReducerContext";
+import { ButtonEvent } from "../../../types/types";
+import {
+    isLiked,
+    isHistory,
+    isAddedToWatchLater,
+} from "../../../utils/isAddedInArray";
+import {
+    deleteHistory,
+    deleteWatchLater,
+} from "../../../services/deleteUserData";
+import { addToWatchLater } from "../../../services/postUserData";
 
 export function ActionMenu({ video }: ActionMenuProps) {
-    const [displayMenu, setDisplayMenu] = useState(false);
+    const { displayActionMenu, setDisplayActionMenu } = useAppContext();
+    const { likes, history, watchLater, user, dispatch } = useReducerContext();
+    const { pathname } = useLocation();
+
+    let videoId = "";
+    if ("videoId" in video) {
+        videoId = video.videoId;
+    } else if (typeof video.id === "string") {
+        videoId = video.id;
+    }
+
+    function toggleActionMenu(e: ButtonEvent) {
+        e.stopPropagation();
+        if (displayActionMenu === false) {
+            setDisplayActionMenu(video.id);
+        } else {
+            setDisplayActionMenu(false);
+        }
+    }
+
+    async function addVideoToWatchLater() {
+        const watchLaterObj = await addToWatchLater(user.id, videoId);
+        dispatch({
+            type: "SAVE_WATCHLATER",
+            payload: { watchLater: [...watchLater, watchLaterObj] },
+        });
+    }
+
+    async function deleteVideoFromHistory() {
+        const historyObj = await deleteHistory(user.id, videoId);
+        if (historyObj) {
+            const newHistoryArray = history.filter(
+                (historyVideo) => historyVideo.videoId !== historyObj.videoId
+            );
+            dispatch({
+                type: "SAVE_HISTORY",
+                payload: { history: newHistoryArray },
+            });
+        }
+    }
+
+    async function deleteVideoFromWatchLater() {
+        const watchLaterObj = await deleteWatchLater(user.id, videoId);
+        if (watchLaterObj) {
+            const newWatchLaterArray = watchLater.filter(
+                (watchLaterVideo) =>
+                    watchLaterVideo.videoId !== watchLaterObj.videoId
+            );
+            dispatch({
+                type: "SAVE_WATCHLATER",
+                payload: { watchLater: newWatchLaterArray },
+            });
+        }
+    }
 
     return (
         <Container pt="0.2em" position="relative">
             <MoreIcon
                 color={"var(--icon-color)"}
                 className="scale-15"
-                onClick={() => setDisplayMenu(!displayMenu)}
+                onClick={toggleActionMenu}
             />
-            {displayMenu && (
+            {displayActionMenu === video.id && (
                 <FlexContainer
                     position="absolute"
                     right="0em"
@@ -27,30 +95,109 @@ export function ActionMenu({ video }: ActionMenuProps) {
                     br="0.4em"
                     zIndex="var(--z-index-1)"
                 >
-                    <FlexContainer
-                        hover="background-color: var(--menu-hover-color)"
-                        p="0.5em 1em"
-                        br="0.4em"
-                        align="center"
-                    >
-                        <WatchLaterIcon
-                            color={"var(--icon-color)"}
-                            className="scale-14"
-                        />
-                        <Container ml="1em">Add to Watch Later</Container>
-                    </FlexContainer>
-                    <FlexContainer
-                        hover="background-color: var(--menu-hover-color)"
-                        p="0.5em 1em"
-                        br="0.4em"
-                        align="center"
-                    >
-                        <AddToPlayListIcon
-                            color={"var(--icon-color)"}
-                            className="scale-15"
-                        />
-                        <Container ml="1em">Add to Playlist</Container>
-                    </FlexContainer>
+                    {!isAddedToWatchLater(videoId, watchLater) &&
+                        pathname !== "/playlists" && (
+                            <FlexContainer
+                                hover="background-color: var(--menu-hover-color)"
+                                p="0.5em 1em"
+                                br="0.4em"
+                                align="center"
+                                onClick={addVideoToWatchLater}
+                            >
+                                <WatchLaterIcon
+                                    color={"var(--icon-color)"}
+                                    className="scale-14"
+                                />
+                                <Container ml="1em">
+                                    Add to Watch Later
+                                </Container>
+                            </FlexContainer>
+                        )}
+
+                    {pathname !== "/playlists" && (
+                        <FlexContainer
+                            hover="background-color: var(--menu-hover-color)"
+                            p="0.5em 1em"
+                            br="0.4em"
+                            align="center"
+                        >
+                            <AddToPlayListIcon
+                                color={"var(--icon-color)"}
+                                className="scale-15"
+                            />
+                            <Container ml="1em">Add to Playlist</Container>
+                        </FlexContainer>
+                    )}
+
+                    {isAddedToWatchLater(videoId, watchLater) && (
+                        <FlexContainer
+                            hover="background-color: var(--menu-hover-color)"
+                            p="0.5em 1em"
+                            br="0.4em"
+                            align="center"
+                            onClick={deleteVideoFromWatchLater}
+                        >
+                            <DeleteIcon
+                                color="var(--error-color)"
+                                className="scale-15"
+                            />
+                            <Container ml="1em" color="var(--error-color)">
+                                Remove from Watch Later
+                            </Container>
+                        </FlexContainer>
+                    )}
+
+                    {pathname === "/playlists" && (
+                        <FlexContainer
+                            hover="background-color: var(--menu-hover-color)"
+                            p="0.5em 1em"
+                            br="0.4em"
+                            align="center"
+                        >
+                            <DeleteIcon
+                                color="var(--error-color)"
+                                className="scale-15"
+                            />
+                            <Container color="var(--error-color)" ml="1em">
+                                Delete Playlist
+                            </Container>
+                        </FlexContainer>
+                    )}
+
+                    {pathname === "/liked" && isLiked(videoId, likes) && (
+                        <FlexContainer
+                            hover="background-color: var(--menu-hover-color)"
+                            p="0.5em 1em"
+                            br="0.4em"
+                            align="center"
+                        >
+                            <DeleteIcon
+                                color="var(--error-color)"
+                                className="scale-15"
+                            />
+                            <Container ml="1em" color="var(--error-color)">
+                                Remove from Liked Videos
+                            </Container>
+                        </FlexContainer>
+                    )}
+
+                    {pathname === "/history" && isHistory(videoId, history) && (
+                        <FlexContainer
+                            hover="background-color: var(--menu-hover-color)"
+                            p="0.5em 1em"
+                            br="0.4em"
+                            align="center"
+                            onClick={deleteVideoFromHistory}
+                        >
+                            <DeleteIcon
+                                color="var(--error-color)"
+                                className="scale-15"
+                            />
+                            <Container ml="1em" color="var(--error-color)">
+                                Remove from History
+                            </Container>
+                        </FlexContainer>
+                    )}
                 </FlexContainer>
             )}
         </Container>

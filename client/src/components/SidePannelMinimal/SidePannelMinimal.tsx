@@ -33,9 +33,7 @@ export function SidePannelMinimal() {
                     textAlign="center"
                     fs="0.9rem"
                     p="1em 0"
-                    bgc={
-                        pathname === "/history" ? "var(--nav-hover-color)" : ""
-                    }
+                    bgc={pathname === "/" ? "var(--nav-hover-color)" : ""}
                     hover="background-color: var(--nav-hover-color)"
                 >
                     <HomeIcon color={"var(--icon-color)"} />
@@ -54,7 +52,9 @@ export function SidePannelMinimal() {
                     fs="0.9rem"
                     p="1em 0"
                     bgc={
-                        pathname === "/history" ? "var(--nav-hover-color)" : ""
+                        pathname === "/playlists"
+                            ? "var(--nav-hover-color)"
+                            : ""
                     }
                     hover="background-color: var(--nav-hover-color)"
                 >
@@ -76,9 +76,7 @@ export function SidePannelMinimal() {
                     textAlign="center"
                     fs="0.9rem"
                     p="1em 0"
-                    bgc={
-                        pathname === "/history" ? "var(--nav-hover-color)" : ""
-                    }
+                    bgc={pathname === "/liked" ? "var(--nav-hover-color)" : ""}
                     hover="background-color: var(--nav-hover-color)"
                 >
                     <LikeIcon
@@ -123,7 +121,9 @@ export function SidePannelMinimal() {
                     fs="0.9rem"
                     p="1em 0"
                     bgc={
-                        pathname === "/history" ? "var(--nav-hover-color)" : ""
+                        pathname === "/watchlater"
+                            ? "var(--nav-hover-color)"
+                            : ""
                     }
                     hover="background-color: var(--nav-hover-color)"
                 >

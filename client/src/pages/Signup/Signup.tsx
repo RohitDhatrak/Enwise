@@ -60,8 +60,9 @@ export function Signup() {
                     password,
                 }
             );
+
             if (user.id) {
-                dispatch({ type: "SET_USER_SESSION", payload: { user } });
+                dispatch({ type: "SAVE_USER_SESSION", payload: { user } });
                 setupAuthHeaderForServiceCalls(user.jwt);
                 navigate(previousPath, { replace: true });
             }
@@ -123,7 +124,7 @@ export function Signup() {
                         }
                     />
                 </FlexContainer>
-                <Container color="#EF4444">{error}</Container>
+                <Container color="var(--error-color)">{error}</Container>
                 {email && password && retypedPassword && !error && (
                     <ActionButton onClickFunction={signupAndRedirect}>
                         Signup

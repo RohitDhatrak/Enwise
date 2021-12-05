@@ -21,7 +21,7 @@ export function setupAuthExceptionHandler(
         (error) => {
             if (error?.response?.status === UNAUTHORIZED) {
                 // logic to logout the user
-                dispatch({ type: "CLEAR_USER_SESSION" });
+                dispatch({ type: "DELETE_USER_SESSION" });
                 navigate("login", { state: { previousPath: "/" } });
             }
             return Promise.reject(error);

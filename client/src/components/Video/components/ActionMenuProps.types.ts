@@ -1,5 +1,11 @@
-import { Video } from "../../../data/data.types";
+import {
+    Video,
+    Playlist,
+    History,
+    WatchLater,
+    Liked,
+} from "../../../types/types";
 
 export type ActionMenuProps = {
-    video: Video;
+    video: Video | Playlist | History | WatchLater | Liked;
 };

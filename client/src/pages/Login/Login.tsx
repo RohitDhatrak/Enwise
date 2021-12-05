@@ -6,6 +6,12 @@ import { setupAuthHeaderForServiceCalls } from "../../services/authHandlers";
 import { User, InputEvent, ButtonEvent, ServerError } from "../../types/types";
 import { FlexContainer, Container } from "../../components/Shared";
 import { InputBox, ActionButton } from "../../components";
+import {
+    getPlaylists,
+    getLikedVideos,
+    getHistory,
+    getWatchLater,
+} from "../../services/getUserData";
 
 export function Login() {
     const [email, setEmail] = useState<string>();
@@ -44,18 +50,27 @@ export function Login() {
                 },
                 { withCredentials: true }
             );
+
             if (user.id) {
                 dispatch({
-                    type: "SET_USER_SESSION",
+                    type: "SAVE_USER_SESSION",
                     payload: { user },
                 });
                 setupAuthHeaderForServiceCalls(user.jwt);
-                // network calls to get user data
-                // dispatch({
-                //     type: "SET_USER_DATA",
-                //     payload: {
-                //     },
-                // });
+
+                const playlists = await getPlaylists(user.id);
+                const likes = await getLikedVideos(user.id);
+                const watchLater = await getWatchLater(user.id);
+                const history = await getHistory(user.id);
+                dispatch({
+                    type: "SAVE_USER_DATA",
+                    payload: {
+                        playlists,
+                        likes,
+                        watchLater,
+                        history,
+                    },
+                });
                 navigate(previousPath, { replace: true });
             }
         } catch (error) {
@@ -105,7 +120,7 @@ export function Login() {
                         onChangeFunction={updatePassword}
                     />
                 </FlexContainer>
-                <Container color="#EF4444">{error}</Container>
+                <Container color="var(--error-color)">{error}</Container>
                 {email && password && !error && (
                     <ActionButton onClickFunction={loginAndRedirect}>
                         Login

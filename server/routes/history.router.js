@@ -23,8 +23,20 @@ router
     .post(async (req, res) => {
         try {
             const { videoId, userId } = req.body;
-            const history = await History.create({ userId, videoId });
-            res.status(200).json({ history });
+            const video = await History.findOne({
+                include: [Video],
+                where: { userId },
+            });
+            if (video) {
+                res.status(200).json(video);
+            } else {
+                await History.create({ userId, videoId });
+                const history = await History.findOne({
+                    include: [Video],
+                    where: { userId },
+                });
+                res.status(200).json(history);
+            }
         } catch (err) {
             res.status(500).json({
                 message: "Some error occured while adding to history",
@@ -34,10 +46,14 @@ router
     .delete(async (req, res) => {
         try {
             const { userId, videoId } = req.body;
-            const isDeleted = await History.destroy({
+            const history = await History.findOne({
+                include: [Video],
+                where: { userId },
+            });
+            await History.destroy({
                 where: { videoId, userId },
             });
-            res.status(200).json({ isDeleted: !!isDeleted });
+            res.status(200).json(history);
         } catch (err) {
             res.status(500).json({
                 message: "Error while removing video from watch history",

@@ -23,8 +23,12 @@ router
     .post(async (req, res) => {
         try {
             const { userId, videoId } = req.body;
-            const watchLater = await WatchLater.create({ userId, videoId });
-            res.status(200).json({ watchLater });
+            await WatchLater.create({ userId, videoId });
+            const watchLater = await WatchLater.findOne({
+                include: [Video],
+                where: { userId },
+            });
+            res.status(200).json(watchLater);
         } catch (err) {
             res.status(500).json({
                 message:
@@ -35,10 +39,14 @@ router
     .delete(async (req, res) => {
         try {
             const { userId, videoId } = req.body;
-            const isDeleted = await WatchLater.destroy({
+            const watchLater = await WatchLater.findOne({
+                include: [Video],
+                where: { userId },
+            });
+            await WatchLater.destroy({
                 where: { videoId, userId },
             });
-            res.status(200).json({ isDeleted: !!isDeleted });
+            res.status(200).json(watchLater);
         } catch (err) {
             res.status(500).json({
                 message: "Error while removing video from watch later",
