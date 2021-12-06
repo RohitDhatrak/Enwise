@@ -7,6 +7,7 @@ type FlexContainerProps = ContainerCommonProps & {
     align?: "center" | "baseline";
     wrap?: "wrap";
     direction?: "column";
+    gap?: string;
 };
 
 export const FlexContainer = styled(CommonContainer)<FlexContainerProps>`
@@ -31,5 +32,10 @@ export const FlexContainer = styled(CommonContainer)<FlexContainerProps>`
         props.direction &&
         css`
             flex-direction: ${() => props.direction};
+        `}
+    ${(props) =>
+        props.gap &&
+        css`
+            gap: ${() => props.gap};
         `}
 `;

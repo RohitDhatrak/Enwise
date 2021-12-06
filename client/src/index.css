@@ -3,7 +3,7 @@
 * {
     box-sizing: border-box;
     --primary-color: #ffc831;
-    --secondary-color: #1473fb;
+    --secondary-color: #71a9f7;
     --action-btn: #d1a018;
     --font-color: #e8e6e3;
     --font-color-2: #b2aca2;
@@ -32,6 +32,14 @@ body {
 a {
     text-decoration: none;
     color: unset;
+}
+
+.scale-11 {
+    transform: scale(1.1);
+}
+
+.scale-12 {
+    transform: scale(1.2);
 }
 
 .scale-13 {
