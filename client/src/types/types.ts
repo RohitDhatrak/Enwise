@@ -85,6 +85,8 @@ export type ReducerContextTypes = ReducerInitialStateTypes & {
 
 export type Children = { children: React.ReactElement };
 export type InputEvent = React.ChangeEvent<HTMLInputElement>;
-export type ButtonEvent = React.MouseEvent<HTMLButtonElement>;
+export type ButtonEvent =
+    | React.MouseEvent<HTMLButtonElement>
+    | React.MouseEvent<HTMLDivElement, MouseEvent>;
 
 export type ServerError = { message: string };

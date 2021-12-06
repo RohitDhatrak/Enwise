@@ -24,7 +24,7 @@ router
         try {
             const { userId, videoId } = req.body;
             await Liked.create({ userId, videoId });
-            const liked = await Liked.findAll({
+            const liked = await Liked.findOne({
                 include: [Video],
                 where: { userId },
             });

@@ -1,30 +1,33 @@
 import React, { useState } from "react";
 import { useLocation } from "react-router-dom";
 import { Container, FlexContainer } from "../../Shared";
+import { ActionMenuProps } from "./ActionMenuProps.types";
+import { useAppContext } from "../../../context/AppContext";
+import { useReducerContext } from "../../../context/ReducerContext";
+import { ButtonEvent } from "../../../types/types";
 import {
     MoreIcon,
     AddToPlayListIcon,
     WatchLaterIcon,
     DeleteIcon,
 } from "../../../assets/svg";
-import { ActionMenuProps } from "./ActionMenuProps.types";
-import { useAppContext } from "../../../context/AppContext";
-import { useReducerContext } from "../../../context/ReducerContext";
-import { ButtonEvent } from "../../../types/types";
 import {
     isLiked,
     isHistory,
     isAddedToWatchLater,
 } from "../../../utils/isAddedInArray";
 import {
-    deleteHistory,
-    deleteWatchLater,
-} from "../../../services/deleteUserData";
-import { addToWatchLater } from "../../../services/postUserData";
+    deleteVideoFromLiked,
+    addVideoToWatchLater,
+    deleteVideoFromHistory,
+    deleteUserPlaylist,
+    deleteVideoFromWatchLater,
+} from "../../../utils/dataOperations";
 
 export function ActionMenu({ video }: ActionMenuProps) {
     const { displayActionMenu, setDisplayActionMenu } = useAppContext();
-    const { likes, history, watchLater, user, dispatch } = useReducerContext();
+    const { likes, history, watchLater, user, dispatch, playlists } =
+        useReducerContext();
     const { pathname } = useLocation();
 
     let videoId = "";
@@ -34,47 +37,17 @@ export function ActionMenu({ video }: ActionMenuProps) {
         videoId = video.id;
     }
 
+    let playlistId = 0;
+    if ("thumbnailId" in video) {
+        playlistId = video.id;
+    }
+
     function toggleActionMenu(e: ButtonEvent) {
         e.stopPropagation();
         if (displayActionMenu === false) {
             setDisplayActionMenu(video.id);
         } else {
             setDisplayActionMenu(false);
-        }
-    }
-
-    async function addVideoToWatchLater() {
-        const watchLaterObj = await addToWatchLater(user.id, videoId);
-        dispatch({
-            type: "SAVE_WATCHLATER",
-            payload: { watchLater: [...watchLater, watchLaterObj] },
-        });
-    }
-
-    async function deleteVideoFromHistory() {
-        const historyObj = await deleteHistory(user.id, videoId);
-        if (historyObj) {
-            const newHistoryArray = history.filter(
-                (historyVideo) => historyVideo.videoId !== historyObj.videoId
-            );
-            dispatch({
-                type: "SAVE_HISTORY",
-                payload: { history: newHistoryArray },
-            });
-        }
-    }
-
-    async function deleteVideoFromWatchLater() {
-        const watchLaterObj = await deleteWatchLater(user.id, videoId);
-        if (watchLaterObj) {
-            const newWatchLaterArray = watchLater.filter(
-                (watchLaterVideo) =>
-                    watchLaterVideo.videoId !== watchLaterObj.videoId
-            );
-            dispatch({
-                type: "SAVE_WATCHLATER",
-                payload: { watchLater: newWatchLaterArray },
-            });
         }
     }
 
@@ -102,7 +75,15 @@ export function ActionMenu({ video }: ActionMenuProps) {
                                 p="0.5em 1em"
                                 br="0.4em"
                                 align="center"
-                                onClick={addVideoToWatchLater}
+                                onClick={(e) =>
+                                    addVideoToWatchLater(
+                                        e,
+                                        user.id,
+                                        videoId,
+                                        watchLater,
+                                        dispatch
+                                    )
+                                }
                             >
                                 <WatchLaterIcon
                                     color={"var(--icon-color)"}
@@ -135,7 +116,15 @@ export function ActionMenu({ video }: ActionMenuProps) {
                             p="0.5em 1em"
                             br="0.4em"
                             align="center"
-                            onClick={deleteVideoFromWatchLater}
+                            onClick={(e) =>
+                                deleteVideoFromWatchLater(
+                                    e,
+                                    user.id,
+                                    videoId,
+                                    watchLater,
+                                    dispatch
+                                )
+                            }
                         >
                             <DeleteIcon
                                 color="var(--error-color)"
@@ -153,6 +142,15 @@ export function ActionMenu({ video }: ActionMenuProps) {
                             p="0.5em 1em"
                             br="0.4em"
                             align="center"
+                            onClick={(e) =>
+                                deleteUserPlaylist(
+                                    e,
+                                    user.id,
+                                    playlistId,
+                                    playlists,
+                                    dispatch
+                                )
+                            }
                         >
                             <DeleteIcon
                                 color="var(--error-color)"
@@ -170,6 +168,15 @@ export function ActionMenu({ video }: ActionMenuProps) {
                             p="0.5em 1em"
                             br="0.4em"
                             align="center"
+                            onClick={(e) =>
+                                deleteVideoFromLiked(
+                                    e,
+                                    user.id,
+                                    videoId,
+                                    likes,
+                                    dispatch
+                                )
+                            }
                         >
                             <DeleteIcon
                                 color="var(--error-color)"
@@ -187,7 +194,15 @@ export function ActionMenu({ video }: ActionMenuProps) {
                             p="0.5em 1em"
                             br="0.4em"
                             align="center"
-                            onClick={deleteVideoFromHistory}
+                            onClick={(e) =>
+                                deleteVideoFromHistory(
+                                    e,
+                                    user.id,
+                                    videoId,
+                                    history,
+                                    dispatch
+                                )
+                            }
                         >
                             <DeleteIcon
                                 color="var(--error-color)"
