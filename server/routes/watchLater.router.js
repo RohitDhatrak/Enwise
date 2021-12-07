@@ -23,11 +23,7 @@ router
     .post(async (req, res) => {
         try {
             const { userId, videoId } = req.body;
-            await WatchLater.create({ userId, videoId });
-            const watchLater = await WatchLater.findOne({
-                include: [Video],
-                where: { userId },
-            });
+            const watchLater = await WatchLater.create({ userId, videoId });
             res.status(200).json(watchLater);
         } catch (err) {
             res.status(500).json({

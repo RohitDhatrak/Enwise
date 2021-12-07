@@ -32,6 +32,32 @@ export async function addPlaylist(
     }
 }
 
+export async function addToPlaylist(
+    userId: number,
+    videoId: string,
+    playlistId: number
+): Promise<Playlist[]> {
+    try {
+        const { data: playlist } = await axios.post<Playlist[]>(
+            `${process.env.REACT_APP_API_ENDPOINT}/playlistVideos/${playlistId}`,
+            {
+                userId,
+                videoId,
+            }
+        );
+        return playlist;
+    } catch (error) {
+        if (axios.isAxiosError(error)) {
+            const serverError = error as AxiosError<ServerError>;
+            if (serverError.response && serverError.response?.data) {
+                console.log(serverError.response.data.message);
+            }
+        }
+        console.log({ error });
+        return [] as Playlist[];
+    }
+}
+
 export async function addLikedVideo(
     userId: number,
     videoId: string

@@ -13,10 +13,13 @@ import {
     addVideoToLiked,
 } from "../../utils/dataOperations";
 import { ButtonEvent } from "../../types/types";
+import { useAppContext } from "../../context/AppContext";
 
 export function VideoPlayer() {
     const { videoId } = useParams();
     const { videos, user, dispatch, likes, watchLater } = useReducerContext();
+    const { toggleAddToPlaylistMenu, setVideoToBeAddedToPlaylist } =
+        useAppContext();
 
     const video = videos.find((v) => v.id === videoId);
 
@@ -139,6 +142,10 @@ export function VideoPlayer() {
                             mr="1em"
                             mb="0.5em"
                             cursor="pointer"
+                            onClick={() => {
+                                setVideoToBeAddedToPlaylist(videoId);
+                                toggleAddToPlaylistMenu(true);
+                            }}
                         >
                             <AddToPlayListIcon
                                 color={"var(--icon-color)"}

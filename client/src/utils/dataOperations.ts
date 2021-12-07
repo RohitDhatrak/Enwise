@@ -4,13 +4,20 @@ import {
     Liked,
     History,
     Playlist,
+    InputEvent,
 } from "../types/types";
-import { addToWatchLater, addLikedVideo } from "../services/postUserData";
+import {
+    addToWatchLater,
+    addLikedVideo,
+    addPlaylist,
+    addToPlaylist,
+} from "../services/postUserData";
 import {
     deleteLikedVideo,
     deleteHistory,
     deleteWatchLater,
     deletePlaylist,
+    deleteFromPlaylist,
 } from "../services/deleteUserData";
 
 export async function addVideoToWatchLater(
@@ -43,6 +50,53 @@ export async function addVideoToLiked(
             type: "SAVE_LIKES",
             payload: { likes: [...likes, likedObject] },
         });
+    }
+}
+
+export async function createPlaylist(
+    e: ButtonEvent,
+    userId: number,
+    title: string,
+    playlists: Playlist[],
+    dispatch: Function
+) {
+    const playlistObject = await addPlaylist(userId, title);
+    if (playlistObject.id) {
+        dispatch({
+            type: "SAVE_PLAYLISTS",
+            payload: { playlists: [...playlists, playlistObject] },
+        });
+    }
+}
+
+export async function addOrRemoveFromPlaylist(
+    e: InputEvent,
+    userId: number,
+    videoId: string,
+    playlistId: number,
+    playlists: Playlist[],
+    dispatch: Function
+) {
+    if (e.target.checked) {
+        const playlistsArray = await addToPlaylist(userId, videoId, playlistId);
+        if (playlistsArray.length === playlists.length) {
+            dispatch({
+                type: "SAVE_PLAYLISTS",
+                payload: { playlists: playlistsArray },
+            });
+        }
+    } else {
+        const playlistsArray = await deleteFromPlaylist(
+            userId,
+            videoId,
+            playlistId
+        );
+        if (playlistsArray.length === playlists.length) {
+            dispatch({
+                type: "SAVE_PLAYLISTS",
+                payload: { playlists: playlistsArray },
+            });
+        }
     }
 }
 

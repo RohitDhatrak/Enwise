@@ -29,7 +29,7 @@ router
                     );
                 }
             }
-            res.status(200).json({ playlist: playlistVideos });
+            res.status(200).json(playlistVideos);
         } catch (err) {
             res.status(500).json({
                 message: "Couldn't get the videos from the playlist",
@@ -39,8 +39,12 @@ router
     .post(async (req, res) => {
         try {
             const { playlistId } = req.params;
-            const { videoId } = req.body;
-            const video = await PlaylistVideo.create({ playlistId, videoId });
+            const { videoId, userId } = req.body;
+            await PlaylistVideo.create({
+                playlistId,
+                videoId,
+                userId,
+            });
             const playlist = await Playlist.findOne({
                 where: { id: playlistId },
             });
@@ -55,7 +59,8 @@ router
                     { where: { id: playlistId } }
                 );
             }
-            res.status(200).json({ video });
+            const playlists = await Playlist.findAll({ where: { userId } });
+            res.status(200).json(playlists);
         } catch (err) {
             res.status(500).json({
                 message: "Couldn't add video to the playlist",
@@ -65,8 +70,8 @@ router
     .delete(async (req, res) => {
         try {
             const { playlistId } = req.params;
-            const { videoId } = req.body;
-            const isDeleted = await PlaylistVideo.destroy({
+            const { videoId, userId } = req.body;
+            await PlaylistVideo.destroy({
                 where: {
                     playlistId,
                     videoId,
@@ -86,12 +91,27 @@ router
                     { where: { id: playlistId } }
                 );
             }
-            res.status(200).json({ isDeleted: !!isDeleted });
+            const playlists = await Playlist.findAll({ where: { userId } });
+            res.status(200).json(playlists);
         } catch (err) {
             res.status(500).json({
                 message: "Couldn't delete video from the playlist",
             });
         }
     });
+
+router.route("/:userId/:videoId").get(async (req, res) => {
+    try {
+        const { userId, videoId } = req.params;
+        const playlistVideos = await PlaylistVideo.findAll({
+            where: { userId, videoId },
+        });
+        res.status(200).json(playlistVideos);
+    } catch (err) {
+        res.status(500).json({
+            message: "Couldn't get the videos from the playlist",
+        });
+    }
+});
 
 module.exports = router;

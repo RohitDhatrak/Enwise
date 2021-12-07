@@ -34,6 +34,34 @@ export async function deletePlaylist(
     }
 }
 
+export async function deleteFromPlaylist(
+    userId: number,
+    videoId: string,
+    playlistId: number
+): Promise<Playlist[]> {
+    try {
+        const { data: playlist } = await axios.delete<Playlist[]>(
+            `${process.env.REACT_APP_API_ENDPOINT}/playlistVideos/${playlistId}`,
+            {
+                data: {
+                    userId,
+                    videoId,
+                },
+            }
+        );
+        return playlist;
+    } catch (error) {
+        if (axios.isAxiosError(error)) {
+            const serverError = error as AxiosError<ServerError>;
+            if (serverError.response && serverError.response?.data) {
+                console.log(serverError.response.data.message);
+            }
+        }
+        console.log({ error });
+        return [] as Playlist[];
+    }
+}
+
 export async function deleteLikedVideo(
     userId: number,
     videoId: string

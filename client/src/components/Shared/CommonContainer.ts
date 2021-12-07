@@ -16,6 +16,7 @@ export type ContainerCommonProps = {
     w?: string;
     minW?: string;
     maxW?: string;
+    maxH?: string;
 
     /* padding */
     p?: string;
@@ -49,6 +50,7 @@ export type ContainerCommonProps = {
     opacity?: number;
     zIndex?: number | string;
     hover?: string;
+    overflow?: "auto";
 };
 
 export const CommonContainer = styled.div<ContainerCommonProps>`
@@ -86,6 +88,11 @@ export const CommonContainer = styled.div<ContainerCommonProps>`
         props.minH &&
         css`
             min-height: ${() => props.minH};
+        `}
+    ${(props) =>
+        props.maxH &&
+        css`
+            max-height: ${() => props.maxH};
         `}
 
     /* width */
@@ -223,6 +230,11 @@ export const CommonContainer = styled.div<ContainerCommonProps>`
         props.zIndex &&
         css`
             z-index: ${() => props.zIndex};
+        `}
+    ${(props) =>
+        props.overflow &&
+        css`
+            overflow: ${() => props.overflow};
         `}
     &:hover {
         ${(props) => props.hover}

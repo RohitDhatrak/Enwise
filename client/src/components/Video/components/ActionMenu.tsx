@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React from "react";
 import { useLocation } from "react-router-dom";
 import { Container, FlexContainer } from "../../Shared";
 import { ActionMenuProps } from "./ActionMenuProps.types";
@@ -25,7 +25,14 @@ import {
 } from "../../../utils/dataOperations";
 
 export function ActionMenu({ video }: ActionMenuProps) {
-    const { displayActionMenu, setDisplayActionMenu } = useAppContext();
+    const {
+        displayActionMenu,
+        setDisplayActionMenu,
+        toggleAddToPlaylistMenu,
+        setVideoToBeAddedToPlaylist,
+        setActionMenuId,
+        actionMenuId,
+    } = useAppContext();
     const { likes, history, watchLater, user, dispatch, playlists } =
         useReducerContext();
     const { pathname } = useLocation();
@@ -45,7 +52,8 @@ export function ActionMenu({ video }: ActionMenuProps) {
     function toggleActionMenu(e: ButtonEvent) {
         e.stopPropagation();
         if (displayActionMenu === false) {
-            setDisplayActionMenu(video.id);
+            setDisplayActionMenu(true);
+            setActionMenuId(video.id);
         } else {
             setDisplayActionMenu(false);
         }
@@ -58,7 +66,7 @@ export function ActionMenu({ video }: ActionMenuProps) {
                 className="scale-15"
                 onClick={toggleActionMenu}
             />
-            {displayActionMenu === video.id && (
+            {actionMenuId === video.id && displayActionMenu && (
                 <FlexContainer
                     position="absolute"
                     right="0em"
@@ -101,6 +109,12 @@ export function ActionMenu({ video }: ActionMenuProps) {
                             p="0.5em 1em"
                             br="0.4em"
                             align="center"
+                            onClick={(e) => {
+                                e.stopPropagation();
+                                setDisplayActionMenu(false);
+                                toggleAddToPlaylistMenu(true);
+                                setVideoToBeAddedToPlaylist(videoId);
+                            }}
                         >
                             <AddToPlayListIcon
                                 color={"var(--icon-color)"}

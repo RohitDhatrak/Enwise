@@ -5,6 +5,7 @@ import {
     Playlist,
     History,
     WatchLater,
+    PlaylistVideo,
 } from "../types/types";
 
 export async function getPlaylists(userId: number): Promise<Playlist[]> {
@@ -67,6 +68,27 @@ export async function getWatchLater(userId: number): Promise<WatchLater[]> {
             `${process.env.REACT_APP_API_ENDPOINT}/watchlater/${userId}`
         );
         return watchLater;
+    } catch (error) {
+        if (axios.isAxiosError(error)) {
+            const serverError = error as AxiosError<ServerError>;
+            if (serverError.response && serverError.response?.data) {
+                console.log(serverError.response.data.message);
+            }
+        }
+        console.log({ error });
+        return [];
+    }
+}
+
+export async function getPlaylistsByVideo(
+    videoId: string,
+    userId: number
+): Promise<PlaylistVideo[]> {
+    try {
+        const { data: playlists } = await axios.get<PlaylistVideo[]>(
+            `${process.env.REACT_APP_API_ENDPOINT}/playlistVideos/${userId}/${videoId}`
+        );
+        return playlists;
     } catch (error) {
         if (axios.isAxiosError(error)) {
             const serverError = error as AxiosError<ServerError>;

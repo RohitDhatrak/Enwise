@@ -13,7 +13,12 @@ import {
     Page404,
     VideoPlayer,
 } from "./pages";
-import { BottomNav, Header, PrivateRoute } from "./components";
+import {
+    BottomNav,
+    Header,
+    PrivateRoute,
+    AddToPlayListModal,
+} from "./components";
 import { getUserFromLocalStorage } from "./utils/localStorageOperations";
 import { useReducerContext } from "./context/ReducerContext";
 import {
@@ -26,7 +31,7 @@ import { useAppContext } from "./context/AppContext";
 function App() {
     const navigate = useNavigate();
     const { dispatch } = useReducerContext();
-    const { setDisplayActionMenu } = useAppContext();
+    const { setDisplayActionMenu, showAddToPlaylistMenu } = useAppContext();
 
     const user = JSON.parse(getUserFromLocalStorage());
     useEffect(() => {
@@ -37,6 +42,7 @@ function App() {
 
     return (
         <div onClick={() => setDisplayActionMenu(false)}>
+            {showAddToPlaylistMenu && <AddToPlayListModal />}
             <Header />
             <Routes>
                 <Route path="/" element={<Home />} />

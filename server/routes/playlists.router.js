@@ -26,7 +26,7 @@ router
                 title,
                 videoCount: 0,
             });
-            res.status(200).json({ playlist });
+            res.status(200).json(playlist);
         } catch (err) {
             res.status(500).json({
                 message: "Couldn't create the playlist",
@@ -36,14 +36,17 @@ router
     .delete(async (req, res) => {
         try {
             const { userId, playlistId } = req.body;
-            const isDeleted = await Playlist.destroy({
+            const playlist = await Playlist.findOne({
+                where: { id: playlistId, userId },
+            });
+            await Playlist.destroy({
                 where: {
                     id: playlistId,
                     userId,
                 },
             });
             PlaylistVideo.destroy({ where: { playlistId: null } });
-            res.status(200).json({ isDeleted: !!isDeleted });
+            res.status(200).json(playlist);
         } catch (err) {
             res.status(500).json({
                 message: "Couldn't delete the playlist",
