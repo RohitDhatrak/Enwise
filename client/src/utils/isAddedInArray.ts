@@ -1,4 +1,4 @@
-import { History, Liked, WatchLater, Video, Playlist } from "../types/types";
+import { History, Liked, WatchLater } from "../types/types";
 
 export function isLiked(videoId: string, likes: Liked[]) {
     return !!likes.find((likedVideo) => videoId === likedVideo.videoId);

@@ -1,10 +1,15 @@
-import React from "react";
-import { useParams } from "react-router-dom";
+import React, { useState } from "react";
+import { useParams, useLocation } from "react-router-dom";
 import { FlexContainer, Container } from "../../components/Shared";
 import { SidePannel, SidePannelMinimal } from "../../components";
 import { VideoPlayerContainer } from "./style.videoPlayer";
 import { useReducerContext } from "../../context/ReducerContext";
-import { AddToPlayListIcon, LikeIcon, WatchLaterIcon } from "../../assets/svg";
+import {
+    AddToPlayListIcon,
+    LikeIcon,
+    WatchLaterIcon,
+    ShareIcon,
+} from "../../assets/svg";
 import { isLiked, isAddedToWatchLater } from "../../utils/isAddedInArray";
 import {
     deleteVideoFromLiked,
@@ -17,9 +22,12 @@ import { useAppContext } from "../../context/AppContext";
 
 export function VideoPlayer() {
     const { videoId } = useParams();
+    const { pathname } = useLocation();
+
     const { videos, user, dispatch, likes, watchLater } = useReducerContext();
     const { toggleAddToPlaylistMenu, setVideoToBeAddedToPlaylist } =
         useAppContext();
+    const [isLinkCopied, setIsLinkCopied] = useState(false);
 
     const video = videos.find((v) => v.id === videoId);
 
@@ -152,6 +160,39 @@ export function VideoPlayer() {
                                 className="scale-15"
                             />
                             <Container ml="0.5em">Save</Container>
+                        </FlexContainer>
+                        <FlexContainer
+                            align="center"
+                            p="0.5em 1em"
+                            bgc="var(--menu-hover-color)"
+                            br="1em"
+                            mr="1em"
+                            mb="0.5em"
+                            cursor="pointer"
+                            color={
+                                isLinkCopied
+                                    ? "var(--secondary-color)"
+                                    : "var(--icon-color)"
+                            }
+                            onClick={() => {
+                                navigator.clipboard.writeText(
+                                    `https://enwise.netlify.app${pathname}`
+                                );
+                                setIsLinkCopied(true);
+                                setTimeout(() => {
+                                    setIsLinkCopied(false);
+                                }, 400);
+                            }}
+                        >
+                            <ShareIcon
+                                color={
+                                    isLinkCopied
+                                        ? "var(--secondary-color)"
+                                        : "var(--icon-color)"
+                                }
+                                className="scale-15"
+                            />
+                            <Container ml="0.5em">Share</Container>
                         </FlexContainer>
                     </FlexContainer>
                 </FlexContainer>

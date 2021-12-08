@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useEffect } from "react";
 import { Routes, Route, useNavigate, useLocation } from "react-router-dom";
 import {
     Home,
@@ -41,8 +41,6 @@ function App() {
         setupAuthExceptionHandler(dispatch, navigate);
         loadInitialData(user, dispatch);
     }, []);
-
-    console.log(pathname);
 
     return (
         <div onClick={() => setDisplayActionMenu(false)}>

@@ -1,7 +1,6 @@
 import React from "react";
-import { Route, Navigate } from "react-router-dom";
+import { Navigate } from "react-router-dom";
 import { useReducerContext } from "../../context/ReducerContext";
-import { Children } from "../../types/types";
 
 export function PrivateRoute({
     children,

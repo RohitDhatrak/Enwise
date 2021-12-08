@@ -1,4 +1,3 @@
-import { videos } from "../data/data";
 import { ReducerInitialStateTypes, User, Action } from "../types/types";
 
 export function reducer(

@@ -15,4 +15,5 @@ export type VideoGridProps = {
         | WatchLater[]
         | Liked[]
         | PlaylistVideo[];
+    playlistId?: string;
 };

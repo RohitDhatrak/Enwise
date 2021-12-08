@@ -26,7 +26,7 @@ export function PlaylistPage() {
         <FlexContainer>
             <SidePannel />
             <SidePannelMinimal />
-            <VideoGrid videos={playlistVideos} />
+            <VideoGrid videos={playlistVideos} playlistId={playlistId} />
         </FlexContainer>
     );
 }

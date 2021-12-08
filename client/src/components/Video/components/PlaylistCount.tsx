@@ -1,5 +1,5 @@
 import React from "react";
-import { FlexContainer, Container } from "../../Shared";
+import { FlexContainer } from "../../Shared";
 import { PlaylistNumIcon } from "../../../assets/svg";
 import { PlaylistCountProps } from "./PlaylistCountProps.types";
 

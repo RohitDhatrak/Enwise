@@ -1,6 +1,15 @@
 import styled from "styled-components";
 import { media } from "../Shared/mediaQueries";
-import { GridContainer } from "../Shared";
+import { GridContainer, Container } from "../Shared";
+
+export const PageContainer = styled(Container)`
+    ${media.custom(800)} {
+        margin-left: 5em;
+    }
+    ${media.desktop} {
+        margin-left: 15em;
+    }
+`;
 
 export const VideoGridContainer = styled(GridContainer)`
     margin-bottom: 2em;
@@ -11,14 +20,12 @@ export const VideoGridContainer = styled(GridContainer)`
     }
     ${media.custom(800)} {
         margin-bottom: 0em;
-        margin-left: 5em;
         grid-template-columns: repeat(2, 40vw);
     }
     ${media.largeTablet} {
         grid-template-columns: repeat(3, 28vw);
     }
     ${media.desktop} {
-        margin-left: 15em;
         grid-template-columns: repeat(3, 25vw);
     }
 `;
