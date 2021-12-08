@@ -100,3 +100,23 @@ export async function getPlaylistsByVideo(
         return [];
     }
 }
+
+export async function getPlaylistVideos(
+    playlistId: string
+): Promise<PlaylistVideo[]> {
+    try {
+        const { data: playlists } = await axios.get<PlaylistVideo[]>(
+            `${process.env.REACT_APP_API_ENDPOINT}/playlistVideos/${playlistId}`
+        );
+        return playlists;
+    } catch (error) {
+        if (axios.isAxiosError(error)) {
+            const serverError = error as AxiosError<ServerError>;
+            if (serverError.response && serverError.response?.data) {
+                console.log(serverError.response.data.message);
+            }
+        }
+        console.log({ error });
+        return [];
+    }
+}

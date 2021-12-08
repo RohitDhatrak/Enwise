@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { Routes, Route, useNavigate } from "react-router-dom";
+import { Routes, Route, useNavigate, useLocation } from "react-router-dom";
 import {
     Home,
     Playlists,
@@ -12,6 +12,7 @@ import {
     Signup,
     Page404,
     VideoPlayer,
+    PlaylistPage,
 } from "./pages";
 import {
     BottomNav,
@@ -30,6 +31,7 @@ import { useAppContext } from "./context/AppContext";
 
 function App() {
     const navigate = useNavigate();
+    const { pathname } = useLocation();
     const { dispatch } = useReducerContext();
     const { setDisplayActionMenu, showAddToPlaylistMenu } = useAppContext();
 
@@ -39,6 +41,8 @@ function App() {
         setupAuthExceptionHandler(dispatch, navigate);
         loadInitialData(user, dispatch);
     }, []);
+
+    console.log(pathname);
 
     return (
         <div onClick={() => setDisplayActionMenu(false)}>
@@ -60,6 +64,14 @@ function App() {
                     element={
                         <PrivateRoute path="/playlists">
                             <Playlists />
+                        </PrivateRoute>
+                    }
+                />
+                <Route
+                    path="/playlist/:playlistId"
+                    element={
+                        <PrivateRoute path={`${pathname}`}>
+                            <PlaylistPage />
                         </PrivateRoute>
                     }
                 />

@@ -22,6 +22,7 @@ import {
     deleteVideoFromHistory,
     deleteUserPlaylist,
     deleteVideoFromWatchLater,
+    removeVideoFromPlaylist,
 } from "../../../utils/dataOperations";
 
 export function ActionMenu({ video }: ActionMenuProps) {
@@ -47,6 +48,8 @@ export function ActionMenu({ video }: ActionMenuProps) {
     let playlistId = 0;
     if ("thumbnailId" in video) {
         playlistId = video.id;
+    } else if ("playlistId" in video) {
+        playlistId = video.playlistId;
     }
 
     function toggleActionMenu(e: ButtonEvent) {
@@ -121,6 +124,34 @@ export function ActionMenu({ video }: ActionMenuProps) {
                                 className="scale-15"
                             />
                             <Container ml="1em">Add to Playlist</Container>
+                        </FlexContainer>
+                    )}
+
+                    {pathname.includes("/playlist/") && (
+                        <FlexContainer
+                            hover="background-color: var(--menu-hover-color)"
+                            p="0.5em 1em"
+                            br="0.4em"
+                            align="center"
+                            onClick={(e: ButtonEvent) => {
+                                e.stopPropagation();
+                                removeVideoFromPlaylist(
+                                    e,
+                                    user.id,
+                                    videoId,
+                                    playlistId,
+                                    playlists,
+                                    dispatch
+                                );
+                            }}
+                        >
+                            <DeleteIcon
+                                color="var(--error-color)"
+                                className="scale-15"
+                            />
+                            <Container ml="1em" color="var(--error-color)">
+                                Remove from Playlist
+                            </Container>
                         </FlexContainer>
                     )}
 

@@ -49,7 +49,7 @@ export type PlaylistVideo = {
     updatedAt: string;
     playlistId: number;
     videoId: string;
-    video: Array<Video>;
+    video: Video;
 };
 
 export type ReducerInitialStateTypes = {

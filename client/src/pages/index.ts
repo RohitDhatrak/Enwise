@@ -9,3 +9,4 @@ export { Login } from "./Login/Login";
 export { Signup } from "./Signup/Signup";
 export { Page404 } from "./404/Page404";
 export { VideoPlayer } from "./VideoPlayer/VideoPlayer";
+export { PlaylistPage } from "./PlaylistPage/PlaylistPage";

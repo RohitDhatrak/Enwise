@@ -100,6 +100,27 @@ export async function addOrRemoveFromPlaylist(
     }
 }
 
+export async function removeVideoFromPlaylist(
+    e: ButtonEvent,
+    userId: number,
+    videoId: string,
+    playlistId: number,
+    playlists: Playlist[],
+    dispatch: Function
+) {
+    const playlistsArray = await deleteFromPlaylist(
+        userId,
+        videoId,
+        playlistId
+    );
+    if (playlistsArray.length === playlists.length) {
+        dispatch({
+            type: "SAVE_PLAYLISTS",
+            payload: { playlists: playlistsArray },
+        });
+    }
+}
+
 export async function deleteVideoFromHistory(
     e: ButtonEvent,
     userId: number,

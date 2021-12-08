@@ -14,9 +14,11 @@ export function Video({ video }: VideoProps) {
     const { pathname } = useLocation();
     const navigate = useNavigate();
 
+    let playlistId: number;
     let imageId = "";
     if ("thumbnailId" in video && video.thumbnailId !== null) {
         imageId = video.thumbnailId;
+        playlistId = video.id;
     } else if ("videoId" in video) {
         imageId = video.videoId;
     }
@@ -41,6 +43,8 @@ export function Video({ video }: VideoProps) {
     function openVideo() {
         if (pathname !== "/playlists") {
             navigate(`/${videoId}`);
+        } else {
+            navigate(`/playlist/${playlistId}`);
         }
         addToHistory();
     }

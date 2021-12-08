@@ -1,5 +1,12 @@
-import { Video, Playlist, History, WatchLater, Liked } from "../../types/types";
+import {
+    Video,
+    Playlist,
+    History,
+    WatchLater,
+    Liked,
+    PlaylistVideo,
+} from "../../types/types";
 
 export type VideoProps = {
-    video: Video | Playlist | History | WatchLater | Liked;
+    video: Video | Playlist | History | WatchLater | Liked | PlaylistVideo;
 };
