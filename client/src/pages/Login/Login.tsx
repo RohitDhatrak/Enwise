@@ -14,14 +14,13 @@ import {
 } from "../../services/getUserData";
 
 export function Login() {
-    const [email, setEmail] = useState<string>();
-    const [password, setPassword] = useState<string>();
-    const [error, setError] = useState<string>();
+    const [email, setEmail] = useState("");
+    const [password, setPassword] = useState("");
+    const [error, setError] = useState("");
     const { user, dispatch } = useReducerContext();
     const navigate = useNavigate();
-    const {
-        state: { previousPath },
-    } = useLocation();
+    const { state } = useLocation();
+    const previousPath = state?.previousPath || "/";
 
     useEffect(() => {
         if (user?.id) {

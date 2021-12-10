@@ -15,16 +15,19 @@ router.route("/password").post(async (req, res) => {
                 { where: { id: userId } }
             );
             res.status(200).json({
+                success: true,
                 message: "Password changed successfully",
             });
         } else {
-            res.status(401).json({
-                message: "Password does not match",
+            res.status(400).json({
+                success: false,
+                message: "Old password is incorrect",
             });
         }
     } catch (err) {
         res.status(500).json({
-            message: "Couldn't change the password",
+            success: false,
+            message: "Couldn't change the password please try again later",
         });
     }
 });
@@ -44,7 +47,8 @@ router.route("/privacy").post(async (req, res) => {
         });
     } catch (err) {
         res.status(500).json({
-            message: "Couldn't update the history settings",
+            message:
+                "Couldn't update the history settings please try again later",
         });
     }
 });

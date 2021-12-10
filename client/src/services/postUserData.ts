@@ -132,3 +132,34 @@ export async function addToWatchLater(
         return {} as WatchLater;
     }
 }
+
+export async function updatePassword(
+    oldPassword: string,
+    newPassword: string,
+    userId: number
+) {
+    try {
+        const { data } = await axios.post(
+            `${process.env.REACT_APP_API_ENDPOINT}/user/password`,
+            {
+                oldPassword,
+                newPassword,
+                userId,
+            }
+        );
+        return data;
+    } catch (error) {
+        if (axios.isAxiosError(error)) {
+            const serverError = error as AxiosError<ServerError>;
+            if (serverError.response && serverError.response?.data) {
+                console.log(serverError.response.data.message);
+                return serverError.response.data;
+            }
+        }
+        console.log({ error });
+        return {
+            success: false,
+            message: "Couldn't change the password please try again later",
+        };
+    }
+}

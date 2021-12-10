@@ -3,8 +3,9 @@ import { Input } from "../Shared";
 type InputProps = {
     label: string;
     type: string;
-    placeholder?: string;
     onChangeFunction: Function;
+    placeholder?: string;
+    value?: string;
 };
 
 export function InputBox({
@@ -12,6 +13,7 @@ export function InputBox({
     label,
     placeholder = label,
     onChangeFunction,
+    value,
 }: InputProps) {
     return (
         <>
@@ -19,12 +21,13 @@ export function InputBox({
             <Input
                 type={type}
                 id={label}
+                value={value}
                 placeholder={placeholder}
                 onChange={onChangeFunction}
                 bgc="transparent"
                 b="1px solid var(--border-color)"
                 h="2.8em"
-                mt="0.5em"
+                m="0.5em"
                 p="1em"
                 color="var(--font-color-2)"
                 fs="1rem"

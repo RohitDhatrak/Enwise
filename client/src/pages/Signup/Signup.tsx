@@ -6,18 +6,18 @@ import { setupAuthHeaderForServiceCalls } from "../../services/authHandlers";
 import { User, ButtonEvent, ServerError, InputEvent } from "../../types/types";
 import { FlexContainer, Container } from "../../components/Shared";
 import { InputBox, ActionButton } from "../../components";
+import { validatePassword } from "../../utils/validatePassword";
 
 export function Signup() {
-    const [email, setEmail] = useState<string>();
-    const [password, setPassword] = useState<string>();
-    const [retypedPassword, setRetypedPassword] = useState<string>();
-    const [error, setError] = useState<string>();
+    const [email, setEmail] = useState("");
+    const [password, setPassword] = useState("");
+    const [retypedPassword, setRetypedPassword] = useState("");
+    const [error, setError] = useState("");
 
     const { dispatch } = useReducerContext();
     const navigate = useNavigate();
-    const {
-        state: { previousPath },
-    } = useLocation();
+    const { state } = useLocation();
+    const previousPath = state?.previousPath || "/";
 
     function validateEmail(e: InputEvent) {
         const emailRegex = /\S+@\S+\.\S+/;
@@ -26,27 +26,6 @@ export function Signup() {
             setError("Enter a valid email address");
         } else {
             setError("");
-        }
-    }
-
-    function validatePassword(e: InputEvent, isRetyped: boolean) {
-        var regularExpression =
-            /^(?=.*[0-9])(?=.*[!@#$%^&*])[a-zA-Z0-9!@#$%^&*]{6,16}$/;
-        setError("");
-
-        if (isRetyped) {
-            setRetypedPassword(e.target.value);
-        } else {
-            setPassword(e.target.value);
-        }
-
-        if (password !== e.target.value) {
-            setError("Passwords do not match");
-        }
-        if (!regularExpression.test(e.target.value)) {
-            setError(
-                "The password should be 6-16 characters and should contain atleast 1 number & 1 special character"
-            );
         }
     }
 
@@ -111,7 +90,14 @@ export function Signup() {
                         type="password"
                         label="Password"
                         onChangeFunction={(e: InputEvent) =>
-                            validatePassword(e, false)
+                            validatePassword(
+                                e,
+                                false,
+                                setError,
+                                setRetypedPassword,
+                                setPassword,
+                                password
+                            )
                         }
                     />
                 </FlexContainer>
@@ -120,7 +106,14 @@ export function Signup() {
                         type="password"
                         label="Confirm Password"
                         onChangeFunction={(e: InputEvent) =>
-                            validatePassword(e, true)
+                            validatePassword(
+                                e,
+                                true,
+                                setError,
+                                setRetypedPassword,
+                                setPassword,
+                                password
+                            )
                         }
                     />
                 </FlexContainer>
