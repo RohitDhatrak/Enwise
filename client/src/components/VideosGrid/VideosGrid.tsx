@@ -10,11 +10,16 @@ export function VideoGrid({ videos, playlistId }: VideoGridProps) {
     const { pathname } = useLocation();
     const { playlists } = useReducerContext();
     let pageTitle = "";
+    let filledPlaylist = [];
     if (pathname === "/liked") pageTitle = "Liked";
     else if (pathname === "/history") pageTitle = "History";
     else if (pathname === "/watchlater") pageTitle = "Watch Later";
-    else if (pathname === "/playlists") pageTitle = "Playlists";
-    else {
+    else if (pathname === "/playlists") {
+        pageTitle = "Playlists";
+        filledPlaylist = playlists.filter(
+            (playlist) => playlist.videoCount > 0
+        );
+    } else {
         if (playlistId) {
             const playlist = playlists.find(
                 (playlist) => playlist.id === Number(playlistId)
@@ -43,8 +48,10 @@ export function VideoGrid({ videos, playlistId }: VideoGridProps) {
                     )}
                     {pathname === "/playlists" && (
                         <Container fs="0.9rem">
-                            {`${videos.length} ${
-                                videos.length === 1 ? "playlist" : "playlists"
+                            {`${filledPlaylist.length} ${
+                                filledPlaylist.length === 1
+                                    ? "playlist"
+                                    : "playlists"
                             }`}
                         </Container>
                     )}

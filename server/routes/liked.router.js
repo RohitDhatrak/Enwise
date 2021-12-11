@@ -23,7 +23,11 @@ router
     .post(async (req, res) => {
         try {
             const { userId, videoId } = req.body;
-            const liked = await Liked.create({ userId, videoId });
+            await Liked.create({ userId, videoId });
+            const liked = await Liked.findOne({
+                include: [Video],
+                where: { userId },
+            });
             res.status(200).json(liked);
         } catch (err) {
             res.status(500).json({

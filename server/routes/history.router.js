@@ -33,8 +33,12 @@ router
                 if (video) {
                     res.status(200).json(video);
                 } else {
-                    const history = await History.create({ userId, videoId });
-                    res.status(200).json(history);
+                    await History.create({ userId, videoId });
+                    const video = await History.findOne({
+                        include: [Video],
+                        where: { userId },
+                    });
+                    res.status(200).json(video);
                 }
             }
         } catch (err) {
