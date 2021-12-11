@@ -1,6 +1,6 @@
 import React from "react";
-import { Link } from "react-router-dom";
-import { SettingsIcon } from "../../assets/svg";
+import { Link, useNavigate } from "react-router-dom";
+import { SettingsIcon, SearchIcon } from "../../assets/svg";
 import { FlexContainer, Image } from "../Shared";
 import {
     HeaderContainer,
@@ -9,8 +9,22 @@ import {
     Logo,
 } from "./style.header";
 import logo from "../../assets/logo.png";
+import { useAppContext } from "../../context/AppContext";
+import { InputEvent } from "../../types/types";
 
 export function Header() {
+    const { searchQuery, setSearchQuery } = useAppContext();
+    const navigate = useNavigate();
+
+    function searchVideos() {
+        if (searchQuery.trim().length > 0) {
+            navigate({
+                pathname: "/",
+                search: `query=${searchQuery}`,
+            });
+        }
+    }
+
     return (
         <HeaderContainer
             as="header"
@@ -32,15 +46,38 @@ export function Header() {
                 </FlexContainer>
             </Link>
 
-            <SearchContainer
-                bgc="var(--search-field-color)"
-                b="1px solid var(--border-color)"
-                h="3em"
-                br="1em"
-                p="1em"
-                placeholder="Search for title or creator."
-                color="#fff"
-            />
+            <FlexContainer>
+                <SearchContainer
+                    bgc="var(--search-field-color)"
+                    b="1px solid var(--border-color)"
+                    h="3em"
+                    br="1em 0 0 1em"
+                    p="1em"
+                    placeholder="Search for title or creator."
+                    color="#fff"
+                    value={searchQuery}
+                    onChange={(e: InputEvent) => setSearchQuery(e.target.value)}
+                    onKeyPress={(e: KeyboardEvent) => {
+                        if (e.key === "Enter") searchVideos();
+                    }}
+                />
+                <FlexContainer
+                    as="button"
+                    bgc="transparent"
+                    b="1px solid var(--border-color)"
+                    w="4em"
+                    br="0 1em 1em 0"
+                    align="center"
+                    justify="center"
+                    cursor="pointer"
+                    onClick={searchVideos}
+                >
+                    <SearchIcon
+                        color={"var(--icon-color)"}
+                        className="scale-15"
+                    ></SearchIcon>
+                </FlexContainer>
+            </FlexContainer>
 
             <Link to="/settings">
                 <ProfileIconContainer mr="1em" br="50%" cursor="pointer">

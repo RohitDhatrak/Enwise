@@ -10,6 +10,8 @@ type AppContextTypes = {
     setVideoToBeAddedToPlaylist: Function;
     actionMenuId: string | number;
     setActionMenuId: Function;
+    searchQuery: string;
+    setSearchQuery: Function;
 };
 
 const AppContext = createContext<AppContextTypes>({} as AppContextTypes);
@@ -20,6 +22,7 @@ export function AppContextProvider({ children }: Children) {
     const [showAddToPlaylistMenu, toggleAddToPlaylistMenu] = useState(false);
     const [videoToBeAddedToPlaylist, setVideoToBeAddedToPlaylist] =
         useState("");
+    const [searchQuery, setSearchQuery] = useState("");
 
     const data: AppContextTypes = {
         displayActionMenu,
@@ -30,6 +33,8 @@ export function AppContextProvider({ children }: Children) {
         setVideoToBeAddedToPlaylist,
         actionMenuId,
         setActionMenuId,
+        searchQuery,
+        setSearchQuery,
     };
     return <AppContext.Provider value={data}>{children}</AppContext.Provider>;
 }

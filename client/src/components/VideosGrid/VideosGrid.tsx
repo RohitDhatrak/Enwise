@@ -8,6 +8,7 @@ import { useReducerContext } from "../../context/ReducerContext";
 
 export function VideoGrid({ videos, playlistId }: VideoGridProps) {
     const { pathname } = useLocation();
+
     const { playlists } = useReducerContext();
     let pageTitle = "";
     let filledPlaylist = [];
