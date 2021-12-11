@@ -46,7 +46,7 @@ export function Video({ video }: VideoProps) {
         } else {
             navigate(`/playlist/${playlistId}`);
         }
-        addToHistory();
+        if (user.saveHistory) addToHistory();
     }
 
     return (

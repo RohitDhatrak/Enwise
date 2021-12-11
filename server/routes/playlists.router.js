@@ -5,7 +5,6 @@ const PlaylistVideo = require("../models/playlistVideo.model");
 
 router.route("/:userId").get(async (req, res) => {
     try {
-        console.log("here");
         const { userId } = req.params;
         const playlists = await Playlist.findAll({ where: { userId } });
         res.status(200).json(playlists);

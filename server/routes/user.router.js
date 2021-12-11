@@ -3,6 +3,21 @@ const router = express.Router();
 const User = require("../models/user.model");
 const { encrypt, decrypt } = require("../utils/hashOperations");
 
+router.route("/:userId").get(async (req, res) => {
+    try {
+        const { userId } = req.params;
+        const user = await User.findOne({ where: { id: userId } });
+        res.status(200).json({
+            isAdmin: user.isAdmin,
+            saveHistory: user.saveHistory,
+        });
+    } catch (err) {
+        res.status(500).json({
+            message: "Couldn't get the user data",
+        });
+    }
+});
+
 router.route("/password").post(async (req, res) => {
     try {
         const { oldPassword, newPassword, userId } = req.body;
@@ -34,9 +49,9 @@ router.route("/password").post(async (req, res) => {
 
 router.route("/privacy").post(async (req, res) => {
     try {
-        const { history, userId } = req.body;
+        const { saveHistory, userId } = req.body;
         await User.update(
-            { saveHistory: !!history },
+            { saveHistory: !saveHistory },
             { where: { id: userId } }
         );
         const user = await User.findOne({ where: { id: userId } });

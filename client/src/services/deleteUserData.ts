@@ -116,6 +116,34 @@ export async function deleteHistory(
     }
 }
 
+export async function clearHistory(userId: number) {
+    try {
+        const { data: response } = await axios.delete(
+            `${process.env.REACT_APP_API_ENDPOINT}/history/clear`,
+            {
+                data: {
+                    userId,
+                },
+            }
+        );
+        return response;
+    } catch (error) {
+        if (axios.isAxiosError(error)) {
+            const serverError = error as AxiosError<ServerError>;
+            if (serverError.response && serverError.response?.data) {
+                console.log(serverError.response.data.message);
+                return serverError.response.data;
+            }
+        }
+        console.log({ error });
+        return {
+            sucess: false,
+            message:
+                "There was some problem while deleting your watch history please try again later",
+        };
+    }
+}
+
 export async function deleteWatchLater(
     userId: number,
     videoId: string

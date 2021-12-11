@@ -120,3 +120,21 @@ export async function getPlaylistVideos(
         return [];
     }
 }
+
+export async function getUserData(userId: number) {
+    try {
+        const { data: userData } = await axios.get(
+            `${process.env.REACT_APP_API_ENDPOINT}/user/${userId}`
+        );
+        return userData;
+    } catch (error) {
+        if (axios.isAxiosError(error)) {
+            const serverError = error as AxiosError<ServerError>;
+            if (serverError.response && serverError.response?.data) {
+                console.log(serverError.response.data.message);
+            }
+        }
+        console.log({ error });
+        return {};
+    }
+}

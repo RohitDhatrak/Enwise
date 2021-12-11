@@ -19,7 +19,6 @@ router
     .post(async (req, res) => {
         try {
             const { videoId, title, creator, category } = req.body;
-            console.log("here");
             const video = await Video.create({
                 id: videoId,
                 title,

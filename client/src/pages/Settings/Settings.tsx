@@ -1,19 +1,22 @@
-import React, { useEffect, useState } from "react";
+import { useState } from "react";
 import { Container, FlexContainer, Input } from "../../components/Shared";
 import { ActionButton, InputBox } from "../../components";
 import { InputEvent } from "../../types/types";
 import { validatePassword } from "../../utils/validatePassword";
 import { updatePassword } from "../../services/postUserData";
 import { useReducerContext } from "../../context/ReducerContext";
+import { toggleSaveHistory } from "../../utils/dataOperations";
+import { clearHistory } from "../../services/deleteUserData";
 
 export function Settings() {
     const [password, setPassword] = useState("");
     const [newPassword, setNewPassword] = useState("");
     const [confirmPassword, setConfirmPassword] = useState("");
     const [error, setError] = useState("");
-    const [isChecked, setIsChecked] = useState("");
     const [message, setMessage] = useState("");
-    const { user } = useReducerContext();
+    const [historyError, setHistoryError] = useState("");
+    const [historyMessage, setHistoryMessage] = useState("");
+    const { user, dispatch } = useReducerContext();
 
     async function verifyAndSetNewPassword() {
         const response = await updatePassword(password, newPassword, user.id);
@@ -27,14 +30,33 @@ export function Settings() {
         }
     }
 
-    useEffect(() => {
-        (async function () {
-            const;
-        })();
-    }, []);
+    async function deleteHistory() {
+        const isConfirmed = window.confirm(
+            "Are you sure you want to clear your watch history?"
+        );
+        if (isConfirmed) {
+            const response = await clearHistory(user.id);
+            if (response.success) {
+                setHistoryMessage(response.message);
+                dispatch({ type: "SAVE_HISTORY", payload: { history: [] } });
+            } else {
+                setHistoryError(response.message);
+            }
+            setTimeout(() => {
+                setHistoryError("");
+                setHistoryMessage("");
+            }, 6000);
+        }
+    }
 
     return (
-        <FlexContainer m="0 auto" direction="column" maxW="80vw" w="20em">
+        <FlexContainer
+            m="0 auto"
+            direction="column"
+            maxW="80vw"
+            w="20em"
+            mb="5em"
+        >
             <Container fs="1.2rem" m="1.5em 0">
                 Account
             </Container>
@@ -80,9 +102,13 @@ export function Settings() {
                         setConfirmPassword(e.target.value);
                     }}
                 />
-                <Container color="var(--success-color)">{message}</Container>
-                <Container color="var(--error-color)">{error}</Container>
-                {!error && (
+                <Container m="0 auto" textAlign="center">
+                    <Container color="var(--success-color)">
+                        {message}
+                    </Container>
+                    <Container color="var(--error-color)">{error}</Container>
+                </Container>
+                {!error && password && newPassword && confirmPassword && (
                     <ActionButton
                         onClickFunction={verifyAndSetNewPassword}
                         width="unset"
@@ -91,13 +117,14 @@ export function Settings() {
                     </ActionButton>
                 )}
             </FlexContainer>
+
             <Container fs="1.2rem" m="1.5em 0">
                 Privacy
             </Container>
-            <FlexContainer direction="column" ml="1em">
+            <FlexContainer direction="column" ml="1em" fs="1rem">
                 <FlexContainer justify="space-between" w="100%" fs="1.1rem">
                     <label htmlFor="history-checkbox">
-                        Don't track history
+                        Track watch history
                     </label>
                     <Input
                         id="history-checkbox"
@@ -105,8 +132,13 @@ export function Settings() {
                         mb="1em"
                         mt="0.5em"
                         float="right"
+                        checked={user.saveHistory}
+                        onChange={(e: InputEvent) =>
+                            toggleSaveHistory(e, user, dispatch)
+                        }
                     />
                 </FlexContainer>
+
                 <Container
                     as="button"
                     fs="1rem"
@@ -116,9 +148,20 @@ export function Settings() {
                     bgc="var(--error-color)"
                     cursor="pointer"
                     fw={600}
+                    onClick={deleteHistory}
                 >
                     Clear History
                 </Container>
+                {(historyMessage || historyError) && (
+                    <Container m="0.5em auto" textAlign="center">
+                        <Container color="var(--success-color)">
+                            {historyMessage}
+                        </Container>
+                        <Container color="var(--error-color)">
+                            {historyError}
+                        </Container>
+                    </Container>
+                )}
             </FlexContainer>
         </FlexContainer>
     );

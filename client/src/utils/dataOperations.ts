@@ -5,12 +5,14 @@ import {
     History,
     Playlist,
     InputEvent,
+    User,
 } from "../types/types";
 import {
     addToWatchLater,
     addLikedVideo,
     addPlaylist,
     addToPlaylist,
+    updateSaveHistory,
 } from "../services/postUserData";
 import {
     deleteLikedVideo,
@@ -98,6 +100,18 @@ export async function addOrRemoveFromPlaylist(
             });
         }
     }
+}
+
+export async function toggleSaveHistory(
+    e: InputEvent,
+    user: User,
+    dispatch: Function
+) {
+    const userData = await updateSaveHistory(user.id, user.saveHistory);
+    dispatch({
+        type: "SAVE_USER_SESSION",
+        payload: { user: { ...user, ...userData } },
+    });
 }
 
 export async function removeVideoFromPlaylist(
