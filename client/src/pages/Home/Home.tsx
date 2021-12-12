@@ -9,6 +9,7 @@ export function Home() {
     const { videos } = useReducerContext();
     const { pathname, search } = useLocation();
     let filteredVideos: Video[] = [];
+    videos.reverse();
 
     if (search && pathname === "/") {
         const query = search.split("=")[1];
@@ -19,6 +20,8 @@ export function Home() {
                 video.creator.toLowerCase().trim().includes(query)
         );
     }
+
+    async function getRecommendedCategories(dispatch: Function) {}
 
     return (
         <FlexContainer>

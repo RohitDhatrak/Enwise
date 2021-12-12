@@ -5,6 +5,7 @@ import { useReducerContext } from "../../context/ReducerContext";
 
 export function History() {
     const { history } = useReducerContext();
+    history.reverse();
     return (
         <FlexContainer>
             <SidePannel />

@@ -5,6 +5,7 @@ import { useReducerContext } from "../../context/ReducerContext";
 
 export function Playlists() {
     const { playlists } = useReducerContext();
+    playlists.reverse();
     return (
         <FlexContainer>
             <SidePannel />

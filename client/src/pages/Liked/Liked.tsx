@@ -5,6 +5,7 @@ import { useReducerContext } from "../../context/ReducerContext";
 
 export function Liked() {
     const { likes } = useReducerContext();
+    likes.reverse();
     return (
         <FlexContainer>
             <SidePannel />

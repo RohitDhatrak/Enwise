@@ -5,6 +5,7 @@ import { useReducerContext } from "../../context/ReducerContext";
 
 export function WatchLater() {
     const { watchLater } = useReducerContext();
+    watchLater.reverse();
     return (
         <FlexContainer>
             <SidePannel />
