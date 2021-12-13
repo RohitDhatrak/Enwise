@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import { useEffect } from "react";
 import { Routes, Route, useNavigate, useLocation } from "react-router-dom";
 import {
     Home,
@@ -19,6 +19,8 @@ import {
     Header,
     PrivateRoute,
     AddToPlayListModal,
+    SidePannel,
+    SidePannelMinimal,
 } from "./components";
 import { getUserFromLocalStorage } from "./utils/localStorageOperations";
 import { useReducerContext } from "./context/ReducerContext";
@@ -46,6 +48,8 @@ function App() {
         <div onClick={() => setDisplayActionMenu(false)}>
             {showAddToPlaylistMenu && <AddToPlayListModal />}
             <Header />
+            <SidePannel />
+            <SidePannelMinimal />
             <Routes>
                 <Route path="/" element={<Home />} />
                 <Route path="/:videoId" element={<VideoPlayer />} />

@@ -6,6 +6,7 @@ import {
     History,
     WatchLater,
     PlaylistVideo,
+    Category,
 } from "../types/types";
 
 export async function getPlaylists(userId: number): Promise<Playlist[]> {
@@ -136,5 +137,23 @@ export async function getUserData(userId: number) {
         }
         console.log({ error });
         return {};
+    }
+}
+
+export async function getCategories(): Promise<Category[]> {
+    try {
+        const { data: categories } = await axios.get<Category[]>(
+            `${process.env.REACT_APP_API_ENDPOINT}/categories`
+        );
+        return categories;
+    } catch (error) {
+        if (axios.isAxiosError(error)) {
+            const serverError = error as AxiosError<ServerError>;
+            if (serverError.response && serverError.response?.data) {
+                console.log(serverError.response.data.message);
+            }
+        }
+        console.log({ error });
+        return [];
     }
 }

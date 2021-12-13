@@ -1,7 +1,6 @@
-import React, { useState } from "react";
+import { useState } from "react";
 import { useParams, useLocation } from "react-router-dom";
 import { FlexContainer, Container } from "../../components/Shared";
-import { SidePannel, SidePannelMinimal } from "../../components";
 import { VideoPlayerContainer } from "./style.videoPlayer";
 import { useReducerContext } from "../../context/ReducerContext";
 import {
@@ -80,8 +79,6 @@ export function VideoPlayer() {
 
     return (
         <FlexContainer>
-            <SidePannel />
-            <SidePannelMinimal />
             <VideoPlayerContainer>
                 <iframe
                     width="100%"

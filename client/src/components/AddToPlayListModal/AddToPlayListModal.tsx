@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import { FlexContainer, Container, Input } from "../Shared";
 import { CloseIcon, AddIcon } from "../../assets/svg";
 import { useAppContext } from "../../context/AppContext";

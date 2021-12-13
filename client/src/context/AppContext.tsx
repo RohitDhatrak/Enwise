@@ -1,5 +1,5 @@
 import { useContext, createContext, useState } from "react";
-import { Children } from "../types/types";
+import { Children, Category } from "../types/types";
 
 type AppContextTypes = {
     displayActionMenu: boolean | number;
@@ -12,6 +12,8 @@ type AppContextTypes = {
     setActionMenuId: Function;
     searchQuery: string;
     setSearchQuery: Function;
+    categories: Category[];
+    setCategories: Function;
 };
 
 const AppContext = createContext<AppContextTypes>({} as AppContextTypes);
@@ -23,6 +25,7 @@ export function AppContextProvider({ children }: Children) {
     const [videoToBeAddedToPlaylist, setVideoToBeAddedToPlaylist] =
         useState("");
     const [searchQuery, setSearchQuery] = useState("");
+    const [categories, setCategories] = useState([]);
 
     const data: AppContextTypes = {
         displayActionMenu,
@@ -35,6 +38,8 @@ export function AppContextProvider({ children }: Children) {
         setActionMenuId,
         searchQuery,
         setSearchQuery,
+        categories,
+        setCategories,
     };
     return <AppContext.Provider value={data}>{children}</AppContext.Provider>;
 }

@@ -1,6 +1,6 @@
-import React, { useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
-import { VideoGrid, SidePannel, SidePannelMinimal } from "../../components";
+import { VideoGrid } from "../../components";
 import { FlexContainer } from "../../components/Shared";
 import { useReducerContext } from "../../context/ReducerContext";
 import { PlaylistVideo } from "../../types/types";
@@ -24,8 +24,6 @@ export function PlaylistPage() {
 
     return (
         <FlexContainer>
-            <SidePannel />
-            <SidePannelMinimal />
             <VideoGrid videos={playlistVideos} playlistId={playlistId} />
         </FlexContainer>
     );

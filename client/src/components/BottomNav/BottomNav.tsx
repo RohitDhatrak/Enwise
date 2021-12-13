@@ -1,4 +1,3 @@
-import React from "react";
 import { Link } from "react-router-dom";
 import { FlexContainer, Container } from "../Shared";
 import { HomeIcon, PlayListIcon, ProfileIcon } from "../../assets/svg";
