@@ -24,7 +24,7 @@ const {
 } = require("./server/middlewares/error-handler.middleware");
 
 const port = process.env.PORT || 4444;
-const whitelist = ["https://media-bookscape.netlify.app/"];
+const whitelist = ["https://enwise.netlify.app/"];
 const corsOptions = {
     origin: whitelist,
     optionsSuccessStatus: 200,
@@ -48,7 +48,9 @@ app.use("/video", video);
 app.use("/login", login);
 app.use("/signup", signup);
 app.use("/categories", categories);
-// app.use(auth);
+if (process.env.NODE_ENV !== "development") {
+    app.use(auth);
+}
 app.use("/history", history);
 app.use("/liked", liked);
 app.use("/watchlater", watchlater);
