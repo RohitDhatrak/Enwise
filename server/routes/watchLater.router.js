@@ -26,7 +26,7 @@ router
             await WatchLater.create({ userId, videoId });
             const watchLater = await WatchLater.findOne({
                 include: [Video],
-                where: { userId },
+                where: { userId, videoId },
             });
             res.status(200).json(watchLater);
         } catch (err) {
@@ -41,7 +41,7 @@ router
             const { userId, videoId } = req.body;
             const watchLater = await WatchLater.findOne({
                 include: [Video],
-                where: { userId },
+                where: { userId, videoId },
             });
             await WatchLater.destroy({
                 where: { videoId, userId },

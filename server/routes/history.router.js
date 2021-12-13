@@ -28,7 +28,7 @@ router
             if (user.saveHistory) {
                 const video = await History.findOne({
                     include: [Video],
-                    where: { userId },
+                    where: { userId, videoId },
                 });
                 if (video) {
                     res.status(200).json(video);
@@ -36,7 +36,7 @@ router
                     await History.create({ userId, videoId });
                     const video = await History.findOne({
                         include: [Video],
-                        where: { userId },
+                        where: { userId, videoId },
                     });
                     res.status(200).json(video);
                 }
@@ -52,7 +52,7 @@ router
             const { userId, videoId } = req.body;
             const history = await History.findOne({
                 include: [Video],
-                where: { userId },
+                where: { userId, videoId },
             });
             await History.destroy({
                 where: { videoId, userId },

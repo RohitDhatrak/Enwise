@@ -14,6 +14,7 @@ const playlists = require("./server/routes/playlists.router");
 const categories = require("./server/routes/category.router");
 const playlistVideos = require("./server/routes/playlistVideos.router");
 const { auth } = require("./server/middlewares/auth");
+const { seedData } = require("./server/db/seed.data");
 
 const {
     routeNotFound,
@@ -54,6 +55,8 @@ app.use("/watchlater", watchlater);
 app.use("/playlists", playlists);
 app.use("/playlistVideos", playlistVideos);
 app.use("/user", user);
+
+// seedData();
 
 /* Error handlers do not move should be at the end*/
 app.use(routeNotFound);

@@ -26,7 +26,7 @@ router
             await Liked.create({ userId, videoId });
             const liked = await Liked.findOne({
                 include: [Video],
-                where: { userId },
+                where: { userId, videoId },
             });
             res.status(200).json(liked);
         } catch (err) {
@@ -40,7 +40,7 @@ router
             const { userId, videoId } = req.body;
             const liked = await Liked.findOne({
                 include: [Video],
-                where: { userId },
+                where: { userId, videoId },
             });
             await Liked.destroy({
                 where: { videoId, userId },
