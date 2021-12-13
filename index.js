@@ -24,7 +24,7 @@ const {
 } = require("./server/middlewares/error-handler.middleware");
 
 const port = process.env.PORT || 4444;
-const whitelist = ["https://enwise.netlify.app/"];
+const whitelist = ["https://enwise.netlify.app"];
 const corsOptions = {
     origin: whitelist,
     optionsSuccessStatus: 200,
