@@ -33,7 +33,10 @@ const corsOptions = {
 
 const app = express();
 app.use(express.json());
-if (process.env.NODE_ENV === "development") {
+if (
+    process.env.NODE_ENV === "development" ||
+    process.env.NODE_ENV === "production-test"
+) {
     app.use(cors({ origin: true, credentials: true }));
 } else {
     app.use(cors(corsOptions));

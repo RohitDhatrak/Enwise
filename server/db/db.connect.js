@@ -16,6 +16,7 @@ if (process.env.NODE_ENV === "development") {
         dialectOptions: {
             ssl: {
                 require: true,
+                rejectUnauthorized: false,
             },
         },
     });
