@@ -14,7 +14,7 @@ export function BottomNav() {
             bgc="var(--bg-color)"
             color="var(--font-color-2)"
             p="0.3em 0em"
-            bt="1px solid #3c3d3d"
+            bt="1px solid var(--border-color)"
         >
             <Link to="/">
                 <FlexContainer

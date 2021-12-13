@@ -19,8 +19,15 @@ export function Home() {
 
         filteredVideos = videos.filter(
             (video) =>
-                video.title.toLowerCase().trim().includes(query) ||
-                video.creator.toLowerCase().trim().includes(query)
+                video.title
+                    .toLowerCase()
+                    .trim()
+                    .includes(query.toLocaleLowerCase()) ||
+                video.creator
+                    .toLowerCase()
+                    .trim()
+                    .includes(query.toLocaleLowerCase()) ||
+                video.category.includes(query)
         );
     }
 

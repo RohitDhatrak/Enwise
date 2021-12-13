@@ -29,8 +29,8 @@ export type WatchLater = History & {};
 export type Category = {
     id: number;
     name: string;
-    createdAt: string;
-    updatedAt: string;
+    createdAt?: string;
+    updatedAt?: string;
 };
 
 export type Playlist = {
