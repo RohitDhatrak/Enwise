@@ -1,4 +1,4 @@
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { Container, FlexContainer } from "../../components/Shared";
 import {
     SettingsIcon,
@@ -7,8 +7,17 @@ import {
     WatchLaterIcon,
     LogOutIcon,
 } from "../../assets/svg";
+import { useReducerContext } from "../../context/ReducerContext";
 
 export function Profile() {
+    const navigate = useNavigate();
+    const { dispatch } = useReducerContext();
+
+    function logOut() {
+        dispatch({ type: "DELETE_USER_SESSION" });
+        navigate("/login");
+    }
+
     return (
         <FlexContainer direction="column" pt="0.5em">
             <Link to="/liked">
@@ -49,7 +58,7 @@ export function Profile() {
                     <Container pl="1em">Settings</Container>
                 </FlexContainer>
             </Link>
-            <FlexContainer p="1em 2em">
+            <FlexContainer p="1em 2em" onClick={logOut}>
                 <LogOutIcon color={"#DC2626"} className="scale-15" />
                 <Container pl="1em" color="#DC2626">
                     Logout

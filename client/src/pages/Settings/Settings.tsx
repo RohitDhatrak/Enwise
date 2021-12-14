@@ -1,4 +1,5 @@
 import { useState } from "react";
+import { useNavigate } from "react-router-dom";
 import { Container, FlexContainer, Input } from "../../components/Shared";
 import { ActionButton, InputBox } from "../../components";
 import { InputEvent } from "../../types/types";
@@ -9,6 +10,7 @@ import { toggleSaveHistory } from "../../utils/dataOperations";
 import { clearHistory } from "../../services/deleteUserData";
 
 export function Settings() {
+    const navigate = useNavigate();
     const [password, setPassword] = useState("");
     const [newPassword, setNewPassword] = useState("");
     const [confirmPassword, setConfirmPassword] = useState("");
@@ -47,6 +49,11 @@ export function Settings() {
                 setHistoryMessage("");
             }, 6000);
         }
+    }
+
+    function logOut() {
+        dispatch({ type: "DELETE_USER_SESSION" });
+        navigate("/login");
     }
 
     return (
@@ -162,6 +169,24 @@ export function Settings() {
                         </Container>
                     </Container>
                 )}
+            </FlexContainer>
+            <Container fs="1.2rem" m="1.5em 0">
+                Logout
+            </Container>
+            <FlexContainer direction="column" ml="1em" fs="1rem">
+                <Container
+                    as="button"
+                    fs="1rem"
+                    h="2.5em"
+                    br="0.4em"
+                    b="none"
+                    bgc="var(--error-color)"
+                    cursor="pointer"
+                    fw={600}
+                    onClick={logOut}
+                >
+                    Logout
+                </Container>
             </FlexContainer>
         </FlexContainer>
     );

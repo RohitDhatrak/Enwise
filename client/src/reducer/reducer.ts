@@ -6,6 +6,10 @@ export function reducer(
 ): ReducerInitialStateTypes {
     switch (action.type) {
         case "DELETE_USER_SESSION":
+            localStorage.setItem(
+                "user",
+                JSON.stringify({ id: null, jwt: null })
+            );
             return {
                 ...state,
                 user: {} as User,
