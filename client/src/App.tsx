@@ -1,5 +1,7 @@
 import { useEffect } from "react";
+import { ToastContainer } from "react-toastify";
 import { Routes, Route, useNavigate, useLocation } from "react-router-dom";
+import "react-toastify/dist/ReactToastify.css";
 import {
     Home,
     Playlists,
@@ -114,6 +116,18 @@ function App() {
                 <Route path="*" element={<Page404 />} />
             </Routes>
             <BottomNav />
+            <ToastContainer
+                position="bottom-right"
+                autoClose={5000}
+                hideProgressBar={false}
+                newestOnTop={false}
+                closeOnClick
+                rtl={false}
+                pauseOnFocusLoss
+                draggable
+                pauseOnHover
+                theme="dark"
+            />
         </div>
     );
 }

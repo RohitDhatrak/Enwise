@@ -1,5 +1,6 @@
 import { useState } from "react";
 import { useParams, useLocation } from "react-router-dom";
+import { toast } from "react-toastify";
 import { FlexContainer, Container } from "../../components/Shared";
 import { VideoPlayerContainer } from "./style.videoPlayer";
 import { useReducerContext } from "../../context/ReducerContext";
@@ -175,6 +176,15 @@ export function VideoPlayer() {
                                 navigator.clipboard.writeText(
                                     `https://enwise.netlify.app${pathname}`
                                 );
+                                toast("Link Copied", {
+                                    position: "bottom-right",
+                                    autoClose: 2000,
+                                    hideProgressBar: true,
+                                    closeOnClick: true,
+                                    pauseOnHover: false,
+                                    draggable: true,
+                                    progress: undefined,
+                                });
                                 setIsLinkCopied(true);
                                 setTimeout(() => {
                                     setIsLinkCopied(false);
@@ -189,7 +199,7 @@ export function VideoPlayer() {
                                 }
                                 className="scale-15"
                             />
-                            <Container ml="0.5em">Share</Container>
+                            <Container ml="0.5em">Copy Link</Container>
                         </FlexContainer>
                     </FlexContainer>
                 </FlexContainer>
