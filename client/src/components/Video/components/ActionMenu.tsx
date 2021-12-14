@@ -1,4 +1,4 @@
-import { useLocation } from "react-router-dom";
+import { useLocation, useNavigate } from "react-router-dom";
 import { Container, FlexContainer } from "../../Shared";
 import { ActionMenuProps } from "./ActionMenuProps.types";
 import { useAppContext } from "../../../context/AppContext";
@@ -36,6 +36,7 @@ export function ActionMenu({ video }: ActionMenuProps) {
     const { likes, history, watchLater, user, dispatch, playlists } =
         useReducerContext();
     const { pathname } = useLocation();
+    const navigate = useNavigate();
 
     let videoId = "";
     if ("videoId" in video) {
@@ -113,6 +114,7 @@ export function ActionMenu({ video }: ActionMenuProps) {
                             align="center"
                             onClick={(e) => {
                                 e.stopPropagation();
+                                if (!user?.id) return navigate("/login");
                                 setDisplayActionMenu(false);
                                 toggleAddToPlaylistMenu(true);
                                 setVideoToBeAddedToPlaylist(videoId);
