@@ -86,15 +86,17 @@ export function ActionMenu({ video }: ActionMenuProps) {
                                 p="0.5em 1em"
                                 br="0.4em"
                                 align="center"
-                                onClick={(e) =>
+                                onClick={(e) => {
+                                    e.stopPropagation();
+                                    if (!user?.id) return navigate("/login");
                                     addVideoToWatchLater(
                                         e,
                                         user.id,
                                         videoId,
                                         watchLater,
                                         dispatch
-                                    )
-                                }
+                                    );
+                                }}
                             >
                                 <WatchLaterIcon
                                     color={"var(--icon-color)"}

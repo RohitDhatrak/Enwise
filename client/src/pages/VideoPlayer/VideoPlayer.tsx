@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { useParams, useLocation } from "react-router-dom";
+import { useParams, useLocation, useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
 import { FlexContainer, Container } from "../../components/Shared";
 import { VideoPlayerContainer } from "./style.videoPlayer";
@@ -23,6 +23,7 @@ import { useAppContext } from "../../context/AppContext";
 export function VideoPlayer() {
     const { videoId } = useParams();
     const { pathname } = useLocation();
+    const navigate = useNavigate();
 
     const { videos, user, dispatch, likes, watchLater } = useReducerContext();
     const { toggleAddToPlaylistMenu, setVideoToBeAddedToPlaylist } =
@@ -41,6 +42,7 @@ export function VideoPlayer() {
     }
 
     async function toggleLike(e: ButtonEvent) {
+        if (!user?.id) return navigate("/login");
         if (videoId) {
             if (!hasBeenLiked) {
                 await addVideoToLiked(e, user.id, videoId, likes, dispatch);
@@ -57,6 +59,7 @@ export function VideoPlayer() {
     }
 
     async function toggleWatchLater(e: ButtonEvent) {
+        if (!user?.id) return navigate("/login");
         if (videoId) {
             if (!hasAddedToWatchLater) {
                 await addVideoToWatchLater(
@@ -149,6 +152,7 @@ export function VideoPlayer() {
                             mb="0.5em"
                             cursor="pointer"
                             onClick={() => {
+                                if (!user?.id) return navigate("/login");
                                 setVideoToBeAddedToPlaylist(videoId);
                                 toggleAddToPlaylistMenu(true);
                             }}
