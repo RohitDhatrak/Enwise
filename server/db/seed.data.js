@@ -11,7 +11,7 @@ const videos = [
         videoId: "kF4ju6j6aLE",
         title: "String theory - Brian Greene",
         creator: "TED-Ed",
-        category: ["TED", "Physics"],
+        category: ["TED", "Science"],
     },
     {
         videoId: "j6K0iQg_p1w",
@@ -31,12 +31,120 @@ const videos = [
         creator: "TED",
         category: ["TED", "Creativity"],
     },
+    {
+        videoId: "8KkKuTCFvzI",
+        title: "Robert Waldinger: What makes a good life? Lessons from the longest study on happiness | TED",
+        creator: "TED",
+        category: ["TED", "Life"],
+    },
+    {
+        videoId: "u4L130DkdOw",
+        title: "See how the rest of the world lives, organized by income | Anna Rosling Rönnlund",
+        creator: "TED",
+        category: ["TED"],
+    },
+    {
+        videoId: "lyu7v7nWzfo",
+        title: "Your brain hallucinates your conscious reality | Anil Seth",
+        creator: "TED",
+        category: ["TED", "Science"],
+    },
+    {
+        videoId: "Ks-_Mh1QhMc",
+        title: "Your body language may shape who you are | Amy Cuddyth",
+        creator: "TED",
+        category: ["TED", "Psychology"],
+    },
+    {
+        videoId: "LqL3tyCQ1yY",
+        title: "Jeff Bezos Fireside Chat",
+        creator: "Internet Association",
+        category: ["Business"],
+    },
+    {
+        videoId: "H14bBuluwB8",
+        title: "Grit: the power of passion and perseverance | Angela Lee Duckworth",
+        creator: "TED",
+        category: ["TED", "Life"],
+    },
+    {
+        videoId: "vhhgI4tSMwc",
+        title: "Why 30 is not the new 20 | Meg Jay",
+        creator: "TED",
+        category: ["TED", "Life"],
+    },
+    {
+        videoId: "c0KYU2j0TM4",
+        title: "The power of introverts | Susan Cain",
+        creator: "TED",
+        category: ["TED"],
+    },
+    {
+        videoId: "RcGyVTAoXEU",
+        title: "How to make stress your friend | Kelly McGonigal",
+        creator: "TED",
+        category: ["TED", "Life"],
+    },
+    {
+        videoId: "R1vskiVDwl4",
+        title: "Celeste Headlee: 10 ways to have a better conversation | TED",
+        creator: "TED",
+        category: ["TED"],
+    },
+    {
+        videoId: "iG9CE55wbtY",
+        title: "Do schools kill creativity? | Sir Ken Robinson",
+        creator: "TED",
+        category: ["TED", "Creativity"],
+    },
+    {
+        videoId: "rrkrvAUbU9Y",
+        title: "The puzzle of motivation | Dan Pink",
+        creator: "TED",
+        category: ["TED"],
+    },
+    {
+        videoId: "fLJsdqxnZb0",
+        title: "The happy secret to better work | Shawn Achor",
+        creator: "TED",
+        category: ["TED", "Work"],
+    },
+];
+
+const categories = [
+    {
+        name: "TED",
+    },
+    {
+        name: "Life",
+    },
+    {
+        name: "Science",
+    },
+    {
+        name: "Business",
+    },
+    {
+        name: "Learning",
+    },
+    {
+        name: "Creativity",
+    },
+    {
+        name: "Work",
+    },
+    {
+        name: "Kurzgesagt",
+    },
+    {
+        name: "Psychology",
+    },
 ];
 
 async function seedData() {
-    for (const video of videos) {
+    for (const video of categories) {
         try {
-            await axios.post("http://localhost:4444/video", video);
+            await axios.post("http://localhost:4444/categories", video);
             console.log("added video");
         } catch (e) {
             console.log("error adding video");
