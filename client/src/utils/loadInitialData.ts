@@ -6,19 +6,35 @@ import {
     getHistory,
     getWatchLater,
     getUserData,
+    getCategories,
 } from "../services/getUserData";
+
+async function getRecommendedCategories(n: number) {
+    let categoriesArray = await getCategories();
+    if (n >= categoriesArray.length) {
+        return categoriesArray;
+    } else {
+        const shuffledCategories = categoriesArray.sort(
+            () => 0.5 - Math.random()
+        );
+        return shuffledCategories.slice(0, n);
+    }
+}
 
 export async function loadInitialData(
     user: User,
     dispatch: Function,
-    setIsLoading: Function
+    setIsLoading: Function,
+    setCategories: Function
 ) {
     try {
         const videos = await getVideos();
+        const categoriesArray = await getRecommendedCategories(6);
         dispatch({
             type: "SAVE_VIDEOS",
             payload: { videos },
         });
+        setCategories(categoriesArray);
 
         if (user.id) {
             const userData = await getUserData(user.id);

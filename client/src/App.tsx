@@ -39,14 +39,15 @@ function App() {
     const navigate = useNavigate();
     const { pathname } = useLocation();
     const { dispatch } = useReducerContext();
-    const { setDisplayActionMenu, showAddToPlaylistMenu } = useAppContext();
+    const { setDisplayActionMenu, showAddToPlaylistMenu, setCategories } =
+        useAppContext();
     const [isLoading, setIsLoading] = useState(true);
 
     const user = JSON.parse(getUserFromLocalStorage());
     useEffect(() => {
         setupAuthHeaderForServiceCalls(user?.jwt);
         setupAuthExceptionHandler(dispatch, navigate);
-        loadInitialData(user, dispatch, setIsLoading);
+        loadInitialData(user, dispatch, setIsLoading, setCategories);
     }, []);
 
     if (isLoading) {
