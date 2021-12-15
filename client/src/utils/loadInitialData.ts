@@ -8,13 +8,18 @@ import {
     getUserData,
 } from "../services/getUserData";
 
-export async function loadInitialData(user: User, dispatch: Function) {
+export async function loadInitialData(
+    user: User,
+    dispatch: Function,
+    setIsLoading: Function
+) {
     try {
         const videos = await getVideos();
         dispatch({
             type: "SAVE_VIDEOS",
             payload: { videos },
         });
+        setIsLoading(false);
 
         if (user.id) {
             const userData = await getUserData(user.id);

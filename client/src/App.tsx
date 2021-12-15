@@ -1,4 +1,4 @@
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import { ToastContainer } from "react-toastify";
 import { Routes, Route, useNavigate, useLocation } from "react-router-dom";
 import "react-toastify/dist/ReactToastify.css";
@@ -32,19 +32,30 @@ import {
 } from "./services/authHandlers";
 import { loadInitialData } from "./utils/loadInitialData";
 import { useAppContext } from "./context/AppContext";
+import { LoaderSvg } from "./assets/svg";
+import { FlexContainer } from "./components/Shared";
 
 function App() {
     const navigate = useNavigate();
     const { pathname } = useLocation();
     const { dispatch } = useReducerContext();
     const { setDisplayActionMenu, showAddToPlaylistMenu } = useAppContext();
+    const [isLoading, setIsLoading] = useState(true);
 
     const user = JSON.parse(getUserFromLocalStorage());
     useEffect(() => {
         setupAuthHeaderForServiceCalls(user?.jwt);
         setupAuthExceptionHandler(dispatch, navigate);
-        loadInitialData(user, dispatch);
+        loadInitialData(user, dispatch, setIsLoading);
     }, []);
+
+    if (isLoading) {
+        return (
+            <FlexContainer h="100vh" justify="center" align="center">
+                <LoaderSvg />
+            </FlexContainer>
+        );
+    }
 
     return (
         <div onClick={() => setDisplayActionMenu(false)}>
