@@ -7,6 +7,7 @@ import { Video } from "../../types/types";
 import { getCategories } from "../../services/getUserData";
 import { useAppContext } from "../../context/AppContext";
 import { RecommendedCategories } from "./components/RecommendedCategories";
+import { stopWords } from "./stopWords";
 
 export function Home() {
     const { videos } = useReducerContext();
@@ -15,20 +16,30 @@ export function Home() {
     let filteredVideos: Video[] = [];
 
     if (search && pathname === "/") {
-        const query = search.split("=")[1];
+        const query = search.split("=")[1].toLowerCase();
 
-        filteredVideos = videos.filter(
-            (video) =>
-                video.title
-                    .toLowerCase()
-                    .trim()
-                    .includes(query.toLocaleLowerCase()) ||
-                video.creator
-                    .toLowerCase()
-                    .trim()
-                    .includes(query.toLocaleLowerCase()) ||
-                video.category.includes(query)
-        );
+        let queries = query.split("%20");
+
+        queries = queries.filter((query) => {
+            return !stopWords.includes(query);
+        });
+
+        filteredVideos = videos.filter((video) => {
+            for (const query of queries) {
+                const result =
+                    video.title
+                        .toLowerCase()
+                        .trim()
+                        .includes(query.toLowerCase()) ||
+                    video.creator
+                        .toLowerCase()
+                        .trim()
+                        .includes(query.toLowerCase()) ||
+                    video.category.includes(query);
+                if (result) return true;
+            }
+            return false;
+        });
     }
 
     async function getRecommendedCategories(n: number) {

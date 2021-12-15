@@ -19,7 +19,7 @@ export function Header() {
         if (searchQuery.trim().length > 0) {
             navigate({
                 pathname: "/",
-                search: `query=${searchQuery}`,
+                search: `query=${searchQuery.trim()}`,
             });
         }
     }
