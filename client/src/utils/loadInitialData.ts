@@ -19,7 +19,6 @@ export async function loadInitialData(
             type: "SAVE_VIDEOS",
             payload: { videos },
         });
-        setIsLoading(false);
 
         if (user.id) {
             const userData = await getUserData(user.id);
@@ -27,6 +26,7 @@ export async function loadInitialData(
                 type: "SAVE_USER_SESSION",
                 payload: { user: { ...user, ...userData } },
             });
+            setIsLoading(false);
             const playlists = await getPlaylists(user.id);
             const likes = await getLikedVideos(user.id);
             const watchLater = await getWatchLater(user.id);
@@ -41,6 +41,7 @@ export async function loadInitialData(
                 },
             });
         }
+        setIsLoading(false);
     } catch (error) {
         console.log({ error });
     }
