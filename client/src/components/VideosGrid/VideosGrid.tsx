@@ -1,19 +1,27 @@
-import { useLocation, Link, useNavigate } from "react-router-dom";
+import { useLocation, useNavigate } from "react-router-dom";
 import { VideoGridProps } from "./VideosGridProps.types";
 import { Video } from "..";
-import { VideoGridContainer, PageContainer } from "./style.videogrid";
+import {
+    VideoGridContainer,
+    PageContainer,
+    LoaderContainer,
+} from "./style.videogrid";
 import { Container, FlexContainer, Image } from "../Shared";
 import { useReducerContext } from "../../context/ReducerContext";
+import { useAppContext } from "../../context/AppContext";
 import emptyBox from "../../assets/empty-box.png";
 import { ActionButton } from "../../components";
+import { LoaderSvg } from "../../assets/svg";
 
 export function VideoGrid({ videos, playlistId }: VideoGridProps) {
     const { pathname } = useLocation();
     const navigate = useNavigate();
-
     const { playlists } = useReducerContext();
+    const { isUserDataFetched } = useAppContext();
+
     let pageTitle = "";
     let filledPlaylist = [];
+
     if (pathname === "/liked") pageTitle = "Liked";
     else if (pathname === "/history") pageTitle = "History";
     else if (pathname === "/watchlater") pageTitle = "Watch Later";
@@ -29,6 +37,17 @@ export function VideoGrid({ videos, playlistId }: VideoGridProps) {
             );
             if (playlist) pageTitle = playlist.title;
         }
+    }
+
+    if (
+        (!isUserDataFetched && pathname !== "/") ||
+        (pathname.includes("/playlist/") && videos.length === 0)
+    ) {
+        return (
+            <LoaderContainer h="80vh" w="100vw" justify="center" align="center">
+                <LoaderSvg />
+            </LoaderContainer>
+        );
     }
 
     return (

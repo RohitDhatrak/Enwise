@@ -39,8 +39,12 @@ function App() {
     const navigate = useNavigate();
     const { pathname } = useLocation();
     const { dispatch } = useReducerContext();
-    const { setDisplayActionMenu, showAddToPlaylistMenu, setCategories } =
-        useAppContext();
+    const {
+        setDisplayActionMenu,
+        showAddToPlaylistMenu,
+        setCategories,
+        setIsUserDataFetched,
+    } = useAppContext();
     const [isLoading, setIsLoading] = useState(true);
 
     const user = JSON.parse(getUserFromLocalStorage());
@@ -48,7 +52,13 @@ function App() {
         window.scrollTo(0, 0);
         setupAuthHeaderForServiceCalls(user?.jwt);
         setupAuthExceptionHandler(dispatch, navigate);
-        loadInitialData(user, dispatch, setIsLoading, setCategories);
+        loadInitialData(
+            user,
+            dispatch,
+            setIsLoading,
+            setCategories,
+            setIsUserDataFetched
+        );
     }, []);
 
     if (isLoading) {

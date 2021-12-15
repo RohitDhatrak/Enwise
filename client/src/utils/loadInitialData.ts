@@ -25,7 +25,8 @@ export async function loadInitialData(
     user: User,
     dispatch: Function,
     setIsLoading: Function,
-    setCategories: Function
+    setCategories: Function,
+    setIsUserDataFetched: Function
 ) {
     try {
         const videos = await getVideos();
@@ -42,6 +43,7 @@ export async function loadInitialData(
                 type: "SAVE_USER_SESSION",
                 payload: { user: { ...user, ...userData } },
             });
+            setIsLoading(false);
             const playlists = await getPlaylists(user.id);
             const likes = await getLikedVideos(user.id);
             const watchLater = await getWatchLater(user.id);
@@ -57,6 +59,7 @@ export async function loadInitialData(
             });
         }
         setIsLoading(false);
+        setIsUserDataFetched(true);
     } catch (error) {
         console.log({ error });
     }

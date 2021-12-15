@@ -1,8 +1,17 @@
 import styled from "styled-components";
 import { media } from "../Shared/mediaQueries";
-import { GridContainer, Container } from "../Shared";
+import { GridContainer, Container, FlexContainer } from "../Shared";
 
 export const PageContainer = styled(Container)`
+    ${media.custom(800)} {
+        margin-left: 5em;
+    }
+    ${media.desktop} {
+        margin-left: 15em;
+    }
+`;
+
+export const LoaderContainer = styled(FlexContainer)`
     ${media.custom(800)} {
         margin-left: 5em;
     }

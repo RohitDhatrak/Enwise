@@ -14,6 +14,8 @@ type AppContextTypes = {
     setSearchQuery: Function;
     categories: Category[];
     setCategories: Function;
+    isUserDataFetched: boolean;
+    setIsUserDataFetched: Function;
 };
 
 const AppContext = createContext<AppContextTypes>({} as AppContextTypes);
@@ -26,6 +28,7 @@ export function AppContextProvider({ children }: Children) {
         useState("");
     const [searchQuery, setSearchQuery] = useState("");
     const [categories, setCategories] = useState([]);
+    const [isUserDataFetched, setIsUserDataFetched] = useState(false);
 
     const data: AppContextTypes = {
         displayActionMenu,
@@ -40,6 +43,8 @@ export function AppContextProvider({ children }: Children) {
         setSearchQuery,
         categories,
         setCategories,
+        isUserDataFetched,
+        setIsUserDataFetched,
     };
     return <AppContext.Provider value={data}>{children}</AppContext.Provider>;
 }
