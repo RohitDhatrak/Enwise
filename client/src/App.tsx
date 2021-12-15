@@ -45,6 +45,7 @@ function App() {
 
     const user = JSON.parse(getUserFromLocalStorage());
     useEffect(() => {
+        window.scrollTo(0, 0);
         setupAuthHeaderForServiceCalls(user?.jwt);
         setupAuthExceptionHandler(dispatch, navigate);
         loadInitialData(user, dispatch, setIsLoading, setCategories);

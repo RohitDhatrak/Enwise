@@ -23,6 +23,10 @@ export function Login() {
     const previousPath = state?.previousPath || "/";
 
     useEffect(() => {
+        window.scrollTo(0, 0);
+    }, []);
+
+    useEffect(() => {
         if (user?.id) {
             navigate(previousPath, { replace: true });
         }

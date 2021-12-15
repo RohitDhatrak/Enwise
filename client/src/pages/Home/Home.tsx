@@ -1,3 +1,4 @@
+import { useEffect } from "react";
 import { useLocation } from "react-router-dom";
 import { VideoGrid } from "../../components";
 import { FlexContainer } from "../../components/Shared";
@@ -12,6 +13,10 @@ export function Home() {
     const { categories } = useAppContext();
     const { pathname, search } = useLocation();
     let filteredVideos: Video[] = [];
+
+    useEffect(() => {
+        window.scrollTo(0, 0);
+    }, []);
 
     if (search && pathname === "/") {
         const query = search.split("=")[1].toLowerCase();

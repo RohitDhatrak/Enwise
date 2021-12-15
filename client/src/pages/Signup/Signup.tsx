@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import axios, { AxiosError } from "axios";
 import { Link, useNavigate, useLocation } from "react-router-dom";
 import { useReducerContext } from "../../context/ReducerContext";
@@ -13,6 +13,10 @@ export function Signup() {
     const [password, setPassword] = useState("");
     const [retypedPassword, setRetypedPassword] = useState("");
     const [error, setError] = useState("");
+
+    useEffect(() => {
+        window.scrollTo(0, 0);
+    }, []);
 
     const { dispatch } = useReducerContext();
     const navigate = useNavigate();

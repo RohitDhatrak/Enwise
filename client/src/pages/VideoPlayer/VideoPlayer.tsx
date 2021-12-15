@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { useParams, useLocation, useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
 import { FlexContainer, Container } from "../../components/Shared";
@@ -24,6 +24,10 @@ export function VideoPlayer() {
     const { videoId } = useParams();
     const { pathname } = useLocation();
     const navigate = useNavigate();
+
+    useEffect(() => {
+        window.scrollTo(0, 0);
+    }, []);
 
     const { videos, user, dispatch, likes, watchLater } = useReducerContext();
     const { toggleAddToPlaylistMenu, setVideoToBeAddedToPlaylist } =

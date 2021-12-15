@@ -14,6 +14,10 @@ export function PlaylistPage() {
     const { playlists } = useReducerContext();
 
     useEffect(() => {
+        window.scrollTo(0, 0);
+    }, []);
+
+    useEffect(() => {
         (async function () {
             if (playlistId) {
                 const videos = await getPlaylistVideos(playlistId);

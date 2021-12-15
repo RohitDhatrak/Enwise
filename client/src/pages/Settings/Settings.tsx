@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import { Container, FlexContainer, Input } from "../../components/Shared";
 import { ActionButton, InputBox } from "../../components";
@@ -19,6 +19,10 @@ export function Settings() {
     const [historyError, setHistoryError] = useState("");
     const [historyMessage, setHistoryMessage] = useState("");
     const { user, dispatch } = useReducerContext();
+
+    useEffect(() => {
+        window.scrollTo(0, 0);
+    }, []);
 
     async function verifyAndSetNewPassword(e: FormEvent) {
         e.preventDefault();

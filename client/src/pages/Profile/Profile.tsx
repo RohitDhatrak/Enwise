@@ -1,3 +1,4 @@
+import { useEffect } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { Container, FlexContainer } from "../../components/Shared";
 import {
@@ -17,6 +18,10 @@ export function Profile() {
         dispatch({ type: "DELETE_USER_SESSION" });
         navigate("/login");
     }
+
+    useEffect(() => {
+        window.scrollTo(0, 0);
+    }, []);
 
     return (
         <FlexContainer direction="column" pt="0.5em">

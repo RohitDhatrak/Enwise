@@ -1,7 +1,12 @@
+import { useEffect } from "react";
 import { Link } from "react-router-dom";
 import { FlexContainer, Container } from "../../components/Shared";
 
 export function Page404() {
+    useEffect(() => {
+        window.scrollTo(0, 0);
+    }, []);
+
     return (
         <FlexContainer
             direction="column"
