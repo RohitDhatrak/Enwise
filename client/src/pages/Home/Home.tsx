@@ -19,12 +19,12 @@ export function Home() {
     }, []);
 
     if (search && pathname === "/") {
-        const query = search.split("=")[1].toLowerCase();
+        const query = search.split("=")[1];
 
         let queries = query.split("%20");
 
         queries = queries.filter((query) => {
-            return !stopWords.includes(query);
+            return !stopWords.includes(query.toLowerCase());
         });
 
         filteredVideos = videos.filter((video) => {
