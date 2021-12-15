@@ -29,7 +29,7 @@ export async function loadInitialData(
 ) {
     try {
         const videos = await getVideos();
-        const categoriesArray = await getRecommendedCategories(6);
+        const categoriesArray = await getRecommendedCategories(8);
         dispatch({
             type: "SAVE_VIDEOS",
             payload: { videos },
