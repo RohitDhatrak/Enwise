@@ -2,7 +2,7 @@ import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { Container, FlexContainer, Input } from "../../components/Shared";
 import { ActionButton, InputBox } from "../../components";
-import { InputEvent } from "../../types/types";
+import { InputEvent, FormEvent } from "../../types/types";
 import { validatePassword } from "../../utils/validatePassword";
 import { updatePassword } from "../../services/postUserData";
 import { useReducerContext } from "../../context/ReducerContext";
@@ -20,7 +20,8 @@ export function Settings() {
     const [historyMessage, setHistoryMessage] = useState("");
     const { user, dispatch } = useReducerContext();
 
-    async function verifyAndSetNewPassword() {
+    async function verifyAndSetNewPassword(e: FormEvent) {
+        e.preventDefault();
         const response = await updatePassword(password, newPassword, user.id);
         if (response.success) {
             setMessage(response.message);
@@ -67,7 +68,12 @@ export function Settings() {
             <Container fs="1.2rem" m="1.5em 0">
                 Account
             </Container>
-            <FlexContainer direction="column" ml="1em">
+            <FlexContainer
+                direction="column"
+                ml="1em"
+                as="form"
+                onSubmit={verifyAndSetNewPassword}
+            >
                 <InputBox
                     type="password"
                     label="Old Password"
@@ -116,12 +122,7 @@ export function Settings() {
                     <Container color="var(--error-color)">{error}</Container>
                 </Container>
                 {!error && password && newPassword && confirmPassword && (
-                    <ActionButton
-                        onClickFunction={verifyAndSetNewPassword}
-                        width="unset"
-                    >
-                        Change Password
-                    </ActionButton>
+                    <ActionButton width="unset">Change Password</ActionButton>
                 )}
             </FlexContainer>
 

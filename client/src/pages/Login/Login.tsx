@@ -3,7 +3,7 @@ import { Link, useNavigate, useLocation } from "react-router-dom";
 import axios, { AxiosError } from "axios";
 import { useReducerContext } from "../../context/ReducerContext";
 import { setupAuthHeaderForServiceCalls } from "../../services/authHandlers";
-import { User, InputEvent, ButtonEvent, ServerError } from "../../types/types";
+import { User, InputEvent, FormEvent, ServerError } from "../../types/types";
 import { FlexContainer, Container } from "../../components/Shared";
 import { InputBox, ActionButton } from "../../components";
 import {
@@ -38,7 +38,7 @@ export function Login() {
         setEmail(e.target.value);
     }
 
-    async function loginAndRedirect(e: ButtonEvent) {
+    async function loginAndRedirect(e: FormEvent) {
         e.preventDefault();
         try {
             const { data: user } = await axios.post<User>(
@@ -90,6 +90,8 @@ export function Login() {
             justify="center"
             h="80vh"
             color="var(--font-color-2)"
+            as="form"
+            onSubmit={loginAndRedirect}
         >
             <FlexContainer
                 direction="column"
@@ -121,9 +123,7 @@ export function Login() {
                 </FlexContainer>
                 <Container color="var(--error-color)">{error}</Container>
                 {email && password && !error && (
-                    <ActionButton onClickFunction={loginAndRedirect}>
-                        Login
-                    </ActionButton>
+                    <ActionButton>Login</ActionButton>
                 )}
                 <Container mt="0.5em">
                     <Container display="inline" mr="0.2em">

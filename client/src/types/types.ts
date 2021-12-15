@@ -88,5 +88,6 @@ export type InputEvent = React.ChangeEvent<HTMLInputElement>;
 export type ButtonEvent =
     | React.MouseEvent<HTMLButtonElement>
     | React.MouseEvent<HTMLDivElement, MouseEvent>;
+export type FormEvent = React.FormEvent;
 
 export type ServerError = { message: string };

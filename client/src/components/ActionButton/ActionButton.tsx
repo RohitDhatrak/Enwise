@@ -2,7 +2,7 @@ import { Container } from "../Shared";
 
 type ActionButtonPropTypes = {
     children: string;
-    onClickFunction: React.MouseEventHandler;
+    onClickFunction?: React.MouseEventHandler;
     width?: string;
 };
 
