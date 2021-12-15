@@ -2,19 +2,19 @@ import { Container } from "../Shared";
 
 type ActionButtonPropTypes = {
     children: string;
-    onClickFunction?: React.MouseEventHandler;
+    onClick?: React.MouseEventHandler;
     width?: string;
 };
 
 export function ActionButton({
     children,
-    onClickFunction,
+    onClick,
     width = "100%",
 }: ActionButtonPropTypes) {
     return (
         <Container
             as="button"
-            onClick={onClickFunction}
+            onClick={onClick}
             w={width}
             m="1em"
             fs="1rem"

@@ -1,12 +1,15 @@
-import { useLocation } from "react-router-dom";
+import { useLocation, Link, useNavigate } from "react-router-dom";
 import { VideoGridProps } from "./VideosGridProps.types";
 import { Video } from "..";
 import { VideoGridContainer, PageContainer } from "./style.videogrid";
-import { Container, FlexContainer } from "../Shared";
+import { Container, FlexContainer, Image } from "../Shared";
 import { useReducerContext } from "../../context/ReducerContext";
+import emptyBox from "../../assets/empty-box.png";
+import { ActionButton } from "../../components";
 
 export function VideoGrid({ videos, playlistId }: VideoGridProps) {
     const { pathname } = useLocation();
+    const navigate = useNavigate();
 
     const { playlists } = useReducerContext();
     let pageTitle = "";
@@ -57,14 +60,35 @@ export function VideoGrid({ videos, playlistId }: VideoGridProps) {
                     )}
                 </FlexContainer>
             )}
-            <VideoGridContainer gap="1em" justify="space-around" p="1em">
-                {videos.map((video) => {
-                    if (!("videoCount" in video) || video.videoCount > 0) {
-                        return <Video key={video.id} video={video} />;
-                    }
-                    return null;
-                })}
-            </VideoGridContainer>
+            {!videos.length && (
+                <FlexContainer
+                    align="center"
+                    justify="center"
+                    h="70vh"
+                    direction="column"
+                    w="20em"
+                    maxW="80vw"
+                    m="0 auto"
+                >
+                    <Image src={emptyBox} alt="" w="5em" />
+                    <Container mt="1em">
+                        Looks like there is nothing in here
+                    </Container>
+                    <ActionButton onClick={() => navigate("/")}>
+                        Watch videos
+                    </ActionButton>
+                </FlexContainer>
+            )}
+            {!!videos.length && (
+                <VideoGridContainer gap="1em" justify="space-around" p="1em">
+                    {videos.map((video) => {
+                        if (!("videoCount" in video) || video.videoCount > 0) {
+                            return <Video key={video.id} video={video} />;
+                        }
+                        return null;
+                    })}
+                </VideoGridContainer>
+            )}
         </PageContainer>
     );
 }

@@ -42,7 +42,6 @@ export async function loadInitialData(
                 type: "SAVE_USER_SESSION",
                 payload: { user: { ...user, ...userData } },
             });
-            setIsLoading(false);
             const playlists = await getPlaylists(user.id);
             const likes = await getLikedVideos(user.id);
             const watchLater = await getWatchLater(user.id);
