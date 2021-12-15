@@ -14,18 +14,6 @@ const videos = [
         category: ["TED", "Science"],
     },
     {
-        videoId: "j6K0iQg_p1w",
-        title: "Clover Hogan: What to do when climate change feels unstoppable | TED",
-        creator: "TED",
-        category: ["TED", "Climate Change"],
-    },
-    {
-        videoId: "JXeJANDKwDc",
-        title: "What Are You Doing With Your Life? The Tail End",
-        creator: "Kurzgesagt – In a Nutshell",
-        category: ["Kurzgesagt", "Life"],
-    },
-    {
         videoId: "fxbCHn6gE3U",
         title: "The surprising habits of original thinkers | Adam Grant",
         creator: "TED",
@@ -44,12 +32,6 @@ const videos = [
         category: ["TED"],
     },
     {
-        videoId: "lyu7v7nWzfo",
-        title: "Your brain hallucinates your conscious reality | Anil Seth",
-        creator: "TED",
-        category: ["TED", "Science"],
-    },
-    {
         videoId: "Ks-_Mh1QhMc",
         title: "Your body language may shape who you are | Amy Cuddyth",
         creator: "TED",
@@ -62,16 +44,16 @@ const videos = [
         category: ["Business"],
     },
     {
-        videoId: "H14bBuluwB8",
-        title: "Grit: the power of passion and perseverance | Angela Lee Duckworth",
-        creator: "TED",
-        category: ["TED", "Life"],
-    },
-    {
         videoId: "vhhgI4tSMwc",
         title: "Why 30 is not the new 20 | Meg Jay",
         creator: "TED",
         category: ["TED", "Life"],
+    },
+    {
+        videoId: "fLJsdqxnZb0",
+        title: "The happy secret to better work | Shawn Achor",
+        creator: "TED",
+        category: ["TED", "Work"],
     },
     {
         videoId: "c0KYU2j0TM4",
@@ -80,22 +62,10 @@ const videos = [
         category: ["TED"],
     },
     {
-        videoId: "RcGyVTAoXEU",
-        title: "How to make stress your friend | Kelly McGonigal",
-        creator: "TED",
-        category: ["TED", "Life"],
-    },
-    {
         videoId: "R1vskiVDwl4",
         title: "Celeste Headlee: 10 ways to have a better conversation | TED",
         creator: "TED",
         category: ["TED"],
-    },
-    {
-        videoId: "iG9CE55wbtY",
-        title: "Do schools kill creativity? | Sir Ken Robinson",
-        creator: "TED",
-        category: ["TED", "Creativity"],
     },
     {
         videoId: "rrkrvAUbU9Y",
@@ -104,10 +74,40 @@ const videos = [
         category: ["TED"],
     },
     {
-        videoId: "fLJsdqxnZb0",
-        title: "The happy secret to better work | Shawn Achor",
+        videoId: "lyu7v7nWzfo",
+        title: "Your brain hallucinates your conscious reality | Anil Seth",
         creator: "TED",
-        category: ["TED", "Work"],
+        category: ["TED", "Science"],
+    },
+    {
+        videoId: "iG9CE55wbtY",
+        title: "Do schools kill creativity? | Sir Ken Robinson",
+        creator: "TED",
+        category: ["TED", "Creativity"],
+    },
+    {
+        videoId: "H14bBuluwB8",
+        title: "Grit: the power of passion and perseverance | Angela Lee Duckworth",
+        creator: "TED",
+        category: ["TED", "Life"],
+    },
+    {
+        videoId: "j6K0iQg_p1w",
+        title: "Clover Hogan: What to do when climate change feels unstoppable | TED",
+        creator: "TED",
+        category: ["TED", "Climate Change"],
+    },
+    {
+        videoId: "RcGyVTAoXEU",
+        title: "How to make stress your friend | Kelly McGonigal",
+        creator: "TED",
+        category: ["TED", "Life"],
+    },
+    {
+        videoId: "JXeJANDKwDc",
+        title: "What Are You Doing With Your Life? The Tail End",
+        creator: "Kurzgesagt – In a Nutshell",
+        category: ["Kurzgesagt", "Life"],
     },
 ];
 
@@ -142,9 +142,9 @@ const categories = [
 ];
 
 async function seedData() {
-    for (const video of categories) {
+    for (const video of videos) {
         try {
-            await axios.post("http://localhost:4444/categories", video);
+            await axios.post("http://localhost:4444/video", video);
             console.log("added video");
         } catch (e) {
             console.log("error adding video");
