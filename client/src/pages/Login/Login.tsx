@@ -14,9 +14,12 @@ import {
 } from "../../services/getUserData";
 
 export function Login() {
-    const [email, setEmail] = useState("");
-    const [password, setPassword] = useState("");
+    const [email, setEmail] = useState(process.env.REACT_APP_GUEST_EMAIL);
+    const [password, setPassword] = useState(
+        process.env.REACT_APP_GUEST_PASSWORD
+    );
     const [error, setError] = useState("");
+    const [asGuest, setAsGuest] = useState(true);
     const { user, dispatch } = useReducerContext();
     const navigate = useNavigate();
     const { state } = useLocation();
@@ -35,11 +38,13 @@ export function Login() {
     function updatePassword(e: InputEvent) {
         setError("");
         setPassword(e.target.value);
+        setAsGuest(false);
     }
 
     function updateEmail(e: InputEvent) {
         setError("");
         setEmail(e.target.value);
+        setAsGuest(false);
     }
 
     async function loginAndRedirect(e: FormEvent) {
@@ -116,6 +121,7 @@ export function Login() {
                         type="email"
                         label="Email"
                         onChangeFunction={updateEmail}
+                        value={email}
                     />
                 </FlexContainer>
                 <FlexContainer direction="column" w="100%" m="0.5em">
@@ -123,12 +129,14 @@ export function Login() {
                         type="password"
                         label="Password"
                         onChangeFunction={updatePassword}
+                        value={password}
                     />
                 </FlexContainer>
                 <Container color="var(--error-color)">{error}</Container>
-                {email && password && !error && (
+                {email && password && !error && !asGuest && (
                     <ActionButton>Login</ActionButton>
                 )}
+                {asGuest && <ActionButton>Login as Guest</ActionButton>}
                 <Container mt="0.5em">
                     <Container display="inline" mr="0.2em">
                         Don't have an account yet?
