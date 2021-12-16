@@ -12,6 +12,7 @@ import {
     getHistory,
     getWatchLater,
 } from "../../services/getUserData";
+import { useAppContext } from "../../context/AppContext";
 
 export function Login() {
     const [email, setEmail] = useState(process.env.REACT_APP_GUEST_EMAIL);
@@ -21,6 +22,7 @@ export function Login() {
     const [error, setError] = useState("");
     const [asGuest, setAsGuest] = useState(true);
     const { user, dispatch } = useReducerContext();
+    const { setIsUserDataFetched } = useAppContext();
     const navigate = useNavigate();
     const { state } = useLocation();
     const previousPath = state?.previousPath || "/";
@@ -65,6 +67,7 @@ export function Login() {
                     payload: { user },
                 });
                 setupAuthHeaderForServiceCalls(user.jwt);
+                setIsUserDataFetched(false);
 
                 const playlists = await getPlaylists(user.id);
                 const likes = await getLikedVideos(user.id);
@@ -80,6 +83,7 @@ export function Login() {
                     },
                 });
                 navigate(previousPath, { replace: true });
+                setIsUserDataFetched(true);
             }
         } catch (error) {
             if (axios.isAxiosError(error)) {
