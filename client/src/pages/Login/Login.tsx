@@ -46,7 +46,6 @@ export function Login() {
     function updateEmail(e: InputEvent) {
         setError("");
         setEmail(e.target.value);
-        setAsGuest(false);
     }
 
     async function loginAndRedirect(e: FormEvent) {
@@ -135,6 +134,7 @@ export function Login() {
                     />
                 </FlexContainer>
                 <Container color="var(--error-color)">{error}</Container>
+                {asGuest && <Container>OR</Container>}
                 {email && password && !error && !asGuest && (
                     <ActionButton>Login</ActionButton>
                 )}
