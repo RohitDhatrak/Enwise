@@ -125,7 +125,6 @@ export function Login() {
                         type="email"
                         label="Email"
                         onChangeFunction={updateEmail}
-                        value={email}
                     />
                 </FlexContainer>
                 <FlexContainer direction="column" w="100%" m="0.5em">
@@ -133,7 +132,6 @@ export function Login() {
                         type="password"
                         label="Password"
                         onChangeFunction={updatePassword}
-                        value={password}
                     />
                 </FlexContainer>
                 <Container color="var(--error-color)">{error}</Container>
