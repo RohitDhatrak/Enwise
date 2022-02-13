@@ -13,7 +13,7 @@ import emptyBox from "../../assets/empty-box.png";
 import { ActionButton } from "../../components";
 import { LoaderSvg } from "../../assets/svg";
 
-export function VideoGrid({ videos, playlistId }: VideoGridProps) {
+export function VideoGrid({ videos, playlistId, isLoading }: VideoGridProps) {
     const { pathname } = useLocation();
     const navigate = useNavigate();
     const { playlists } = useReducerContext();
@@ -41,7 +41,7 @@ export function VideoGrid({ videos, playlistId }: VideoGridProps) {
 
     if (
         (!isUserDataFetched && pathname !== "/") ||
-        (pathname.includes("/playlist/") && videos.length === 0)
+        (pathname.includes("/playlist/") && isLoading)
     ) {
         return (
             <LoaderContainer h="80vh" w="100vw" justify="center" align="center">

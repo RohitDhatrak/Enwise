@@ -12,6 +12,7 @@ export function PlaylistPage() {
     );
     const { playlistId } = useParams();
     const { playlists } = useReducerContext();
+    const [isLoading, setIsLoading] = useState(true);
 
     useEffect(() => {
         window.scrollTo(0, 0);
@@ -22,13 +23,18 @@ export function PlaylistPage() {
             if (playlistId) {
                 const videos = await getPlaylistVideos(playlistId);
                 setPlaylistVideos(videos);
+                setIsLoading(false);
             }
         })();
     }, [playlists]);
 
     return (
         <FlexContainer>
-            <VideoGrid videos={playlistVideos} playlistId={playlistId} />
+            <VideoGrid
+                videos={playlistVideos}
+                playlistId={playlistId}
+                isLoading={isLoading}
+            />
         </FlexContainer>
     );
 }

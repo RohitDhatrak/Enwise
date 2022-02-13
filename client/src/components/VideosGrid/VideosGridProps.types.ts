@@ -16,4 +16,5 @@ export type VideoGridProps = {
         | Liked[]
         | PlaylistVideo[];
     playlistId?: string;
+    isLoading?: boolean;
 };
