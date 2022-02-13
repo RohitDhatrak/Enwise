@@ -4,11 +4,9 @@ import { CloseIcon, AddIcon } from "../../assets/svg";
 import { useAppContext } from "../../context/AppContext";
 import { useReducerContext } from "../../context/ReducerContext";
 import { InputEvent, ButtonEvent, PlaylistVideo } from "../../types/types";
-import {
-    createPlaylist,
-    addOrRemoveFromPlaylist,
-} from "../../utils/dataOperations";
+import { createPlaylist } from "../../utils/dataOperations";
 import { getPlaylistsByVideo } from "../../services/getUserData";
+import { ListItem } from "./ListItem";
 
 export function AddToPlayListModal() {
     const { playlists, user, dispatch } = useReducerContext();
@@ -17,12 +15,7 @@ export function AddToPlayListModal() {
     const [showNewPlaylistInput, toggleShowNewPlaylistInput] = useState(false);
     const [title, setTitle] = useState("");
     const [playlistArray, setPlaylistArray] = useState([] as PlaylistVideo[]);
-
-    function isChecked(playlistId: number) {
-        return !!playlistArray.find(
-            (playlist: PlaylistVideo) => playlist.playlistId === playlistId
-        );
-    }
+    const [isCreatingPlaylist, setIsCreatingPlaylist] = useState(false);
 
     useEffect(() => {
         (async function () {
@@ -70,38 +63,13 @@ export function AddToPlayListModal() {
 
                 <FlexContainer direction="column" maxH="15em" overflow="auto">
                     {playlists.map((playlist) => (
-                        <FlexContainer
-                            color="#fff"
-                            p="0.5em 0"
-                            align="center"
-                            onChange={(e: InputEvent) =>
-                                addOrRemoveFromPlaylist(
-                                    e,
-                                    user.id,
-                                    videoToBeAddedToPlaylist,
-                                    playlist.id,
-                                    playlists,
-                                    dispatch
-                                )
-                            }
-                        >
-                            <input
-                                type="checkbox"
-                                id={playlist.title + playlist.id}
-                                name={playlist.title}
-                                checked={isChecked(playlist.id)}
-                                style={{ cursor: "pointer" }}
-                            />
-                            <label
-                                htmlFor={playlist.title + playlist.id}
-                                style={{
-                                    cursor: "pointer",
-                                    paddingLeft: "1em",
-                                }}
-                            >
-                                {playlist.title}
-                            </label>
-                        </FlexContainer>
+                        <ListItem
+                            playlistArray={playlistArray}
+                            user={user}
+                            playlist={playlist}
+                            playlists={playlists}
+                            dispatch={dispatch}
+                        />
                     ))}
                 </FlexContainer>
 
@@ -148,19 +116,21 @@ export function AddToPlayListModal() {
                             h="2em"
                             cursor="pointer"
                             disabled={!title.trim()}
-                            onClick={(e: ButtonEvent) => {
+                            onClick={(e: ButtonEvent) =>
                                 createPlaylist(
                                     e,
                                     user.id,
                                     title,
                                     playlists,
-                                    dispatch
-                                );
-                                toggleShowNewPlaylistInput(false);
-                                setTitle("");
-                            }}
+                                    dispatch,
+                                    toggleShowNewPlaylistInput,
+                                    setTitle,
+                                    isCreatingPlaylist,
+                                    setIsCreatingPlaylist
+                                )
+                            }
                         >
-                            Create
+                            {isCreatingPlaylist ? "Creating..." : "Create"}
                         </Container>
                     </FlexContainer>
                 )}

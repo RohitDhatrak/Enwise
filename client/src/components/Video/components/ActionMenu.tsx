@@ -1,3 +1,4 @@
+import { useState } from "react";
 import { useLocation, useNavigate } from "react-router-dom";
 import { Container, FlexContainer } from "../../Shared";
 import { ActionMenuProps } from "./ActionMenuProps.types";
@@ -37,6 +38,13 @@ export function ActionMenu({ video }: ActionMenuProps) {
         useReducerContext();
     const { pathname } = useLocation();
     const navigate = useNavigate();
+    const [isAddingToWatchLater, setIsAddingToWatchLater] = useState(false);
+    const [isRemovingFromWatchLater, setIsRemovingFromWatchLater] =
+        useState(false);
+    const [isRemovingFromHistory, setIsRemovingFromHistory] = useState(false);
+    const [isRemovingFromPlaylist, setIsRemovingFromPlaylist] = useState(false);
+    const [isDeletingPlaylist, setIsDeletingPlaylist] = useState(false);
+    const [isRemovingFromLiked, setIsRemovingFromLiked] = useState(false);
 
     let videoId = "";
     if ("videoId" in video) {
@@ -86,24 +94,27 @@ export function ActionMenu({ video }: ActionMenuProps) {
                                 p="0.5em 1em"
                                 br="0.4em"
                                 align="center"
-                                onClick={(e) => {
-                                    e.stopPropagation();
-                                    if (!user?.id) return navigate("/login");
+                                onClick={(e) =>
                                     addVideoToWatchLater(
                                         e,
                                         user.id,
                                         videoId,
                                         watchLater,
-                                        dispatch
-                                    );
-                                }}
+                                        dispatch,
+                                        navigate,
+                                        isAddingToWatchLater,
+                                        setIsAddingToWatchLater
+                                    )
+                                }
                             >
                                 <WatchLaterIcon
                                     color={"var(--icon-color)"}
                                     className="scale-14"
                                 />
                                 <Container ml="1em">
-                                    Add to Watch Later
+                                    {isAddingToWatchLater
+                                        ? "Adding to Watch Later..."
+                                        : "Add to Watch Later"}
                                 </Container>
                             </FlexContainer>
                         )}
@@ -136,24 +147,27 @@ export function ActionMenu({ video }: ActionMenuProps) {
                             p="0.5em 1em"
                             br="0.4em"
                             align="center"
-                            onClick={(e: ButtonEvent) => {
-                                e.stopPropagation();
+                            onClick={(e: ButtonEvent) =>
                                 removeVideoFromPlaylist(
                                     e,
                                     user.id,
                                     videoId,
                                     playlistId,
                                     playlists,
-                                    dispatch
-                                );
-                            }}
+                                    dispatch,
+                                    isRemovingFromPlaylist,
+                                    setIsRemovingFromPlaylist
+                                )
+                            }
                         >
                             <DeleteIcon
                                 color="var(--error-color)"
                                 className="scale-15"
                             />
                             <Container ml="1em" color="var(--error-color)">
-                                Remove from Playlist
+                                {isRemovingFromPlaylist
+                                    ? "Removing from Playlist..."
+                                    : "Remove from Playlist"}
                             </Container>
                         </FlexContainer>
                     )}
@@ -170,7 +184,9 @@ export function ActionMenu({ video }: ActionMenuProps) {
                                     user.id,
                                     videoId,
                                     watchLater,
-                                    dispatch
+                                    dispatch,
+                                    isRemovingFromWatchLater,
+                                    setIsRemovingFromWatchLater
                                 )
                             }
                         >
@@ -179,7 +195,9 @@ export function ActionMenu({ video }: ActionMenuProps) {
                                 className="scale-15"
                             />
                             <Container ml="1em" color="var(--error-color)">
-                                Remove from Watch Later
+                                {isRemovingFromWatchLater
+                                    ? "Removing from Watch Later..."
+                                    : "Remove from Watch Later"}
                             </Container>
                         </FlexContainer>
                     )}
@@ -196,7 +214,9 @@ export function ActionMenu({ video }: ActionMenuProps) {
                                     user.id,
                                     playlistId,
                                     playlists,
-                                    dispatch
+                                    dispatch,
+                                    isDeletingPlaylist,
+                                    setIsDeletingPlaylist
                                 )
                             }
                         >
@@ -205,7 +225,9 @@ export function ActionMenu({ video }: ActionMenuProps) {
                                 className="scale-15"
                             />
                             <Container color="var(--error-color)" ml="1em">
-                                Delete Playlist
+                                {isDeletingPlaylist
+                                    ? "Deleting Playlist..."
+                                    : "Delete Playlist"}
                             </Container>
                         </FlexContainer>
                     )}
@@ -222,7 +244,9 @@ export function ActionMenu({ video }: ActionMenuProps) {
                                     user.id,
                                     videoId,
                                     likes,
-                                    dispatch
+                                    dispatch,
+                                    isRemovingFromLiked,
+                                    setIsRemovingFromLiked
                                 )
                             }
                         >
@@ -231,7 +255,9 @@ export function ActionMenu({ video }: ActionMenuProps) {
                                 className="scale-15"
                             />
                             <Container ml="1em" color="var(--error-color)">
-                                Remove from Liked Videos
+                                {isRemovingFromLiked
+                                    ? "Removing from Liked Videos..."
+                                    : "Remove from Liked Videos"}
                             </Container>
                         </FlexContainer>
                     )}
@@ -248,7 +274,9 @@ export function ActionMenu({ video }: ActionMenuProps) {
                                     user.id,
                                     videoId,
                                     history,
-                                    dispatch
+                                    dispatch,
+                                    isRemovingFromHistory,
+                                    setIsRemovingFromHistory
                                 )
                             }
                         >
@@ -257,7 +285,9 @@ export function ActionMenu({ video }: ActionMenuProps) {
                                 className="scale-15"
                             />
                             <Container ml="1em" color="var(--error-color)">
-                                Remove from History
+                                {isRemovingFromHistory
+                                    ? "Removing from History..."
+                                    : "Remove from History"}
                             </Container>
                         </FlexContainer>
                     )}

@@ -24,6 +24,11 @@ export function VideoPlayer() {
     const { videoId } = useParams();
     const { pathname } = useLocation();
     const navigate = useNavigate();
+    const [isAddingToWatchLater, setIsAddingToWatchLater] = useState(false);
+    const [isRemovingFromWatchLater, setIsRemovingFromWatchLater] =
+        useState(false);
+    const [isRemovingFromLiked, setIsRemovingFromLiked] = useState(false);
+    const [isAddingToLiked, setIsAddingToLiked] = useState(false);
 
     useEffect(() => {
         window.scrollTo(0, 0);
@@ -49,14 +54,24 @@ export function VideoPlayer() {
         if (!user?.id) return navigate("/login");
         if (videoId) {
             if (!hasBeenLiked) {
-                await addVideoToLiked(e, user.id, videoId, likes, dispatch);
+                await addVideoToLiked(
+                    e,
+                    user.id,
+                    videoId,
+                    likes,
+                    dispatch,
+                    isAddingToLiked,
+                    setIsAddingToLiked
+                );
             } else {
                 await deleteVideoFromLiked(
                     e,
                     user.id,
                     videoId,
                     likes,
-                    dispatch
+                    dispatch,
+                    isRemovingFromLiked,
+                    setIsRemovingFromLiked
                 );
             }
         }
@@ -71,7 +86,10 @@ export function VideoPlayer() {
                     user.id,
                     videoId,
                     watchLater,
-                    dispatch
+                    dispatch,
+                    navigate,
+                    isAddingToWatchLater,
+                    setIsAddingToWatchLater
                 );
             } else {
                 await deleteVideoFromWatchLater(
@@ -79,10 +97,35 @@ export function VideoPlayer() {
                     user.id,
                     videoId,
                     watchLater,
-                    dispatch
+                    dispatch,
+                    isRemovingFromWatchLater,
+                    setIsRemovingFromWatchLater
                 );
             }
         }
+    }
+
+    function copyLink() {
+        navigator.clipboard.writeText(`https://enwise.netlify.app${pathname}`);
+        toast("Link Copied", {
+            position: "bottom-right",
+            autoClose: 2000,
+            hideProgressBar: true,
+            closeOnClick: true,
+            pauseOnHover: false,
+            draggable: true,
+            progress: undefined,
+        });
+        setIsLinkCopied(true);
+        setTimeout(() => {
+            setIsLinkCopied(false);
+        }, 400);
+    }
+
+    function addToPlaylist() {
+        if (!user?.id) return navigate("/login");
+        setVideoToBeAddedToPlaylist(videoId);
+        toggleAddToPlaylistMenu(true);
     }
 
     return (
@@ -125,7 +168,9 @@ export function VideoPlayer() {
                                 }
                                 className="scale-11"
                             />
-                            <Container ml="0.5em">Like</Container>
+                            <Container ml="0.5em">
+                                {isAddingToLiked ? "Liking..." : "Like"}
+                            </Container>
                         </FlexContainer>
                         <FlexContainer
                             align="center"
@@ -145,7 +190,11 @@ export function VideoPlayer() {
                                 }
                                 className="scale-12"
                             />
-                            <Container ml="0.5em">Watch Later</Container>
+                            <Container ml="0.5em">
+                                {isAddingToWatchLater
+                                    ? "Adding..."
+                                    : "Watch Later"}
+                            </Container>
                         </FlexContainer>
                         <FlexContainer
                             align="center"
@@ -155,11 +204,7 @@ export function VideoPlayer() {
                             mr="1em"
                             mb="0.5em"
                             cursor="pointer"
-                            onClick={() => {
-                                if (!user?.id) return navigate("/login");
-                                setVideoToBeAddedToPlaylist(videoId);
-                                toggleAddToPlaylistMenu(true);
-                            }}
+                            onClick={addToPlaylist}
                         >
                             <AddToPlayListIcon
                                 color={"var(--icon-color)"}
@@ -180,24 +225,7 @@ export function VideoPlayer() {
                                     ? "var(--secondary-color)"
                                     : "var(--icon-color)"
                             }
-                            onClick={() => {
-                                navigator.clipboard.writeText(
-                                    `https://enwise.netlify.app${pathname}`
-                                );
-                                toast("Link Copied", {
-                                    position: "bottom-right",
-                                    autoClose: 2000,
-                                    hideProgressBar: true,
-                                    closeOnClick: true,
-                                    pauseOnHover: false,
-                                    draggable: true,
-                                    progress: undefined,
-                                });
-                                setIsLinkCopied(true);
-                                setTimeout(() => {
-                                    setIsLinkCopied(false);
-                                }, 400);
-                            }}
+                            onClick={copyLink}
                         >
                             <ShareIcon
                                 color={

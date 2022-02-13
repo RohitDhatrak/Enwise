@@ -27,9 +27,15 @@ export async function addVideoToWatchLater(
     userId: number,
     videoId: string,
     watchLater: WatchLater[],
-    dispatch: Function
+    dispatch: Function,
+    navigate: Function,
+    isAddingToWatchLater: boolean,
+    setIsAddingToWatchLater: Function
 ) {
     e.stopPropagation();
+    if (isAddingToWatchLater) return;
+    setIsAddingToWatchLater(true);
+    if (!userId) return navigate("/login");
     const watchLaterObj = await addToWatchLater(userId, videoId);
     if (watchLaterObj.id) {
         dispatch({
@@ -37,6 +43,7 @@ export async function addVideoToWatchLater(
             payload: { watchLater: [...watchLater, watchLaterObj] },
         });
     }
+    setIsAddingToWatchLater(false);
 }
 
 export async function addVideoToLiked(
@@ -44,8 +51,12 @@ export async function addVideoToLiked(
     userId: number,
     videoId: string,
     likes: Liked[],
-    dispatch: Function
+    dispatch: Function,
+    isAddingToLiked: boolean,
+    setIsAddingToLiked: Function
 ) {
+    if (isAddingToLiked) return;
+    setIsAddingToLiked(true);
     const likedObject = await addLikedVideo(userId, videoId);
     if (likedObject.id) {
         dispatch({
@@ -53,6 +64,7 @@ export async function addVideoToLiked(
             payload: { likes: [...likes, likedObject] },
         });
     }
+    setIsAddingToLiked(false);
 }
 
 export async function createPlaylist(
@@ -60,8 +72,14 @@ export async function createPlaylist(
     userId: number,
     title: string,
     playlists: Playlist[],
-    dispatch: Function
+    dispatch: Function,
+    toggleShowNewPlaylistInput: Function,
+    setTitle: Function,
+    isCreatingPlaylist: boolean,
+    setIsCreatingPlaylist: Function
 ) {
+    if (isCreatingPlaylist) return;
+    setIsCreatingPlaylist(true);
     const playlistObject = await addPlaylist(userId, title);
     if (playlistObject.id) {
         dispatch({
@@ -69,6 +87,9 @@ export async function createPlaylist(
             payload: { playlists: [...playlists, playlistObject] },
         });
     }
+    toggleShowNewPlaylistInput(false);
+    setTitle("");
+    setIsCreatingPlaylist(false);
 }
 
 export async function addOrRemoveFromPlaylist(
@@ -77,9 +98,15 @@ export async function addOrRemoveFromPlaylist(
     videoId: string,
     playlistId: number,
     playlists: Playlist[],
-    dispatch: Function
+    dispatch: Function,
+    isAddingToPlaylist: boolean,
+    setIsAddingToPlaylist: Function,
+    isRemovingFromPlaylist: boolean,
+    setIsRemovingFromPlaylist: Function
 ) {
+    if (isAddingToPlaylist || isRemovingFromPlaylist) return;
     if (e.target.checked) {
+        setIsAddingToPlaylist(true);
         const playlistsArray = await addToPlaylist(userId, videoId, playlistId);
         if (playlistsArray.length === playlists.length) {
             dispatch({
@@ -88,6 +115,7 @@ export async function addOrRemoveFromPlaylist(
             });
         }
     } else {
+        setIsRemovingFromPlaylist(true);
         const playlistsArray = await deleteFromPlaylist(
             userId,
             videoId,
@@ -100,6 +128,8 @@ export async function addOrRemoveFromPlaylist(
             });
         }
     }
+    setIsAddingToPlaylist(false);
+    setIsRemovingFromPlaylist(false);
 }
 
 export async function toggleSaveHistory(
@@ -120,8 +150,13 @@ export async function removeVideoFromPlaylist(
     videoId: string,
     playlistId: number,
     playlists: Playlist[],
-    dispatch: Function
+    dispatch: Function,
+    isRemovingFromPlaylist: boolean,
+    setIsRemovingFromPlaylist: Function
 ) {
+    e.stopPropagation();
+    if (isRemovingFromPlaylist) return;
+    setIsRemovingFromPlaylist(true);
     const playlistsArray = await deleteFromPlaylist(
         userId,
         videoId,
@@ -140,9 +175,13 @@ export async function deleteVideoFromHistory(
     userId: number,
     videoId: string,
     history: History[],
-    dispatch: Function
+    dispatch: Function,
+    isRemovingFromHistory: boolean,
+    setIsRemovingFromHistory: Function
 ) {
     e.stopPropagation();
+    if (isRemovingFromHistory) return;
+    setIsRemovingFromHistory(true);
     const historyObj = await deleteHistory(userId, videoId);
     if (historyObj.videoId) {
         const newHistoryArray = history.filter(
@@ -153,6 +192,7 @@ export async function deleteVideoFromHistory(
             payload: { history: newHistoryArray },
         });
     }
+    setIsRemovingFromHistory(false);
 }
 
 export async function deleteVideoFromWatchLater(
@@ -160,9 +200,13 @@ export async function deleteVideoFromWatchLater(
     userId: number,
     videoId: string,
     watchLater: WatchLater[],
-    dispatch: Function
+    dispatch: Function,
+    isRemovingFromWatchLater: boolean,
+    setIsRemovingFromWatchLater: Function
 ) {
     e.stopPropagation();
+    if (isRemovingFromWatchLater) return;
+    setIsRemovingFromWatchLater(true);
     const watchLaterObj = await deleteWatchLater(userId, videoId);
     if (watchLaterObj.videoId) {
         const newWatchLaterArray = watchLater.filter(
@@ -174,6 +218,7 @@ export async function deleteVideoFromWatchLater(
             payload: { watchLater: newWatchLaterArray },
         });
     }
+    setIsRemovingFromWatchLater(false);
 }
 
 export async function deleteUserPlaylist(
@@ -181,9 +226,13 @@ export async function deleteUserPlaylist(
     userId: number,
     playlistId: number,
     playlists: Playlist[],
-    dispatch: Function
+    dispatch: Function,
+    isDeletingPlaylist: boolean,
+    setIsDeletingPlaylist: Function
 ) {
     e.stopPropagation();
+    if (isDeletingPlaylist) return;
+    setIsDeletingPlaylist(true);
     const deletedPlaylist = await deletePlaylist(userId, playlistId);
     if (deletedPlaylist.id) {
         const newPlaylistArray = playlists.filter(
@@ -194,6 +243,7 @@ export async function deleteUserPlaylist(
             payload: { playlists: newPlaylistArray },
         });
     }
+    setIsDeletingPlaylist(false);
 }
 
 export async function deleteVideoFromLiked(
@@ -201,9 +251,13 @@ export async function deleteVideoFromLiked(
     userId: number,
     videoId: string,
     likes: Liked[],
-    dispatch: Function
+    dispatch: Function,
+    isRemovingFromLiked: boolean,
+    setIsRemovingFromLiked: Function
 ) {
     e.stopPropagation();
+    if (isRemovingFromLiked) return;
+    setIsRemovingFromLiked(true);
     const likedObject = await deleteLikedVideo(userId, videoId);
     if (likedObject.videoId) {
         const newLikedVideosArray = likes.filter(
@@ -214,4 +268,5 @@ export async function deleteVideoFromLiked(
             payload: { likes: newLikedVideosArray },
         });
     }
+    setIsRemovingFromLiked(false);
 }
