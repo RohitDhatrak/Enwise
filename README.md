@@ -16,7 +16,7 @@ Backend: Node, Express, PostgreSQL, Sequelize, jsonwebtoken and bcrypt
 - Create playlists and add videos to playlists
 - Filter videos by tags
 - Search videos by title or creator
-- Change password, delete watch history, enable/disable tracking of watch history.
+- Change password, delete watch history, enable/disable tracking of watch history
 
 ### Additional Things
 - Fully responsive
