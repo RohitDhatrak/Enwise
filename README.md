@@ -25,7 +25,7 @@ Backend: Node, Express, PostgreSQL, Sequelize, jsonwebtoken and bcrypt
 ### Things I want to improve/explore further
 - Keyboard accessiblity
 - Improve performance by adding infinite scrolling
-- Try with webRTC for live streaming
+- Explore webRTC for live streaming
 
 ### Connect With Me
 - Twitter – [@rohit_dhatrak_](https://twitter.com/rohit_dhatrak_)
