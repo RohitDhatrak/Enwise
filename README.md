@@ -1,7 +1,30 @@
 [![Netlify Status](https://api.netlify.com/api/v1/badges/48cae660-ae4b-49c9-93ce-863a966582e9/deploy-status)](https://app.netlify.com/sites/enwise/deploys)
 
+### About
+Enwise is a video library where you'll find a curated set of insightful videos on various topics.
+
 ### Preview
 ![](/client/public/enwise.gif)
+
+### Tech Stack
+Fronend: React, Typescript and styled-components
+Backend: Node, Express, PostgreSQL, Sequelize, jsonwebtoken and bcrypt
+
+### Features
+- Like videos, add to watch later, share videos
+- Create playlists and add videos to playlists
+- Filter videos by tags
+- Search videos by title or creator
+- Change password, delete watch history, enable/disable tracking of watch history.
+
+### Additional Things
+- Fully responsive
+- Tested for contrast issues
+
+### Things I want to improve/explore further
+- Keyboard accesiblity
+- Improve performance by adding infinite scrolling
+- Try with webRTC for live streaming
 
 ### Connect With Me
 - Twitter – [@rohit_dhatrak_](https://twitter.com/rohit_dhatrak_)
