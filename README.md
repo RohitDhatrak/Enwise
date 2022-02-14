@@ -22,7 +22,7 @@ Backend: Node, Express, PostgreSQL, Sequelize, jsonwebtoken and bcrypt
 - Tested for contrast issues
 
 ### Things I want to improve/explore further
-- Keyboard accesiblity
+- Keyboard accessiblity
 - Improve performance by adding infinite scrolling
 - Try with webRTC for live streaming
 
