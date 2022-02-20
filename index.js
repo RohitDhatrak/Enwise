@@ -14,6 +14,7 @@ const playlists = require("./server/routes/playlists.router");
 const categories = require("./server/routes/category.router");
 const playlistVideos = require("./server/routes/playlistVideos.router");
 const { auth } = require("./server/middlewares/auth");
+const { generateSearchIndex } = require("./server/utils/generateSearchIndex");
 const { seedData } = require("./server/db/seed.data");
 
 const {
@@ -70,3 +71,5 @@ app.use(errorHandler);
 app.listen(port, () => {
     console.log("server started on port " + port);
 });
+
+generateSearchIndex();

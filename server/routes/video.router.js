@@ -5,6 +5,7 @@ const History = require("../models/history.model");
 const Liked = require("../models/liked.model");
 const WatchLater = require("../models/watchLater.model");
 const PlaylistVideo = require("../models/playlistVideo.model");
+const { videosIndex } = require("../utils/generateSearchIndex");
 
 router
     .route("/")
@@ -47,5 +48,16 @@ router
             });
         }
     });
+
+router.route("/search").post(async (req, res) => {
+    const { query } = req.body;
+    const results = videosIndex.search({ query, suggest: true });
+    const videos = [];
+    for (const result of results) {
+        const video = await Video.findOne({ where: { id: result } });
+        videos.push(video);
+    }
+    res.status(200).json(videos);
+});
 
 module.exports = router;
