@@ -21,9 +21,9 @@ Backend: Node, Express, PostgreSQL, Sequelize, jsonwebtoken and bcrypt
 ### Additional Things
 - Fully responsive
 - Tested for contrast issues
+- All interactive elements are keyboard accessible
 
 ### Things I want to improve/explore further
-- Keyboard accessiblity
 - Improve performance by adding infinite scrolling
 - Explore webRTC for live streaming
 
