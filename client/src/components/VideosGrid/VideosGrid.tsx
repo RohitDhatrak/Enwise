@@ -16,7 +16,7 @@ import { LoaderSvg } from "../../assets/svg";
 export function VideoGrid({ videos, playlistId, isLoading }: VideoGridProps) {
     const { pathname } = useLocation();
     const navigate = useNavigate();
-    const { playlists } = useReducerContext();
+    const { playlists, user } = useReducerContext();
     const { isUserDataFetched } = useAppContext();
 
     let pageTitle = "";
@@ -79,7 +79,7 @@ export function VideoGrid({ videos, playlistId, isLoading }: VideoGridProps) {
                     )}
                 </FlexContainer>
             )}
-            {!videos.length && (
+            {!videos.length && user.saveHistory && (
                 <FlexContainer
                     align="center"
                     justify="center"
@@ -90,11 +90,31 @@ export function VideoGrid({ videos, playlistId, isLoading }: VideoGridProps) {
                     m="0 auto"
                 >
                     <Image src={emptyBox} alt="" w="5em" />
-                    <Container mt="1em">
+                    <Container mt="1em" textAlign="center">
                         Looks like there is nothing in here
                     </Container>
                     <ActionButton onClick={() => navigate("/")}>
                         Watch videos
+                    </ActionButton>
+                </FlexContainer>
+            )}
+            {!videos.length && !user.saveHistory && (
+                <FlexContainer
+                    align="center"
+                    justify="center"
+                    h="70vh"
+                    direction="column"
+                    w="20em"
+                    maxW="80vw"
+                    m="0 auto"
+                >
+                    <Image src={emptyBox} alt="" w="5em" />
+                    <Container mt="1em" textAlign="center">
+                        You have disabled history tracking. You can enable it in
+                        settings.
+                    </Container>
+                    <ActionButton onClick={() => navigate("/settings")}>
+                        Go to Settings
                     </ActionButton>
                 </FlexContainer>
             )}
