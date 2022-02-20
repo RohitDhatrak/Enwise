@@ -151,6 +151,10 @@ export function VideoPlayer() {
                     </Container>
                     <FlexContainer m="1em 0" wrap="wrap" mb="4em">
                         <FlexContainer
+                            as="button"
+                            fs="1rem"
+                            b="none"
+                            color="var(--font-color)"
                             align="center"
                             p="0.5em 1em"
                             bgc="var(--menu-hover-color)"
@@ -173,6 +177,10 @@ export function VideoPlayer() {
                             </Container>
                         </FlexContainer>
                         <FlexContainer
+                            as="button"
+                            fs="1rem"
+                            b="none"
+                            color="var(--font-color)"
                             align="center"
                             p="0.5em 1em"
                             bgc="var(--menu-hover-color)"
@@ -197,6 +205,10 @@ export function VideoPlayer() {
                             </Container>
                         </FlexContainer>
                         <FlexContainer
+                            as="button"
+                            fs="1rem"
+                            b="none"
+                            color="var(--font-color)"
                             align="center"
                             p="0.5em 1em"
                             bgc="var(--menu-hover-color)"
@@ -213,6 +225,9 @@ export function VideoPlayer() {
                             <Container ml="0.5em">Save</Container>
                         </FlexContainer>
                         <FlexContainer
+                            as="button"
+                            fs="1rem"
+                            b="none"
                             align="center"
                             p="0.5em 1em"
                             bgc="var(--menu-hover-color)"
@@ -233,7 +248,7 @@ export function VideoPlayer() {
                                         ? "var(--secondary-color)"
                                         : "var(--icon-color)"
                                 }
-                                className="scale-15"
+                                className="scale-12"
                             />
                             <Container ml="0.5em">Copy Link</Container>
                         </FlexContainer>

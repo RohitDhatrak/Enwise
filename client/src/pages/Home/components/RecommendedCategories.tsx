@@ -33,14 +33,20 @@ export function RecommendedCategories({
         <RecommendationsContainer pl="1.3em" overflow="auto">
             {categoriesWithAll.map((category) => (
                 <FlexContainer
+                    as="button"
                     key={category.id}
                     align="center"
+                    justify="center"
+                    fs="1rem"
+                    fw={600}
+                    b="none"
                     p="0.4em 1em"
                     bgc={
                         selectedCategory === category.name
                             ? "var(--menu-hover-color)"
                             : "var(--search-field-color)"
                     }
+                    color="var(--font-color)"
                     br="1em"
                     mt="1em"
                     mr="1em"

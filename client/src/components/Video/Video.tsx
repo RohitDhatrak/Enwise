@@ -64,10 +64,34 @@ export function Video({ video }: VideoProps) {
             <FlexContainer justify="space-between" p="0.2em 0.5em" pb="0em">
                 <FlexContainer direction="column">
                     {"title" in video && (
-                        <Container fw={600}>{video.title}</Container>
+                        <Container
+                            as="button"
+                            fs="1rem"
+                            textAlign="start"
+                            bgc="transparent"
+                            b="none"
+                            color="var(--font-color)"
+                            p="0"
+                            fw={600}
+                            cursor="pointer"
+                        >
+                            {video.title}
+                        </Container>
                     )}
                     {"video" in video && (
-                        <Container fw={600}>{video.video.title}</Container>
+                        <Container
+                            as="button"
+                            fs="1rem"
+                            textAlign="start"
+                            bgc="transparent"
+                            b="none"
+                            color="var(--font-color)"
+                            p="0"
+                            fw={600}
+                            cursor="pointer"
+                        >
+                            {video.video.title}
+                        </Container>
                     )}
                     {"creator" in video && (
                         <Container fs="0.9rem" color="var(--font-color-2)">

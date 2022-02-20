@@ -72,11 +72,18 @@ export function ActionMenu({ video }: ActionMenuProps) {
 
     return (
         <Container pt="0.2em" position="relative">
-            <MoreIcon
-                color={"var(--icon-color)"}
-                className="scale-15"
+            <Container
+                as="button"
+                fs="1rem"
+                bgc="transparent"
+                b="none"
+                color="var(--font-color)"
+                p="0"
+                cursor="pointer"
                 onClick={toggleActionMenu}
-            />
+            >
+                <MoreIcon color={"var(--icon-color)"} className="scale-15" />
+            </Container>
             {actionMenuId === video.id && displayActionMenu && (
                 <FlexContainer
                     position="absolute"
@@ -90,11 +97,17 @@ export function ActionMenu({ video }: ActionMenuProps) {
                     {!isAddedToWatchLater(videoId, watchLater) &&
                         pathname !== "/playlists" && (
                             <FlexContainer
+                                as="button"
+                                fs="1rem"
+                                textAlign="start"
+                                bgc="transparent"
+                                b="none"
+                                color="var(--font-color)"
                                 hover="background-color: var(--menu-hover-color)"
                                 p="0.5em 1em"
                                 br="0.4em"
                                 align="center"
-                                onClick={(e) =>
+                                onClick={(e: ButtonEvent) =>
                                     addVideoToWatchLater(
                                         e,
                                         user.id,
@@ -121,11 +134,17 @@ export function ActionMenu({ video }: ActionMenuProps) {
 
                     {pathname !== "/playlists" && (
                         <FlexContainer
+                            as="button"
+                            fs="1rem"
+                            textAlign="start"
+                            bgc="transparent"
+                            b="none"
+                            color="var(--font-color)"
                             hover="background-color: var(--menu-hover-color)"
                             p="0.5em 1em"
                             br="0.4em"
                             align="center"
-                            onClick={(e) => {
+                            onClick={(e: ButtonEvent) => {
                                 e.stopPropagation();
                                 if (!user?.id) return navigate("/login");
                                 setDisplayActionMenu(false);
@@ -143,6 +162,12 @@ export function ActionMenu({ video }: ActionMenuProps) {
 
                     {pathname.includes("/playlist/") && (
                         <FlexContainer
+                            as="button"
+                            fs="1rem"
+                            textAlign="start"
+                            bgc="transparent"
+                            b="none"
+                            color="var(--font-color)"
                             hover="background-color: var(--menu-hover-color)"
                             p="0.5em 1em"
                             br="0.4em"
@@ -174,11 +199,17 @@ export function ActionMenu({ video }: ActionMenuProps) {
 
                     {isAddedToWatchLater(videoId, watchLater) && (
                         <FlexContainer
+                            as="button"
+                            fs="1rem"
+                            textAlign="start"
+                            bgc="transparent"
+                            b="none"
+                            color="var(--font-color)"
                             hover="background-color: var(--menu-hover-color)"
                             p="0.5em 1em"
                             br="0.4em"
                             align="center"
-                            onClick={(e) =>
+                            onClick={(e: ButtonEvent) =>
                                 deleteVideoFromWatchLater(
                                     e,
                                     user.id,
@@ -204,11 +235,17 @@ export function ActionMenu({ video }: ActionMenuProps) {
 
                     {pathname === "/playlists" && (
                         <FlexContainer
+                            as="button"
+                            fs="1rem"
+                            textAlign="start"
+                            bgc="transparent"
+                            b="none"
+                            color="var(--font-color)"
                             hover="background-color: var(--menu-hover-color)"
                             p="0.5em 1em"
                             br="0.4em"
                             align="center"
-                            onClick={(e) =>
+                            onClick={(e: ButtonEvent) =>
                                 deleteUserPlaylist(
                                     e,
                                     user.id,
@@ -234,11 +271,17 @@ export function ActionMenu({ video }: ActionMenuProps) {
 
                     {pathname === "/liked" && isLiked(videoId, likes) && (
                         <FlexContainer
+                            as="button"
+                            fs="1rem"
+                            textAlign="start"
+                            bgc="transparent"
+                            b="none"
+                            color="var(--font-color)"
                             hover="background-color: var(--menu-hover-color)"
                             p="0.5em 1em"
                             br="0.4em"
                             align="center"
-                            onClick={(e) =>
+                            onClick={(e: ButtonEvent) =>
                                 deleteVideoFromLiked(
                                     e,
                                     user.id,
@@ -264,11 +307,17 @@ export function ActionMenu({ video }: ActionMenuProps) {
 
                     {pathname === "/history" && isHistory(videoId, history) && (
                         <FlexContainer
+                            as="button"
+                            fs="1rem"
+                            textAlign="start"
+                            bgc="transparent"
+                            b="none"
+                            color="var(--font-color)"
                             hover="background-color: var(--menu-hover-color)"
                             p="0.5em 1em"
                             br="0.4em"
                             align="center"
-                            onClick={(e) =>
+                            onClick={(e: ButtonEvent) =>
                                 deleteVideoFromHistory(
                                     e,
                                     user.id,
