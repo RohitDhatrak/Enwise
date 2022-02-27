@@ -29,8 +29,10 @@ export async function loadInitialData(
     setIsUserDataFetched: Function
 ) {
     try {
-        const videos = await getVideos();
-        const categoriesArray = await getRecommendedCategories(8);
+        const [videos, categoriesArray] = await Promise.all([
+            getVideos(),
+            getRecommendedCategories(8),
+        ]);
         dispatch({
             type: "SAVE_VIDEOS",
             payload: { videos },
@@ -44,10 +46,12 @@ export async function loadInitialData(
                 payload: { user: { ...user, ...userData } },
             });
             setIsLoading(false);
-            const playlists = await getPlaylists(user.id);
-            const likes = await getLikedVideos(user.id);
-            const watchLater = await getWatchLater(user.id);
-            const history = await getHistory(user.id);
+            const [playlists, likes, watchLater, history] = await Promise.all([
+                getPlaylists(user.id),
+                getLikedVideos(user.id),
+                getWatchLater(user.id),
+                getHistory(user.id),
+            ]);
             dispatch({
                 type: "SAVE_USER_DATA",
                 payload: {

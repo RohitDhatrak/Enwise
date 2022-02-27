@@ -68,10 +68,14 @@ export function Login() {
                 setupAuthHeaderForServiceCalls(user.jwt);
                 setIsUserDataFetched(false);
 
-                const playlists = await getPlaylists(user.id);
-                const likes = await getLikedVideos(user.id);
-                const watchLater = await getWatchLater(user.id);
-                const history = await getHistory(user.id);
+                const [playlists, likes, watchLater, history] =
+                    await Promise.all([
+                        getPlaylists(user.id),
+                        getLikedVideos(user.id),
+                        getWatchLater(user.id),
+                        getHistory(user.id),
+                    ]);
+
                 dispatch({
                     type: "SAVE_USER_DATA",
                     payload: {
