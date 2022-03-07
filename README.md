@@ -7,7 +7,7 @@ Enwise is a video library where you'll find a curated set of insightful videos o
 ![](/client/public/enwise.gif)
 
 ### Tech Stack
-Fronend: React, Typescript and styled-components
+Frontend: React, Typescript and styled-components
 
 Backend: Node, Express, PostgreSQL, Sequelize, flexsearch, jsonwebtoken and bcrypt
 
