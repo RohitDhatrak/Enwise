@@ -49,12 +49,14 @@ export function Header() {
                 <SearchContainer
                     bgc="var(--search-field-color)"
                     b="1px solid var(--border-color)"
-                    h="3em"
+                    h="2.5em"
                     br="1em 0 0 1em"
-                    p="1em"
+                    p="0em 1em"
                     placeholder="Search for title or creator."
                     color="#fff"
                     value={searchQuery}
+                    outline="none"
+                    fs="1rem"
                     onChange={(e: InputEvent) => setSearchQuery(e.target.value)}
                     onKeyPress={(e: KeyboardEvent) => {
                         if (e.key === "Enter") searchVideos();

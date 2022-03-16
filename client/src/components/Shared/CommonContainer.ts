@@ -51,6 +51,7 @@ export type ContainerCommonProps = {
     zIndex?: number | string;
     hover?: string;
     overflow?: "auto";
+    outline?: "none";
 };
 
 export const CommonContainer = styled.div<ContainerCommonProps>`
@@ -235,6 +236,11 @@ export const CommonContainer = styled.div<ContainerCommonProps>`
         props.overflow &&
         css`
             overflow: ${() => props.overflow};
+        `}
+    ${(props) =>
+        props.outline &&
+        css`
+            outline: ${() => props.outline};
         `}
     &:hover {
         ${(props) => props.hover}
