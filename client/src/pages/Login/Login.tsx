@@ -21,6 +21,7 @@ export function Login() {
     );
     const [error, setError] = useState("");
     const [asGuest, setAsGuest] = useState(true);
+    const [loading, setLoading] = useState(false);
     const { user, dispatch } = useReducerContext();
     const { setIsUserDataFetched } = useAppContext();
     const navigate = useNavigate();
@@ -50,6 +51,7 @@ export function Login() {
 
     async function loginAndRedirect(e: FormEvent) {
         e.preventDefault();
+        setLoading(true);
         try {
             const { data: user } = await axios.post<User>(
                 `${process.env.REACT_APP_API_ENDPOINT}/login`,
@@ -98,6 +100,7 @@ export function Login() {
             }
             setError("Something went wrong");
         }
+        setLoading(false);
     }
 
     return (
@@ -140,9 +143,15 @@ export function Login() {
                 <Container color="var(--error-color)">{error}</Container>
                 {asGuest && <Container>OR</Container>}
                 {email && password && !error && !asGuest && (
-                    <ActionButton>Login</ActionButton>
+                    <ActionButton>
+                        {loading ? "Logging In..." : "Login"}
+                    </ActionButton>
                 )}
-                {asGuest && <ActionButton>Login as Guest</ActionButton>}
+                {asGuest && (
+                    <ActionButton>
+                        {loading ? "Logging In..." : "Login as Guest"}
+                    </ActionButton>
+                )}
                 <Container mt="0.5em">
                     <Container display="inline" mr="0.2em">
                         Don't have an account yet?

@@ -13,6 +13,7 @@ export function Signup() {
     const [password, setPassword] = useState("");
     const [retypedPassword, setRetypedPassword] = useState("");
     const [error, setError] = useState("");
+    const [loading, setLoading] = useState(false);
 
     useEffect(() => {
         window.scrollTo(0, 0);
@@ -35,6 +36,7 @@ export function Signup() {
 
     async function signupAndRedirect(e: FormEvent) {
         e.preventDefault();
+        setLoading(true);
         try {
             const { data: user } = await axios.post<User>(
                 `${process.env.REACT_APP_API_ENDPOINT}/signup`,
@@ -59,6 +61,7 @@ export function Signup() {
             }
             setError("Something went wrong");
         }
+        setLoading(false);
     }
 
     return (
@@ -125,7 +128,9 @@ export function Signup() {
                 </FlexContainer>
                 <Container color="var(--error-color)">{error}</Container>
                 {email && password && retypedPassword && !error && (
-                    <ActionButton>Signup</ActionButton>
+                    <ActionButton>
+                        {loading ? "Signing Up..." : "Signup"}
+                    </ActionButton>
                 )}
                 <Container mt="0.5em">
                     <Container display="inline" mr="0.2em">
