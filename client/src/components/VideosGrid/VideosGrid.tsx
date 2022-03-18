@@ -79,7 +79,7 @@ export function VideoGrid({ videos, playlistId, isLoading }: VideoGridProps) {
                     )}
                 </FlexContainer>
             )}
-            {!videos.length && user.saveHistory && (
+            {!videos.length && pathname !== "/history" && (
                 <FlexContainer
                     align="center"
                     justify="center"
@@ -98,7 +98,7 @@ export function VideoGrid({ videos, playlistId, isLoading }: VideoGridProps) {
                     </ActionButton>
                 </FlexContainer>
             )}
-            {!videos.length && !user.saveHistory && (
+            {!videos.length && pathname === "/history" && (
                 <FlexContainer
                     align="center"
                     justify="center"
@@ -109,13 +109,27 @@ export function VideoGrid({ videos, playlistId, isLoading }: VideoGridProps) {
                     m="0 auto"
                 >
                     <Image src={emptyBox} alt="" w="5em" />
-                    <Container mt="1em" textAlign="center">
-                        You have disabled history tracking. You can enable it in
-                        settings.
-                    </Container>
-                    <ActionButton onClick={() => navigate("/settings")}>
-                        Go to Settings
-                    </ActionButton>
+                    {!user.saveHistory && (
+                        <FlexContainer direction="column" align="center">
+                            <Container mt="1em" textAlign="center">
+                                You have disabled history tracking. You can
+                                enable it in settings.
+                            </Container>
+                            <ActionButton onClick={() => navigate("/settings")}>
+                                Go to Settings
+                            </ActionButton>
+                        </FlexContainer>
+                    )}
+                    {user.saveHistory && (
+                        <FlexContainer direction="column" align="center">
+                            <Container mt="1em" textAlign="center">
+                                Looks like you haved watched anything yet
+                            </Container>
+                            <ActionButton onClick={() => navigate("/")}>
+                                Start watching
+                            </ActionButton>
+                        </FlexContainer>
+                    )}
                 </FlexContainer>
             )}
             {!!videos.length && (
