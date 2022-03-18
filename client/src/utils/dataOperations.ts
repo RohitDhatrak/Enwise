@@ -102,9 +102,10 @@ export async function addOrRemoveFromPlaylist(
     isAddingToPlaylist: boolean,
     setIsAddingToPlaylist: Function,
     isRemovingFromPlaylist: boolean,
-    setIsRemovingFromPlaylist: Function
+    setIsRemovingFromPlaylist: Function,
+    loading: boolean
 ) {
-    if (isAddingToPlaylist || isRemovingFromPlaylist) return;
+    if (isAddingToPlaylist || isRemovingFromPlaylist || loading) return;
     if (e.target.checked) {
         setIsAddingToPlaylist(true);
         const playlistsArray = await addToPlaylist(userId, videoId, playlistId);

@@ -10,6 +10,7 @@ interface ListItemProps {
     playlist: Playlist;
     playlists: Playlist[];
     dispatch: Function;
+    loading: boolean;
 }
 
 export function ListItem({
@@ -18,6 +19,7 @@ export function ListItem({
     playlist,
     playlists,
     dispatch,
+    loading,
 }: ListItemProps) {
     const { videoToBeAddedToPlaylist } = useAppContext();
     const [isAddingToPlaylist, setIsAddingToPlaylist] = useState(false);
@@ -45,7 +47,8 @@ export function ListItem({
                     isAddingToPlaylist,
                     setIsAddingToPlaylist,
                     isRemovingFromPlaylist,
-                    setIsRemovingFromPlaylist
+                    setIsRemovingFromPlaylist,
+                    loading
                 )
             }
         >

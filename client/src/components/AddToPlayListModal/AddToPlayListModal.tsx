@@ -14,16 +14,19 @@ export function AddToPlayListModal() {
         useAppContext();
     const [showNewPlaylistInput, toggleShowNewPlaylistInput] = useState(false);
     const [title, setTitle] = useState("");
+    const [loading, setLoading] = useState(false);
     const [playlistArray, setPlaylistArray] = useState([] as PlaylistVideo[]);
     const [isCreatingPlaylist, setIsCreatingPlaylist] = useState(false);
 
     useEffect(() => {
+        setLoading(true);
         (async function () {
             const playlistByVideoArray = await getPlaylistsByVideo(
                 videoToBeAddedToPlaylist,
                 user.id
             );
             setPlaylistArray(playlistByVideoArray);
+            setLoading(false);
         })();
     }, [playlists]);
 
@@ -69,6 +72,7 @@ export function AddToPlayListModal() {
                             playlist={playlist}
                             playlists={playlists}
                             dispatch={dispatch}
+                            loading={loading}
                         />
                     ))}
                 </FlexContainer>
