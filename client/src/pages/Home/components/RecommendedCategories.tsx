@@ -1,4 +1,3 @@
-import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { FlexContainer } from "../../../components/Shared";
 import { Category, ButtonEvent } from "../../../types/types";
@@ -6,11 +5,14 @@ import { RecommendationsContainer } from "./style.recommendedCategories";
 
 export function RecommendedCategories({
     categories,
+    selectedCategory,
+    setSelectedCategory,
 }: {
     categories: Category[];
+    selectedCategory: string;
+    setSelectedCategory: Function;
 }) {
     const navigate = useNavigate();
-    const [selectedCategory, setSelectedCategory] = useState("All");
     const categoriesWithAll = [{ id: -1, name: "All" }, ...categories];
 
     function filterVideos(e: ButtonEvent) {
@@ -43,10 +45,14 @@ export function RecommendedCategories({
                     p="0.4em 1em"
                     bgc={
                         selectedCategory === category.name
-                            ? "var(--menu-hover-color)"
-                            : "var(--search-field-color)"
+                            ? "var(--action-btn)"
+                            : "var(--menu-hover-color)"
                     }
-                    color="var(--font-color)"
+                    color={
+                        selectedCategory === category.name
+                            ? "var(--bg-color)"
+                            : "var(--font-color)"
+                    }
                     br="1em"
                     mt="1em"
                     mr="1em"

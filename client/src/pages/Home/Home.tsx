@@ -17,6 +17,7 @@ export function Home() {
     const { search } = useLocation();
     const [filteredVideos, setFilteredVideos] = useState<Video[]>([]);
     const [loading, setLoading] = useState(false);
+    const [selectedCategory, setSelectedCategory] = useState("All");
 
     useEffect(() => {
         window.scrollTo(0, 0);
@@ -46,7 +47,11 @@ export function Home() {
 
     return (
         <FlexContainer direction="column">
-            <RecommendedCategories categories={categories} />
+            <RecommendedCategories
+                categories={categories}
+                selectedCategory={selectedCategory}
+                setSelectedCategory={setSelectedCategory}
+            />
             <FlexContainer>
                 {!search && <VideoGrid videos={[...videos].reverse()} />}
                 {search && filteredVideos.length > 0 && (
